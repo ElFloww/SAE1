@@ -1,4 +1,4 @@
-namespace SAE1
+namespace Modification
 {
     internal static class Program
     {
@@ -11,7 +11,7 @@ namespace SAE1
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
-            Application.Run(new frmFilibusAccueil());
+            Application.Run(new Form1());
         }
     }
 }

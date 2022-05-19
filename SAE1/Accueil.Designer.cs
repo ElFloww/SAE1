@@ -4,7 +4,7 @@ using MySql.Data.MySqlClient;
 using SAE1;
 namespace SAE1
 {
-    partial class Form1
+    partial class frmFilibusAccueil
     {
         /// <summary>
         ///  Required designer variable.
@@ -32,6 +32,7 @@ namespace SAE1
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmFilibusAccueil));
             this.splitter1 = new System.Windows.Forms.Splitter();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.grpboxCalcul = new System.Windows.Forms.GroupBox();
@@ -61,7 +62,7 @@ namespace SAE1
             // 
             this.splitter1.Location = new System.Drawing.Point(0, 0);
             this.splitter1.Name = "splitter1";
-            this.splitter1.Size = new System.Drawing.Size(3, 540);
+            this.splitter1.Size = new System.Drawing.Size(3, 681);
             this.splitter1.TabIndex = 3;
             this.splitter1.TabStop = false;
             // 
@@ -81,8 +82,8 @@ namespace SAE1
             this.splitContainer1.Panel2.Controls.Add(this.cmdQuitter);
             this.splitContainer1.Panel2.Controls.Add(this.cmdAdmin);
             this.splitContainer1.Panel2.Controls.Add(this.grpboxAffichage);
-            this.splitContainer1.Size = new System.Drawing.Size(1048, 540);
-            this.splitContainer1.SplitterDistance = 362;
+            this.splitContainer1.Size = new System.Drawing.Size(1261, 681);
+            this.splitContainer1.SplitterDistance = 435;
             this.splitContainer1.TabIndex = 4;
             // 
             // grpboxCalcul
@@ -92,9 +93,9 @@ namespace SAE1
             this.grpboxCalcul.Controls.Add(this.cmdAfficher2);
             this.grpboxCalcul.Controls.Add(this.CBOArretA);
             this.grpboxCalcul.Controls.Add(this.CBOArretB);
-            this.grpboxCalcul.Location = new System.Drawing.Point(24, 303);
+            this.grpboxCalcul.Location = new System.Drawing.Point(24, 329);
             this.grpboxCalcul.Name = "grpboxCalcul";
-            this.grpboxCalcul.Size = new System.Drawing.Size(305, 177);
+            this.grpboxCalcul.Size = new System.Drawing.Size(377, 245);
             this.grpboxCalcul.TabIndex = 3;
             this.grpboxCalcul.TabStop = false;
             this.grpboxCalcul.Text = "Calcul d\'itinéraire";
@@ -119,6 +120,7 @@ namespace SAE1
             // 
             // cmdAfficher2
             // 
+            this.cmdAfficher2.Enabled = false;
             this.cmdAfficher2.Location = new System.Drawing.Point(216, 136);
             this.cmdAfficher2.Name = "cmdAfficher2";
             this.cmdAfficher2.Size = new System.Drawing.Size(75, 23);
@@ -128,20 +130,24 @@ namespace SAE1
             // 
             // CBOArretA
             // 
+            this.CBOArretA.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.CBOArretA.FormattingEnabled = true;
             this.CBOArretA.Location = new System.Drawing.Point(170, 30);
             this.CBOArretA.Name = "CBOArretA";
-            this.CBOArretA.Size = new System.Drawing.Size(121, 23);
+            this.CBOArretA.Size = new System.Drawing.Size(157, 23);
             this.CBOArretA.TabIndex = 0;
+            this.CBOArretA.SelectedValueChanged += new System.EventHandler(this.ItineraireValidation);
             this.CBOArretA.Enter += new System.EventHandler(this.CBOArretA_Enter);
             // 
             // CBOArretB
             // 
+            this.CBOArretB.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.CBOArretB.FormattingEnabled = true;
             this.CBOArretB.Location = new System.Drawing.Point(170, 76);
             this.CBOArretB.Name = "CBOArretB";
-            this.CBOArretB.Size = new System.Drawing.Size(121, 23);
+            this.CBOArretB.Size = new System.Drawing.Size(157, 23);
             this.CBOArretB.TabIndex = 1;
+            this.CBOArretB.SelectedValueChanged += new System.EventHandler(this.ItineraireValidation);
             this.CBOArretB.Enter += new System.EventHandler(this.CBOArretB_Enter);
             // 
             // grpboxHoraires
@@ -151,9 +157,9 @@ namespace SAE1
             this.grpboxHoraires.Controls.Add(this.cmdAfficher1);
             this.grpboxHoraires.Controls.Add(this.CBOLigne);
             this.grpboxHoraires.Controls.Add(this.CBOArret);
-            this.grpboxHoraires.Location = new System.Drawing.Point(24, 102);
+            this.grpboxHoraires.Location = new System.Drawing.Point(24, 76);
             this.grpboxHoraires.Name = "grpboxHoraires";
-            this.grpboxHoraires.Size = new System.Drawing.Size(305, 169);
+            this.grpboxHoraires.Size = new System.Drawing.Size(377, 221);
             this.grpboxHoraires.TabIndex = 0;
             this.grpboxHoraires.TabStop = false;
             this.grpboxHoraires.Text = "Afficher les horaires";
@@ -179,7 +185,7 @@ namespace SAE1
             // cmdAfficher1
             // 
             this.cmdAfficher1.Enabled = false;
-            this.cmdAfficher1.Location = new System.Drawing.Point(216, 136);
+            this.cmdAfficher1.Location = new System.Drawing.Point(252, 132);
             this.cmdAfficher1.Name = "cmdAfficher1";
             this.cmdAfficher1.Size = new System.Drawing.Size(75, 23);
             this.cmdAfficher1.TabIndex = 0;
@@ -192,24 +198,28 @@ namespace SAE1
             this.CBOLigne.FormattingEnabled = true;
             this.CBOLigne.Location = new System.Drawing.Point(170, 30);
             this.CBOLigne.Name = "CBOLigne";
-            this.CBOLigne.Size = new System.Drawing.Size(121, 23);
+            this.CBOLigne.Size = new System.Drawing.Size(157, 23);
             this.CBOLigne.Sorted = true;
             this.CBOLigne.TabIndex = 0;
+            this.CBOLigne.SelectedIndexChanged += new System.EventHandler(this.HoraireValidation);
+            this.CBOLigne.SelectedValueChanged += new System.EventHandler(this.CBOLigne_SelectedValueChanged);
             this.CBOLigne.Enter += new System.EventHandler(this.CBOLigne_Enter);
             // 
             // CBOArret
             // 
             this.CBOArret.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.CBOArret.Enabled = false;
             this.CBOArret.FormattingEnabled = true;
             this.CBOArret.Location = new System.Drawing.Point(170, 76);
             this.CBOArret.Name = "CBOArret";
-            this.CBOArret.Size = new System.Drawing.Size(121, 23);
+            this.CBOArret.Size = new System.Drawing.Size(157, 23);
             this.CBOArret.TabIndex = 1;
+            this.CBOArret.SelectedIndexChanged += new System.EventHandler(this.HoraireValidation);
             this.CBOArret.Enter += new System.EventHandler(this.CBOArret_Enter);
             // 
             // cmdQuitter
             // 
-            this.cmdQuitter.Location = new System.Drawing.Point(554, 496);
+            this.cmdQuitter.Location = new System.Drawing.Point(712, 626);
             this.cmdQuitter.Name = "cmdQuitter";
             this.cmdQuitter.Size = new System.Drawing.Size(75, 23);
             this.cmdQuitter.TabIndex = 2;
@@ -219,12 +229,13 @@ namespace SAE1
             // 
             // cmdAdmin
             // 
-            this.cmdAdmin.Location = new System.Drawing.Point(39, 496);
+            this.cmdAdmin.Location = new System.Drawing.Point(22, 626);
             this.cmdAdmin.Name = "cmdAdmin";
             this.cmdAdmin.Size = new System.Drawing.Size(209, 23);
             this.cmdAdmin.TabIndex = 1;
             this.cmdAdmin.Text = "Accéder à l\'interface administrateur";
             this.cmdAdmin.UseVisualStyleBackColor = true;
+            this.cmdAdmin.Click += new System.EventHandler(this.cmdAdmin_Click);
             // 
             // grpboxAffichage
             // 
@@ -234,15 +245,18 @@ namespace SAE1
             this.grpboxAffichage.TabIndex = 0;
             this.grpboxAffichage.TabStop = false;
             // 
-            // Form1
+            // frmFilibusAccueil
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1051, 540);
+            this.ClientSize = new System.Drawing.Size(1264, 681);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.splitter1);
-            this.Name = "Form1";
-            this.Text = "Form1";
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Name = "frmFilibusAccueil";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Filibus - Réseau de transport urbain de Chartres";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);

@@ -3,9 +3,9 @@ using MySql.Data;
 using MySql.Data.MySqlClient;
 namespace SAE1
 {
-    public partial class Form1 : Form
+    public partial class frmFilibusAccueil : Form
     {
-        public Form1()
+        public frmFilibusAccueil()
         {
             InitializeComponent();
         }
@@ -18,8 +18,7 @@ namespace SAE1
             if (connexionOuverte)
             {
                 MessageBox.Show("Connexion à la base réussi !");
-                CBOArret.Enabled = false;
-                cmdAfficher1.Enabled = false;
+
             }
             else
             {
@@ -51,11 +50,6 @@ namespace SAE1
             catch (Exception ex)
             {
                 Console.WriteLine(ex.ToString());
-            }
-            CBOArret.Enabled = true;
-            if(CBOLigne.Text != null)
-            {
-                cmdAfficher1.Enabled = true;
             }
         }
 
@@ -89,7 +83,7 @@ namespace SAE1
         {
             CBOArretA.Items.Clear();
             List<string> lignes = new List<string>();
-            string req = "Select NomArret from Arret ORDER BY NomArret";
+            string req = $"Select NomArret from Arret WHERE NomArret != '{CBOArretB.Text}'ORDER BY NomArret";
 
             try
             {
@@ -115,7 +109,7 @@ namespace SAE1
         {
             CBOArretB.Items.Clear();
             List<string> lignes = new List<string>();
-            string req = "Select NomArret from Arret ORDER BY NomArret";
+            string req = $"Select NomArret from Arret WHERE NomArret != '{CBOArretA.Text}'ORDER BY NomArret";
 
             try
             {
@@ -135,6 +129,39 @@ namespace SAE1
             {
                 Console.WriteLine(ex.ToString());
             }
+        }
+
+        private void ItineraireValidation(object sender, EventArgs e)
+        {
+            if(CBOArretA.Text != "" && CBOArretB.Text != "")
+            {
+                cmdAfficher2.Enabled = true;
+            }
+        }
+
+        private void HoraireValidation(object sender, EventArgs e)
+        {
+            if(CBOLigne.Text != "")
+            {
+                CBOArret.Enabled = true;
+            }
+            if (CBOArret.Text != "" && CBOLigne.Text != "")
+            {
+                cmdAfficher1.Enabled = true;
+            }
+        }
+
+        private void CBOLigne_SelectedValueChanged(object sender, EventArgs e)
+        {
+            CBOArret.Text = null;
+        }
+
+        private void cmdAdmin_Click(object sender, EventArgs e)
+        {
+            //MessageBox.Show("coucou");
+            Form formmodif = new modification();
+            formmodif.ShowDialog();
+
         }
     }
 }
