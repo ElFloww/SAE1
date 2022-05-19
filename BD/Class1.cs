@@ -11,6 +11,7 @@ namespace BDs
     public static class BDD
     {
         public static MySqlConnection? BDConnection;
+
         public static bool initConnexion()
         {
             string serveur = "10.1.139.236";
@@ -32,6 +33,7 @@ namespace BDs
                 return false;
             }
         }
+
         public static bool fermerConnexion()
         {
             bool retour = false;

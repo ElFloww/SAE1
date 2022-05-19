@@ -8,7 +8,7 @@
 
   <ItemGroup>
     <Reference Include="MySql.Data">
-      <HintPath>G:\.shortcut-targets-by-id\156UqsRFw5lRdsfukQhGi7u9U8SWTY4UT\SAE Semestre 2\SAE 2.01\MySql.Data.dll</HintPath>
+      <HintPath>C:\Users\Florent\Desktop\ProjetSAE\MySql.Data.dll</HintPath>
     </Reference>
   </ItemGroup>
 

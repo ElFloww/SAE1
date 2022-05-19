@@ -20,10 +20,8 @@ namespace SAE1
             InitializeComponent();
         }
 
-
         private void modification_Load(object sender, EventArgs e)
         {
-
             string req = $"Select COUNT(ArretLigne.N_Arret) from ArretLigne,Ligne WHERE ArretLigne.N_Ligne = Ligne.N_Ligne AND NomLigne = 'Ligne 1';";
             List<string> lignes = new List<string>();
             try
@@ -43,6 +41,11 @@ namespace SAE1
             {
                 Console.WriteLine(ex.ToString());
             }
+        }
+
+        private void cmdQuitterAccueil_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

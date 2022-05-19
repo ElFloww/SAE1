@@ -12,8 +12,7 @@ namespace SAE1
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            //Affichage des lignes
-
+            //Connection à la base de données
             bool connexionOuverte = BDD.initConnexion();
             if (connexionOuverte)
             {
@@ -133,7 +132,7 @@ namespace SAE1
 
         private void ItineraireValidation(object sender, EventArgs e)
         {
-            if(CBOArretA.Text != "" && CBOArretB.Text != "")
+            if (CBOArretA.Text != "" && CBOArretB.Text != "")
             {
                 cmdAfficher2.Enabled = true;
             }
@@ -158,10 +157,30 @@ namespace SAE1
 
         private void cmdAdmin_Click(object sender, EventArgs e)
         {
-            //MessageBox.Show("coucou");
             Form formmodif = new modification();
             formmodif.ShowDialog();
+        }
 
+        private void cmdQuitterAccueil_Click(object sender, EventArgs e)
+        {
+            // Demande confirmation à l'utilisateur pour quitter le logiciel
+            DialogResult confirmation = MessageBox.Show("Quitter le logiciel.", "Voulez-vous vraiment quitter le logiciel ?", MessageBoxButtons.YesNo);
+
+            if (confirmation == DialogResult.Yes)
+            {
+                //Deconnexion de la base de données
+                bool connexionFeremer = BDD.fermerConnexion();
+                if (connexionFeremer)
+                {
+                    MessageBox.Show("Deconnexion à la base réussi !");
+                    this.Close();
+                }
+                else
+                {
+                    MessageBox.Show("Echec de la déconnexion à la base !");
+                    this.Close();
+                }
+            }
         }
     }
 }
