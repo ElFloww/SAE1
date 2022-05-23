@@ -32,9 +32,9 @@
             this.label1 = new System.Windows.Forms.Label();
             this.pnlLigne = new System.Windows.Forms.Panel();
             this.cmdCreation = new System.Windows.Forms.Button();
-            this.radioButton4 = new System.Windows.Forms.RadioButton();
-            this.radioButton3 = new System.Windows.Forms.RadioButton();
-            this.radioButton2 = new System.Windows.Forms.RadioButton();
+            this.radLigne8 = new System.Windows.Forms.RadioButton();
+            this.radLigne7 = new System.Windows.Forms.RadioButton();
+            this.radLigne5 = new System.Windows.Forms.RadioButton();
             this.radLigne1 = new System.Windows.Forms.RadioButton();
             this.cmdSuppression = new System.Windows.Forms.Button();
             this.cmdModifier = new System.Windows.Forms.Button();
@@ -54,9 +54,9 @@
             // pnlLigne
             // 
             this.pnlLigne.Controls.Add(this.cmdCreation);
-            this.pnlLigne.Controls.Add(this.radioButton4);
-            this.pnlLigne.Controls.Add(this.radioButton3);
-            this.pnlLigne.Controls.Add(this.radioButton2);
+            this.pnlLigne.Controls.Add(this.radLigne8);
+            this.pnlLigne.Controls.Add(this.radLigne7);
+            this.pnlLigne.Controls.Add(this.radLigne5);
             this.pnlLigne.Controls.Add(this.radLigne1);
             this.pnlLigne.Location = new System.Drawing.Point(47, 71);
             this.pnlLigne.Name = "pnlLigne";
@@ -72,42 +72,43 @@
             this.cmdCreation.TabIndex = 8;
             this.cmdCreation.Text = "Créer une ligne de bus";
             this.cmdCreation.UseVisualStyleBackColor = true;
+            this.cmdCreation.Click += new System.EventHandler(this.cmdCreation_Click);
             // 
-            // radioButton4
+            // radLigne8
             // 
-            this.radioButton4.Appearance = System.Windows.Forms.Appearance.Button;
-            this.radioButton4.Location = new System.Drawing.Point(30, 204);
-            this.radioButton4.Name = "radioButton4";
-            this.radioButton4.Size = new System.Drawing.Size(800, 40);
-            this.radioButton4.TabIndex = 7;
-            this.radioButton4.TabStop = true;
-            this.radioButton4.Text = "ligne 4";
-            this.radioButton4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.radioButton4.UseVisualStyleBackColor = true;
+            this.radLigne8.Appearance = System.Windows.Forms.Appearance.Button;
+            this.radLigne8.Location = new System.Drawing.Point(30, 204);
+            this.radLigne8.Name = "radLigne8";
+            this.radLigne8.Size = new System.Drawing.Size(800, 40);
+            this.radLigne8.TabIndex = 7;
+            this.radLigne8.TabStop = true;
+            this.radLigne8.Text = "ligne 4";
+            this.radLigne8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.radLigne8.UseVisualStyleBackColor = true;
             // 
-            // radioButton3
+            // radLigne7
             // 
-            this.radioButton3.Appearance = System.Windows.Forms.Appearance.Button;
-            this.radioButton3.Location = new System.Drawing.Point(30, 158);
-            this.radioButton3.Name = "radioButton3";
-            this.radioButton3.Size = new System.Drawing.Size(800, 40);
-            this.radioButton3.TabIndex = 6;
-            this.radioButton3.TabStop = true;
-            this.radioButton3.Text = "ligne 3";
-            this.radioButton3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.radioButton3.UseVisualStyleBackColor = true;
+            this.radLigne7.Appearance = System.Windows.Forms.Appearance.Button;
+            this.radLigne7.Location = new System.Drawing.Point(30, 158);
+            this.radLigne7.Name = "radLigne7";
+            this.radLigne7.Size = new System.Drawing.Size(800, 40);
+            this.radLigne7.TabIndex = 6;
+            this.radLigne7.TabStop = true;
+            this.radLigne7.Text = "ligne 3";
+            this.radLigne7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.radLigne7.UseVisualStyleBackColor = true;
             // 
-            // radioButton2
+            // radLigne5
             // 
-            this.radioButton2.Appearance = System.Windows.Forms.Appearance.Button;
-            this.radioButton2.Location = new System.Drawing.Point(30, 112);
-            this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(800, 40);
-            this.radioButton2.TabIndex = 5;
-            this.radioButton2.TabStop = true;
-            this.radioButton2.Text = "ligne 2";
-            this.radioButton2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.radioButton2.UseVisualStyleBackColor = true;
+            this.radLigne5.Appearance = System.Windows.Forms.Appearance.Button;
+            this.radLigne5.Location = new System.Drawing.Point(30, 112);
+            this.radLigne5.Name = "radLigne5";
+            this.radLigne5.Size = new System.Drawing.Size(800, 40);
+            this.radLigne5.TabIndex = 5;
+            this.radLigne5.TabStop = true;
+            this.radLigne5.Text = "ligne 2";
+            this.radLigne5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.radLigne5.UseVisualStyleBackColor = true;
             // 
             // radLigne1
             // 
@@ -177,9 +178,9 @@
         private Label label1;
         private Panel pnlLigne;
         private RadioButton radLigne1;
-        private RadioButton radioButton4;
-        private RadioButton radioButton3;
-        private RadioButton radioButton2;
+        private RadioButton radLigne8;
+        private RadioButton radLigne7;
+        private RadioButton radLigne5;
         private Button cmdCreation;
         private Button cmdSuppression;
         private Button cmdModifier;
