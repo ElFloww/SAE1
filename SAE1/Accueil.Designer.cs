@@ -48,6 +48,7 @@ namespace SAE1
             this.panel1 = new System.Windows.Forms.Panel();
             this.cmdQuitterAccueil = new System.Windows.Forms.Button();
             this.cmdAdmin = new System.Windows.Forms.Button();
+            this.txtAccueil = new System.Windows.Forms.Label();
             this.grpboxCalcul.SuspendLayout();
             this.grpboxHoraires.SuspendLayout();
             this.SuspendLayout();
@@ -59,7 +60,7 @@ namespace SAE1
             this.grpboxCalcul.Controls.Add(this.cmdAfficher2);
             this.grpboxCalcul.Controls.Add(this.CBOArretA);
             this.grpboxCalcul.Controls.Add(this.CBOArretB);
-            this.grpboxCalcul.Location = new System.Drawing.Point(23, 236);
+            this.grpboxCalcul.Location = new System.Drawing.Point(28, 277);
             this.grpboxCalcul.Name = "grpboxCalcul";
             this.grpboxCalcul.Size = new System.Drawing.Size(380, 175);
             this.grpboxCalcul.TabIndex = 5;
@@ -125,7 +126,7 @@ namespace SAE1
             this.grpboxHoraires.Controls.Add(this.cmdAfficher1);
             this.grpboxHoraires.Controls.Add(this.CBOLigne);
             this.grpboxHoraires.Controls.Add(this.CBOArret);
-            this.grpboxHoraires.Location = new System.Drawing.Point(23, 28);
+            this.grpboxHoraires.Location = new System.Drawing.Point(28, 69);
             this.grpboxHoraires.Name = "grpboxHoraires";
             this.grpboxHoraires.Size = new System.Drawing.Size(377, 175);
             this.grpboxHoraires.TabIndex = 4;
@@ -215,11 +216,22 @@ namespace SAE1
             this.cmdAdmin.UseVisualStyleBackColor = true;
             this.cmdAdmin.Click += new System.EventHandler(this.cmdAdmin_Click);
             // 
+            // txtAccueil
+            // 
+            this.txtAccueil.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.txtAccueil.Location = new System.Drawing.Point(28, 9);
+            this.txtAccueil.Name = "txtAccueil";
+            this.txtAccueil.Size = new System.Drawing.Size(380, 33);
+            this.txtAccueil.TabIndex = 10;
+            this.txtAccueil.Text = "Accueil";
+            this.txtAccueil.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // frmFilibusAccueil
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(954, 501);
+            this.Controls.Add(this.txtAccueil);
             this.Controls.Add(this.cmdAdmin);
             this.Controls.Add(this.cmdQuitterAccueil);
             this.Controls.Add(this.panel1);
@@ -253,5 +265,6 @@ namespace SAE1
         private Panel panel1;
         private Button cmdQuitterAccueil;
         private Button cmdAdmin;
+        private Label txtAccueil;
     }
 }

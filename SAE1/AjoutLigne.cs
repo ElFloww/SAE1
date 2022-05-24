@@ -22,8 +22,8 @@ namespace SAE1
 
         private void numericUpDown3_ValueChanged(object sender, EventArgs e)
         {
-            //Evt déclencheur : changement de valeur (nudNbEnfants.ValueChanged)
-            //Action : active/désactive les textbox enfants 1 à 3 et ajoute/supprime au delà, 
+            //Evt déclencheur : changement de valeur (nudNArrets.ValueChanged)
+            //Action : active/désactive les textbox des arrêts, ajoute/supprime
             //         en fonction du nombre d'enfants sélectionné dans nudNbEnfants
 
             //déclaration des variables 
@@ -36,7 +36,6 @@ namespace SAE1
             //si la valeur du NUD est incrémentée
             if (ValeurSelection > AncienneValeur)
             {
-                //si le nbre d'enfant est <= 3, on active la textbox correspondante sinon on en créé une nouvelle
                 if (ValeurSelection <= 2)
                     pnlArrets.Controls[$"CBOArret{ValeurSelection}"].Enabled = true;
                 else
@@ -112,6 +111,7 @@ namespace SAE1
                     NUDMinuteDepart.Maximum = 59;
                     newCBOBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
                     newLabel.Text = "/";
+
                     //Ajout des elements au panel pour l'afficher à l'écran
                     pnlArrets.Controls.Add(newCBOBox);
                     pnlArrets.Controls.Add(NUDHeureDepart);
@@ -167,5 +167,48 @@ namespace SAE1
                 this.Close();
             }
         }
+
+        private void txtNomLigne_Validating(object sender, CancelEventArgs e)
+        {
+            List<string> lignes = new List<string>();
+            string req = "Select NomLigne from Ligne";
+            bool testComparaison = false;
+
+            try
+            {
+                MySqlCommand cmd = new MySqlCommand(req, BDD.BDConnection);
+                MySqlDataReader rdr = cmd.ExecuteReader();
+                while (rdr.Read())
+                {
+                    lignes.Add(rdr.GetString(0));
+                }
+                rdr.Close();
+                cmd.Dispose();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+
+            // On teste le nom pour savoir s'il est unique ou pas
+            for (int i = 0; i < lignes.Count; i++)
+            {
+                if (lignes[i] == txtNomLigne.Text)
+                    testComparaison = true;
+            }
+
+            if(testComparaison == true || String.IsNullOrWhiteSpace(txtNomLigne.Text))
+            {
+                errorProviderNomLigne.SetError(txtNomLigne, "Nom de ligne déjà utilisé ou le champ est vide.");
+                e.Cancel = true;
+                cmdValider.Enabled = false;
+            }
+            else
+            {
+                errorProviderNomLigne.SetError(txtNomLigne, null);
+                e.Cancel = false;
+                cmdValider.Enabled = true;
+            }
+        }          
     }
 }
