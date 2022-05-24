@@ -20,87 +20,82 @@ namespace SAE1
             InitializeComponent();
         }
 
-        private void modification_Load(object sender, EventArgs e)
+        public void ActualiserLigne(object sender, EventArgs e)
         {
-            string req = $"Select COUNT(ArretLigne.N_Arret) from ArretLigne,Ligne WHERE ArretLigne.N_Ligne = Ligne.N_Ligne AND NomLigne = 'Ligne 1';";
-            List<string> lignes = new List<string>();
+            //On cherche à connaître le nombre de ligne pour savoir le nombre de radiobutton à créer
+            string req = $"Select Count(N_Ligne) from Ligne;";
+            int n = 0;
+            int nbArret = 0;
+            string NomLigne = "";
+            List<string> liste = new List<string>();
             try
             {
                 MySqlCommand cmd = new MySqlCommand(req, BDD.BDConnection);
                 MySqlDataReader rdr = cmd.ExecuteReader();
-                while (rdr.Read())
+                while(rdr.Read())
                 {
-                    lignes.Add(rdr.GetString(0));
+                    n = rdr.GetInt32(0);
                 }
                 rdr.Close();
                 cmd.Dispose();
-
-                radLigne1.Text = $"Ligne 1                                                  Nombre d'arret(s) : {lignes[0]}";
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.ToString());
             }
 
-            lignes.Clear();
-            req = $"Select COUNT(ArretLigne.N_Arret) from ArretLigne,Ligne WHERE ArretLigne.N_Ligne = Ligne.N_Ligne AND NomLigne = 'Ligne 5';";
-            try
+            for(int i = 1; i <= n; i++)
             {
-                MySqlCommand cmd = new MySqlCommand(req, BDD.BDConnection);
-                MySqlDataReader rdr = cmd.ExecuteReader();
-                while (rdr.Read())
+                liste.Clear();
+                req = $"Select NomLigne,COUNT(ArretLigne.N_Arret) from ArretLigne,Ligne WHERE ArretLigne.N_Ligne = Ligne.N_Ligne AND ArretLigne.N_Ligne = {i};";
+                try
                 {
-                    lignes.Add(rdr.GetString(0));
+                    MySqlCommand cmd = new MySqlCommand(req, BDD.BDConnection);
+                    MySqlDataReader rdr = cmd.ExecuteReader();
+                    while (rdr.Read())
+                    {
+                        NomLigne = rdr.GetString(0);
+                        nbArret = rdr.GetInt32(1);
+                    }
+
+                    rdr.Close();
+                    cmd.Dispose();
                 }
-                rdr.Close();
-                cmd.Dispose();
-
-                radLigne5.Text = $"Ligne 5                                                  Nombre d'arret(s) : {lignes[0]}";
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.ToString());
-            }
-
-            lignes.Clear();
-            req = $"Select COUNT(ArretLigne.N_Arret) from ArretLigne,Ligne WHERE ArretLigne.N_Ligne = Ligne.N_Ligne AND NomLigne = 'Ligne 7';";
-            try
-            {
-                MySqlCommand cmd = new MySqlCommand(req, BDD.BDConnection);
-                MySqlDataReader rdr = cmd.ExecuteReader();
-                while (rdr.Read())
+                catch (Exception ex)
                 {
-                    lignes.Add(rdr.GetString(0));
+                    Console.WriteLine(ex.ToString());
                 }
-                rdr.Close();
-                cmd.Dispose();
-
-                radLigne7.Text = $"Ligne 7                                                 Nombre d'arret(s) : {lignes[0]}";
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.ToString());
-            }
-
-            lignes.Clear();
-            req = $"Select COUNT(ArretLigne.N_Arret) from ArretLigne,Ligne WHERE ArretLigne.N_Ligne = Ligne.N_Ligne AND NomLigne = 'Ligne 8';";
-            try
-            {
-                MySqlCommand cmd = new MySqlCommand(req, BDD.BDConnection);
-                MySqlDataReader rdr = cmd.ExecuteReader();
-                while (rdr.Read())
+                if (i <= 4)
                 {
-                    lignes.Add(rdr.GetString(0));
+                    pnlLigne.Controls[$"radLigne{i}"].Text = $"{NomLigne}                                                  Nombre d'arret(s) : {nbArret}";
+                    pnlLigne.Controls[$"radLigne{i}"].Enabled = true;
                 }
-                rdr.Close();
-                cmd.Dispose();
+                else
+                {
+                    RadioButton newOPT = new RadioButton();
 
-                radLigne8.Text = $"Ligne 8                                                  Nombre d'arret(s) : {lignes[0]}";
+                    int OPThauteur = radLigne1.Size.Height;
+                    int OPTlargeur = radLigne1.Size.Width;
+
+                    int OPTDist = radLigne4.Location.Y - radLigne3.Location.Y;
+                    int OPTx = radLigne1.Location.X;
+                    int OPTy = pnlLigne.Controls[$"radLigne{i - 1}"].Location.Y + OPTDist;
+
+                    newOPT.Name = $"radLigne{i}";
+                    newOPT.Size = new Size(OPTlargeur, OPThauteur);
+                    newOPT.Location = new Point(OPTx, OPTy);
+
+                    newOPT.Font = new Font(newOPT.Font, FontStyle.Regular);
+                    newOPT.ForeColor = Color.Black;
+
+                    newOPT.Text = $"{NomLigne}                                                  Nombre d'arret(s) : {nbArret}";
+                    newOPT.Appearance = Appearance.Button;
+                    newOPT.TextAlign = ContentAlignment.MiddleCenter;
+
+                    pnlLigne.Controls.Add(newOPT);
+                }
             }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.ToString());
-            }
+            pnlLigne.ResumeLayout();
         }
 
         private void cmdQuitterAccueil_Click(object sender, EventArgs e)

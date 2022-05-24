@@ -32,9 +32,9 @@
             this.label1 = new System.Windows.Forms.Label();
             this.pnlLigne = new System.Windows.Forms.Panel();
             this.cmdCreation = new System.Windows.Forms.Button();
-            this.radLigne8 = new System.Windows.Forms.RadioButton();
-            this.radLigne7 = new System.Windows.Forms.RadioButton();
-            this.radLigne5 = new System.Windows.Forms.RadioButton();
+            this.radLigne4 = new System.Windows.Forms.RadioButton();
+            this.radLigne3 = new System.Windows.Forms.RadioButton();
+            this.radLigne2 = new System.Windows.Forms.RadioButton();
             this.radLigne1 = new System.Windows.Forms.RadioButton();
             this.cmdSuppression = new System.Windows.Forms.Button();
             this.cmdModifier = new System.Windows.Forms.Button();
@@ -53,10 +53,12 @@
             // 
             // pnlLigne
             // 
+            this.pnlLigne.AutoScroll = true;
+            this.pnlLigne.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pnlLigne.Controls.Add(this.cmdCreation);
-            this.pnlLigne.Controls.Add(this.radLigne8);
-            this.pnlLigne.Controls.Add(this.radLigne7);
-            this.pnlLigne.Controls.Add(this.radLigne5);
+            this.pnlLigne.Controls.Add(this.radLigne4);
+            this.pnlLigne.Controls.Add(this.radLigne3);
+            this.pnlLigne.Controls.Add(this.radLigne2);
             this.pnlLigne.Controls.Add(this.radLigne1);
             this.pnlLigne.Location = new System.Drawing.Point(47, 71);
             this.pnlLigne.Name = "pnlLigne";
@@ -74,51 +76,55 @@
             this.cmdCreation.UseVisualStyleBackColor = true;
             this.cmdCreation.Click += new System.EventHandler(this.cmdCreation_Click);
             // 
-            // radLigne8
+            // radLigne4
             // 
-            this.radLigne8.Appearance = System.Windows.Forms.Appearance.Button;
-            this.radLigne8.Location = new System.Drawing.Point(30, 204);
-            this.radLigne8.Name = "radLigne8";
-            this.radLigne8.Size = new System.Drawing.Size(800, 40);
-            this.radLigne8.TabIndex = 7;
-            this.radLigne8.TabStop = true;
-            this.radLigne8.Text = "ligne 4";
-            this.radLigne8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.radLigne8.UseVisualStyleBackColor = true;
+            this.radLigne4.Appearance = System.Windows.Forms.Appearance.Button;
+            this.radLigne4.Enabled = false;
+            this.radLigne4.Location = new System.Drawing.Point(30, 204);
+            this.radLigne4.Name = "radLigne4";
+            this.radLigne4.Size = new System.Drawing.Size(800, 40);
+            this.radLigne4.TabIndex = 7;
+            this.radLigne4.TabStop = true;
+            this.radLigne4.Text = "Actualisez pour visualiser";
+            this.radLigne4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.radLigne4.UseVisualStyleBackColor = true;
             // 
-            // radLigne7
+            // radLigne3
             // 
-            this.radLigne7.Appearance = System.Windows.Forms.Appearance.Button;
-            this.radLigne7.Location = new System.Drawing.Point(30, 158);
-            this.radLigne7.Name = "radLigne7";
-            this.radLigne7.Size = new System.Drawing.Size(800, 40);
-            this.radLigne7.TabIndex = 6;
-            this.radLigne7.TabStop = true;
-            this.radLigne7.Text = "ligne 3";
-            this.radLigne7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.radLigne7.UseVisualStyleBackColor = true;
+            this.radLigne3.Appearance = System.Windows.Forms.Appearance.Button;
+            this.radLigne3.Enabled = false;
+            this.radLigne3.Location = new System.Drawing.Point(30, 158);
+            this.radLigne3.Name = "radLigne3";
+            this.radLigne3.Size = new System.Drawing.Size(800, 40);
+            this.radLigne3.TabIndex = 6;
+            this.radLigne3.TabStop = true;
+            this.radLigne3.Text = "Actualisez pour visualiser";
+            this.radLigne3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.radLigne3.UseVisualStyleBackColor = true;
             // 
-            // radLigne5
+            // radLigne2
             // 
-            this.radLigne5.Appearance = System.Windows.Forms.Appearance.Button;
-            this.radLigne5.Location = new System.Drawing.Point(30, 112);
-            this.radLigne5.Name = "radLigne5";
-            this.radLigne5.Size = new System.Drawing.Size(800, 40);
-            this.radLigne5.TabIndex = 5;
-            this.radLigne5.TabStop = true;
-            this.radLigne5.Text = "ligne 2";
-            this.radLigne5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.radLigne5.UseVisualStyleBackColor = true;
+            this.radLigne2.Appearance = System.Windows.Forms.Appearance.Button;
+            this.radLigne2.Enabled = false;
+            this.radLigne2.Location = new System.Drawing.Point(30, 112);
+            this.radLigne2.Name = "radLigne2";
+            this.radLigne2.Size = new System.Drawing.Size(800, 40);
+            this.radLigne2.TabIndex = 5;
+            this.radLigne2.TabStop = true;
+            this.radLigne2.Text = "Actualisez pour visualiser";
+            this.radLigne2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.radLigne2.UseVisualStyleBackColor = true;
             // 
             // radLigne1
             // 
             this.radLigne1.Appearance = System.Windows.Forms.Appearance.Button;
+            this.radLigne1.Enabled = false;
             this.radLigne1.Location = new System.Drawing.Point(30, 66);
             this.radLigne1.Name = "radLigne1";
             this.radLigne1.Size = new System.Drawing.Size(800, 40);
             this.radLigne1.TabIndex = 4;
             this.radLigne1.TabStop = true;
-            this.radLigne1.Text = "ligne 1";
+            this.radLigne1.Text = "Actualisez pour visualiser";
             this.radLigne1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.radLigne1.UseVisualStyleBackColor = true;
             // 
@@ -167,7 +173,7 @@
             this.Name = "modification";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "modification";
-            this.Load += new System.EventHandler(this.modification_Load);
+            this.Load += new System.EventHandler(this.ActualiserLigne);
             this.pnlLigne.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -178,9 +184,9 @@
         private Label label1;
         private Panel pnlLigne;
         private RadioButton radLigne1;
-        private RadioButton radLigne8;
-        private RadioButton radLigne7;
-        private RadioButton radLigne5;
+        private RadioButton radLigne4;
+        private RadioButton radLigne3;
+        private RadioButton radLigne2;
         private Button cmdCreation;
         private Button cmdSuppression;
         private Button cmdModifier;
