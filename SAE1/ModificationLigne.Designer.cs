@@ -1,6 +1,6 @@
 ﻿namespace SAE1
 {
-    partial class AjoutLigne
+    partial class ModificationLigne
     {
         /// <summary>
         /// Required designer variable.
@@ -113,7 +113,6 @@
             this.txtNomLigne.Name = "txtNomLigne";
             this.txtNomLigne.Size = new System.Drawing.Size(114, 23);
             this.txtNomLigne.TabIndex = 4;
-            this.txtNomLigne.Validating += new System.ComponentModel.CancelEventHandler(this.txtNomLigne_Validating);
             // 
             // nudHeureDepart
             // 
@@ -194,7 +193,6 @@
             0,
             0,
             0});
-            this.nudNbArrets.ValueChanged += new System.EventHandler(this.numericUpDown3_ValueChanged);
             // 
             // pnlArrets
             // 
@@ -253,7 +251,6 @@
             this.CBOArret2.Name = "CBOArret2";
             this.CBOArret2.Size = new System.Drawing.Size(121, 23);
             this.CBOArret2.TabIndex = 15;
-            this.CBOArret2.Enter += new System.EventHandler(this.CBOArret_Enter);
             // 
             // NUDMinuteDepart2
             // 
@@ -297,7 +294,6 @@
             this.CBOArret1.Name = "CBOArret1";
             this.CBOArret1.Size = new System.Drawing.Size(121, 23);
             this.CBOArret1.TabIndex = 2;
-            this.CBOArret1.Enter += new System.EventHandler(this.CBOArret_Enter);
             // 
             // NUDMinuteDepart1
             // 
@@ -342,7 +338,6 @@
             this.cmdQuitter.TabIndex = 13;
             this.cmdQuitter.Text = "Quitter";
             this.cmdQuitter.UseVisualStyleBackColor = true;
-            this.cmdQuitter.Click += new System.EventHandler(this.cmdQuitter_Click);
             // 
             // errorProviderNomLigne
             // 
@@ -354,7 +349,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoValidate = System.Windows.Forms.AutoValidate.EnablePreventFocusChange;
-            this.ClientSize = new System.Drawing.Size(804, 451);
+            this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.cmdQuitter);
             this.Controls.Add(this.cmdValider);
             this.Controls.Add(this.pnlArrets);

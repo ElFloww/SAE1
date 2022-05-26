@@ -14,7 +14,10 @@ using MySql.Data.MySqlClient;
 namespace SAE1
 {
     public partial class modification : Form
-    {
+    {   
+        // Liste globale qui stockera toutes les radiobouttons des lignes de bus lors du chargement du formulaire
+        public List<RadioButton> ligneBusRadioButton = new List<RadioButton>();
+
         public modification()
         {
             InitializeComponent();
@@ -22,6 +25,9 @@ namespace SAE1
 
         public void ActualiserLigne(object sender, EventArgs e)
         {
+            // A chaque ouverture du formulaire on supprime le contenu de la liste globale
+            ligneBusRadioButton.Clear();
+
             //On cherche à connaître le nombre de ligne pour savoir le nombre de radiobutton à créer
             string req = $"Select Count(N_Ligne) from Ligne;";
             int n = 0;
@@ -65,10 +71,12 @@ namespace SAE1
                 {
                     Console.WriteLine(ex.ToString());
                 }
-                if (i <= 4)
+                if (i == 1)
                 {
-                    pnlLigne.Controls[$"radLigne{i}"].Text = $"{NomLigne}                                                  Nombre d'arret(s) : {nbArret}";
-                    pnlLigne.Controls[$"radLigne{i}"].Enabled = true;
+                    pnlLigne.Controls["radLigne1"].Text = $"{NomLigne}                                                  Nombre d'arret(s) : {nbArret}";
+                    pnlLigne.Controls["radLigne1"].Enabled = true;
+                    // On ajoute le premier radioButton
+                    ligneBusRadioButton.Add(radLigne1);
                 }
                 else
                 {
@@ -77,7 +85,7 @@ namespace SAE1
                     int OPThauteur = radLigne1.Size.Height;
                     int OPTlargeur = radLigne1.Size.Width;
 
-                    int OPTDist = radLigne4.Location.Y - radLigne3.Location.Y;
+                    int OPTDist = radLigne1.Location.Y - cmdCreation.Location.Y;
                     int OPTx = radLigne1.Location.X;
                     int OPTy = pnlLigne.Controls[$"radLigne{i - 1}"].Location.Y + OPTDist;
 
@@ -93,6 +101,9 @@ namespace SAE1
                     newOPT.TextAlign = ContentAlignment.MiddleCenter;
 
                     pnlLigne.Controls.Add(newOPT);
+
+                    // On ajoute le radion button dans la liste global
+                    ligneBusRadioButton.Add(newOPT);
                 }
             }
             pnlLigne.ResumeLayout();
@@ -107,6 +118,45 @@ namespace SAE1
         {
             Form formCreationLigne = new AjoutLigne();
             formCreationLigne.ShowDialog();
+        }
+
+        // Fonction qui renvoie l'index du radioButton actif (checked == true)
+        public int renvoieIndexLigneBus()
+        {
+            bool condArret = true;
+            int compteur = 0;
+
+            // On cherche quel radioBoutton est actif
+            while (condArret)
+            {
+                if (ligneBusRadioButton[compteur].Checked == true)
+                    condArret = false;
+                else
+                    compteur++;
+            }
+
+            // On renvoie l'index
+            return compteur;
+        }
+
+        private void cmdSuppression_Click(object sender, EventArgs e)
+        {   
+            // On récupère l'indexe du radioButton actif
+            int indexRadionButtonChecked = renvoieIndexLigneBus();
+
+            // Demande confirmation à l'utilisateur pour supprimer la ligne
+            DialogResult confirmation = MessageBox.Show($"Voulez - vous vraiment supprimer la {ligneBusRadioButton[indexRadionButtonChecked].Text} ?", "Suppression de ligne", MessageBoxButtons.YesNo);
+
+            if (confirmation == DialogResult.Yes)
+            {   
+                // Commande SQL pour supprimer la ligne
+            }
+        }
+
+        private void cmdModifier_Click(object sender, EventArgs e)
+        {
+            Form modification = new ModificationLigne();
+            modification.ShowDialog();
         }
     }
 }

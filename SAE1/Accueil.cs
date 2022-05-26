@@ -164,7 +164,7 @@ namespace SAE1
         private void cmdQuitterAccueil_Click(object sender, EventArgs e)
         {
             // Demande confirmation à l'utilisateur pour quitter le logiciel
-            DialogResult confirmation = MessageBox.Show("Quitter le logiciel.", "Voulez-vous vraiment quitter le logiciel ?", MessageBoxButtons.YesNo);
+            DialogResult confirmation = MessageBox.Show("Voulez-vous vraiment quitter le logiciel ?", "Quitter le logiciel", MessageBoxButtons.YesNo);
 
             if (confirmation == DialogResult.Yes)
             {

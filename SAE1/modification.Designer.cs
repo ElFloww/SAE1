@@ -32,9 +32,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.pnlLigne = new System.Windows.Forms.Panel();
             this.cmdCreation = new System.Windows.Forms.Button();
-            this.radLigne4 = new System.Windows.Forms.RadioButton();
-            this.radLigne3 = new System.Windows.Forms.RadioButton();
-            this.radLigne2 = new System.Windows.Forms.RadioButton();
             this.radLigne1 = new System.Windows.Forms.RadioButton();
             this.cmdSuppression = new System.Windows.Forms.Button();
             this.cmdModifier = new System.Windows.Forms.Button();
@@ -56,9 +53,6 @@
             this.pnlLigne.AutoScroll = true;
             this.pnlLigne.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pnlLigne.Controls.Add(this.cmdCreation);
-            this.pnlLigne.Controls.Add(this.radLigne4);
-            this.pnlLigne.Controls.Add(this.radLigne3);
-            this.pnlLigne.Controls.Add(this.radLigne2);
             this.pnlLigne.Controls.Add(this.radLigne1);
             this.pnlLigne.Location = new System.Drawing.Point(47, 71);
             this.pnlLigne.Name = "pnlLigne";
@@ -75,45 +69,6 @@
             this.cmdCreation.Text = "Créer une ligne de bus";
             this.cmdCreation.UseVisualStyleBackColor = true;
             this.cmdCreation.Click += new System.EventHandler(this.cmdCreation_Click);
-            // 
-            // radLigne4
-            // 
-            this.radLigne4.Appearance = System.Windows.Forms.Appearance.Button;
-            this.radLigne4.Enabled = false;
-            this.radLigne4.Location = new System.Drawing.Point(30, 204);
-            this.radLigne4.Name = "radLigne4";
-            this.radLigne4.Size = new System.Drawing.Size(800, 40);
-            this.radLigne4.TabIndex = 7;
-            this.radLigne4.TabStop = true;
-            this.radLigne4.Text = "Actualisez pour visualiser";
-            this.radLigne4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.radLigne4.UseVisualStyleBackColor = true;
-            // 
-            // radLigne3
-            // 
-            this.radLigne3.Appearance = System.Windows.Forms.Appearance.Button;
-            this.radLigne3.Enabled = false;
-            this.radLigne3.Location = new System.Drawing.Point(30, 158);
-            this.radLigne3.Name = "radLigne3";
-            this.radLigne3.Size = new System.Drawing.Size(800, 40);
-            this.radLigne3.TabIndex = 6;
-            this.radLigne3.TabStop = true;
-            this.radLigne3.Text = "Actualisez pour visualiser";
-            this.radLigne3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.radLigne3.UseVisualStyleBackColor = true;
-            // 
-            // radLigne2
-            // 
-            this.radLigne2.Appearance = System.Windows.Forms.Appearance.Button;
-            this.radLigne2.Enabled = false;
-            this.radLigne2.Location = new System.Drawing.Point(30, 112);
-            this.radLigne2.Name = "radLigne2";
-            this.radLigne2.Size = new System.Drawing.Size(800, 40);
-            this.radLigne2.TabIndex = 5;
-            this.radLigne2.TabStop = true;
-            this.radLigne2.Text = "Actualisez pour visualiser";
-            this.radLigne2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.radLigne2.UseVisualStyleBackColor = true;
             // 
             // radLigne1
             // 
@@ -137,6 +92,7 @@
             this.cmdSuppression.TabIndex = 10;
             this.cmdSuppression.Text = "Supprimer la ligne de bus";
             this.cmdSuppression.UseVisualStyleBackColor = true;
+            this.cmdSuppression.Click += new System.EventHandler(this.cmdSuppression_Click);
             // 
             // cmdModifier
             // 
@@ -147,6 +103,7 @@
             this.cmdModifier.TabIndex = 11;
             this.cmdModifier.Text = "Modifier la ligne de bus";
             this.cmdModifier.UseVisualStyleBackColor = true;
+            this.cmdModifier.Click += new System.EventHandler(this.cmdModifier_Click);
             // 
             // cmdQuitterAccueil
             // 
@@ -184,9 +141,6 @@
         private Label label1;
         private Panel pnlLigne;
         private RadioButton radLigne1;
-        private RadioButton radLigne4;
-        private RadioButton radLigne3;
-        private RadioButton radLigne2;
         private Button cmdCreation;
         private Button cmdSuppression;
         private Button cmdModifier;
