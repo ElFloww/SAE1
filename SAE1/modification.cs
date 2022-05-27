@@ -27,7 +27,6 @@ namespace SAE1
         {
             // A chaque ouverture du formulaire on supprime le contenu de la liste globale
             ligneBusRadioButton.Clear();
-
             //On cherche à connaître le nombre de ligne pour savoir le nombre de radiobutton à créer
             string req = $"Select Count(N_Ligne) from Ligne;";
             int n = 0;
@@ -50,7 +49,7 @@ namespace SAE1
                 Console.WriteLine(ex.ToString());
             }
 
-            for(int i = 1; i <= n; i++)
+            for (int i = 1; i <= n; i++)
             {
                 liste.Clear();
                 req = $"Select NomLigne,COUNT(ArretLigne.N_Arret) from ArretLigne,Ligne WHERE ArretLigne.N_Ligne = Ligne.N_Ligne AND ArretLigne.N_Ligne = {i};";
@@ -145,11 +144,56 @@ namespace SAE1
             int indexRadionButtonChecked = renvoieIndexLigneBus();
 
             // Demande confirmation à l'utilisateur pour supprimer la ligne
-            DialogResult confirmation = MessageBox.Show($"Voulez - vous vraiment supprimer la {ligneBusRadioButton[indexRadionButtonChecked].Text} ?", "Suppression de ligne", MessageBoxButtons.YesNo);
-
-            if (confirmation == DialogResult.Yes)
-            {   
-                // Commande SQL pour supprimer la ligne
+            if(indexRadionButtonChecked <= 3)
+            {
+                MessageBox.Show("Impossible de supprimer cette ligne, car c'est une ligne de base du réseau\n Vous pouvez seulement supprimer les lignes que vous avez créer !");
+            }
+            else
+            {
+                DialogResult confirmation = MessageBox.Show($"Voulez - vous vraiment supprimer la {ligneBusRadioButton[indexRadionButtonChecked].Text} ?", "Suppression de ligne", MessageBoxButtons.YesNo);
+                if (confirmation == DialogResult.Yes)
+                {
+                    string req = $"DELETE FROM ArretLigne WHERE N_Ligne = {indexRadionButtonChecked + 1};";
+                    List<string> liste = new List<string>();
+                    try
+                    {
+                        MySqlCommand cmd = new MySqlCommand(req, BDD.BDConnection);
+                        cmd.ExecuteNonQuery();
+                        req = $"DELETE FROM Trajet WHERE N_Ligne = {indexRadionButtonChecked + 1};";
+                        try
+                        {
+                            cmd = new MySqlCommand(req, BDD.BDConnection);
+                            cmd.ExecuteNonQuery();
+                            req = $"DELETE FROM Ligne WHERE N_Ligne = {indexRadionButtonChecked + 1};";
+                            try
+                            {
+                                cmd = new MySqlCommand(req, BDD.BDConnection);
+                                if (cmd.ExecuteNonQuery() == 1)
+                                {
+                                    MessageBox.Show("La ligne à été supprimée");
+                                    cmd.Dispose();
+                                }
+                                else
+                                {
+                                    MessageBox.Show("Erreur System");
+                                    cmd.Dispose();
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                Console.WriteLine(ex.ToString());
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine(ex.ToString());
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.ToString());
+                    }
+                }
             }
         }
 
