@@ -33,13 +33,9 @@ namespace SAE1
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmFilibusAccueil));
-            this.grpboxCalcul = new System.Windows.Forms.GroupBox();
-            this.lblArretB = new System.Windows.Forms.Label();
-            this.lblArretA = new System.Windows.Forms.Label();
-            this.cmdAfficher2 = new System.Windows.Forms.Button();
-            this.CBOArretA = new System.Windows.Forms.ComboBox();
-            this.CBOArretB = new System.Windows.Forms.ComboBox();
             this.grpboxHoraires = new System.Windows.Forms.GroupBox();
+            this.lblSens = new System.Windows.Forms.Label();
+            this.cboSens = new System.Windows.Forms.ComboBox();
             this.lblArret = new System.Windows.Forms.Label();
             this.lblLigne = new System.Windows.Forms.Label();
             this.cmdAfficher1 = new System.Windows.Forms.Button();
@@ -49,78 +45,20 @@ namespace SAE1
             this.cmdQuitterAccueil = new System.Windows.Forms.Button();
             this.cmdAdmin = new System.Windows.Forms.Button();
             this.txtAccueil = new System.Windows.Forms.Label();
-            this.grpboxCalcul.SuspendLayout();
+            this.CBOArretB = new System.Windows.Forms.ComboBox();
+            this.CBOArretA = new System.Windows.Forms.ComboBox();
+            this.cmdAfficher2 = new System.Windows.Forms.Button();
+            this.lblArretA = new System.Windows.Forms.Label();
+            this.lblArretB = new System.Windows.Forms.Label();
+            this.grpboxCalcul = new System.Windows.Forms.GroupBox();
             this.grpboxHoraires.SuspendLayout();
+            this.grpboxCalcul.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // grpboxCalcul
-            // 
-            this.grpboxCalcul.Controls.Add(this.lblArretB);
-            this.grpboxCalcul.Controls.Add(this.lblArretA);
-            this.grpboxCalcul.Controls.Add(this.cmdAfficher2);
-            this.grpboxCalcul.Controls.Add(this.CBOArretA);
-            this.grpboxCalcul.Controls.Add(this.CBOArretB);
-            this.grpboxCalcul.Location = new System.Drawing.Point(28, 277);
-            this.grpboxCalcul.Name = "grpboxCalcul";
-            this.grpboxCalcul.Size = new System.Drawing.Size(380, 175);
-            this.grpboxCalcul.TabIndex = 5;
-            this.grpboxCalcul.TabStop = false;
-            this.grpboxCalcul.Text = "Calcul d\'itinéraire";
-            // 
-            // lblArretB
-            // 
-            this.lblArretB.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lblArretB.Location = new System.Drawing.Point(29, 76);
-            this.lblArretB.Name = "lblArretB";
-            this.lblArretB.Size = new System.Drawing.Size(115, 23);
-            this.lblArretB.TabIndex = 2;
-            this.lblArretB.Text = "Arrêt d\'arrivé :";
-            // 
-            // lblArretA
-            // 
-            this.lblArretA.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lblArretA.Location = new System.Drawing.Point(29, 30);
-            this.lblArretA.Name = "lblArretA";
-            this.lblArretA.Size = new System.Drawing.Size(115, 23);
-            this.lblArretA.TabIndex = 0;
-            this.lblArretA.Text = "Arrêt de départ :";
-            // 
-            // cmdAfficher2
-            // 
-            this.cmdAfficher2.Enabled = false;
-            this.cmdAfficher2.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.cmdAfficher2.Location = new System.Drawing.Point(252, 116);
-            this.cmdAfficher2.Name = "cmdAfficher2";
-            this.cmdAfficher2.Size = new System.Drawing.Size(75, 30);
-            this.cmdAfficher2.TabIndex = 0;
-            this.cmdAfficher2.Text = "Afficher";
-            this.cmdAfficher2.UseVisualStyleBackColor = true;
-            this.cmdAfficher2.Leave += new System.EventHandler(this.ItineraireValidation);
-            // 
-            // CBOArretA
-            // 
-            this.CBOArretA.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.CBOArretA.FormattingEnabled = true;
-            this.CBOArretA.Location = new System.Drawing.Point(170, 30);
-            this.CBOArretA.Name = "CBOArretA";
-            this.CBOArretA.Size = new System.Drawing.Size(157, 23);
-            this.CBOArretA.TabIndex = 0;
-            this.CBOArretA.SelectedValueChanged += new System.EventHandler(this.ItineraireValidation);
-            this.CBOArretA.Enter += new System.EventHandler(this.CBOArretA_Enter);
-            // 
-            // CBOArretB
-            // 
-            this.CBOArretB.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.CBOArretB.FormattingEnabled = true;
-            this.CBOArretB.Location = new System.Drawing.Point(170, 76);
-            this.CBOArretB.Name = "CBOArretB";
-            this.CBOArretB.Size = new System.Drawing.Size(157, 23);
-            this.CBOArretB.TabIndex = 1;
-            this.CBOArretB.SelectedValueChanged += new System.EventHandler(this.ItineraireValidation);
-            this.CBOArretB.Enter += new System.EventHandler(this.CBOArretB_Enter);
             // 
             // grpboxHoraires
             // 
+            this.grpboxHoraires.Controls.Add(this.lblSens);
+            this.grpboxHoraires.Controls.Add(this.cboSens);
             this.grpboxHoraires.Controls.Add(this.lblArret);
             this.grpboxHoraires.Controls.Add(this.lblLigne);
             this.grpboxHoraires.Controls.Add(this.cmdAfficher1);
@@ -128,10 +66,28 @@ namespace SAE1
             this.grpboxHoraires.Controls.Add(this.CBOArret);
             this.grpboxHoraires.Location = new System.Drawing.Point(28, 69);
             this.grpboxHoraires.Name = "grpboxHoraires";
-            this.grpboxHoraires.Size = new System.Drawing.Size(377, 175);
+            this.grpboxHoraires.Size = new System.Drawing.Size(377, 212);
             this.grpboxHoraires.TabIndex = 4;
             this.grpboxHoraires.TabStop = false;
             this.grpboxHoraires.Text = "Afficher les horaires";
+            // 
+            // lblSens
+            // 
+            this.lblSens.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.lblSens.Location = new System.Drawing.Point(43, 122);
+            this.lblSens.Name = "lblSens";
+            this.lblSens.Size = new System.Drawing.Size(69, 23);
+            this.lblSens.TabIndex = 4;
+            this.lblSens.Text = "Arrêt :";
+            // 
+            // cboSens
+            // 
+            this.cboSens.Enabled = false;
+            this.cboSens.FormattingEnabled = true;
+            this.cboSens.Location = new System.Drawing.Point(170, 122);
+            this.cboSens.Name = "cboSens";
+            this.cboSens.Size = new System.Drawing.Size(157, 23);
+            this.cboSens.TabIndex = 3;
             // 
             // lblArret
             // 
@@ -155,7 +111,7 @@ namespace SAE1
             // 
             this.cmdAfficher1.Enabled = false;
             this.cmdAfficher1.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.cmdAfficher1.Location = new System.Drawing.Point(252, 119);
+            this.cmdAfficher1.Location = new System.Drawing.Point(252, 166);
             this.cmdAfficher1.Name = "cmdAfficher1";
             this.cmdAfficher1.Size = new System.Drawing.Size(75, 30);
             this.cmdAfficher1.TabIndex = 0;
@@ -226,6 +182,72 @@ namespace SAE1
             this.txtAccueil.Text = "Accueil";
             this.txtAccueil.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // CBOArretB
+            // 
+            this.CBOArretB.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.CBOArretB.FormattingEnabled = true;
+            this.CBOArretB.Location = new System.Drawing.Point(170, 76);
+            this.CBOArretB.Name = "CBOArretB";
+            this.CBOArretB.Size = new System.Drawing.Size(157, 23);
+            this.CBOArretB.TabIndex = 1;
+            this.CBOArretB.SelectedValueChanged += new System.EventHandler(this.ItineraireValidation);
+            this.CBOArretB.Enter += new System.EventHandler(this.CBOArretB_Enter);
+            // 
+            // CBOArretA
+            // 
+            this.CBOArretA.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.CBOArretA.FormattingEnabled = true;
+            this.CBOArretA.Location = new System.Drawing.Point(170, 30);
+            this.CBOArretA.Name = "CBOArretA";
+            this.CBOArretA.Size = new System.Drawing.Size(157, 23);
+            this.CBOArretA.TabIndex = 0;
+            this.CBOArretA.SelectedValueChanged += new System.EventHandler(this.ItineraireValidation);
+            this.CBOArretA.Enter += new System.EventHandler(this.CBOArretA_Enter);
+            // 
+            // cmdAfficher2
+            // 
+            this.cmdAfficher2.Enabled = false;
+            this.cmdAfficher2.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.cmdAfficher2.Location = new System.Drawing.Point(252, 116);
+            this.cmdAfficher2.Name = "cmdAfficher2";
+            this.cmdAfficher2.Size = new System.Drawing.Size(75, 30);
+            this.cmdAfficher2.TabIndex = 0;
+            this.cmdAfficher2.Text = "Afficher";
+            this.cmdAfficher2.UseVisualStyleBackColor = true;
+            this.cmdAfficher2.Leave += new System.EventHandler(this.ItineraireValidation);
+            // 
+            // lblArretA
+            // 
+            this.lblArretA.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.lblArretA.Location = new System.Drawing.Point(29, 30);
+            this.lblArretA.Name = "lblArretA";
+            this.lblArretA.Size = new System.Drawing.Size(115, 23);
+            this.lblArretA.TabIndex = 0;
+            this.lblArretA.Text = "Arrêt de départ :";
+            // 
+            // lblArretB
+            // 
+            this.lblArretB.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.lblArretB.Location = new System.Drawing.Point(29, 76);
+            this.lblArretB.Name = "lblArretB";
+            this.lblArretB.Size = new System.Drawing.Size(115, 23);
+            this.lblArretB.TabIndex = 2;
+            this.lblArretB.Text = "Arrêt d\'arrivé :";
+            // 
+            // grpboxCalcul
+            // 
+            this.grpboxCalcul.Controls.Add(this.lblArretB);
+            this.grpboxCalcul.Controls.Add(this.lblArretA);
+            this.grpboxCalcul.Controls.Add(this.cmdAfficher2);
+            this.grpboxCalcul.Controls.Add(this.CBOArretA);
+            this.grpboxCalcul.Controls.Add(this.CBOArretB);
+            this.grpboxCalcul.Location = new System.Drawing.Point(28, 300);
+            this.grpboxCalcul.Name = "grpboxCalcul";
+            this.grpboxCalcul.Size = new System.Drawing.Size(380, 175);
+            this.grpboxCalcul.TabIndex = 5;
+            this.grpboxCalcul.TabStop = false;
+            this.grpboxCalcul.Text = "Calcul d\'itinéraire";
+            // 
             // frmFilibusAccueil
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -243,19 +265,13 @@ namespace SAE1
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Filibus - Réseau de transport urbain de Chartres";
             this.Load += new System.EventHandler(this.Form1_Load);
-            this.grpboxCalcul.ResumeLayout(false);
             this.grpboxHoraires.ResumeLayout(false);
+            this.grpboxCalcul.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
 
         #endregion
-        private GroupBox grpboxCalcul;
-        private Label lblArretB;
-        private Label lblArretA;
-        private Button cmdAfficher2;
-        private ComboBox CBOArretA;
-        private ComboBox CBOArretB;
         private GroupBox grpboxHoraires;
         private Label lblArret;
         private Label lblLigne;
@@ -266,5 +282,13 @@ namespace SAE1
         private Button cmdQuitterAccueil;
         private Button cmdAdmin;
         private Label txtAccueil;
+        private Label lblSens;
+        private ComboBox cboSens;
+        private ComboBox CBOArretB;
+        private ComboBox CBOArretA;
+        private Button cmdAfficher2;
+        private Label lblArretA;
+        private Label lblArretB;
+        private GroupBox grpboxCalcul;
     }
 }
