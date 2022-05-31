@@ -28,19 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.txtNomLigne = new System.Windows.Forms.TextBox();
-            this.nudHeureDepart = new System.Windows.Forms.NumericUpDown();
-            this.nudMinuteDepart = new System.Windows.Forms.NumericUpDown();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.nudNbArrets = new System.Windows.Forms.NumericUpDown();
+            this.cmdQuitter = new System.Windows.Forms.Button();
+            this.cmdValider = new System.Windows.Forms.Button();
             this.pnlArrets = new System.Windows.Forms.Panel();
             this.lblHoaire = new System.Windows.Forms.Label();
             this.lblArret = new System.Windows.Forms.Label();
@@ -52,147 +41,49 @@
             this.CBOArret1 = new System.Windows.Forms.ComboBox();
             this.NUDMinuteDepart1 = new System.Windows.Forms.NumericUpDown();
             this.NUDHeureDepart1 = new System.Windows.Forms.NumericUpDown();
-            this.cmdValider = new System.Windows.Forms.Button();
-            this.cmdQuitter = new System.Windows.Forms.Button();
-            this.errorProviderNomLigne = new System.Windows.Forms.ErrorProvider(this.components);
-            ((System.ComponentModel.ISupportInitialize)(this.nudHeureDepart)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudMinuteDepart)).BeginInit();
-            this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudNbArrets)).BeginInit();
+            this.nudNbArrets = new System.Windows.Forms.NumericUpDown();
+            this.label7 = new System.Windows.Forms.Label();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.nudMinuteDepart = new System.Windows.Forms.NumericUpDown();
+            this.nudHeureDepart = new System.Windows.Forms.NumericUpDown();
+            this.txtNomLigne = new System.Windows.Forms.TextBox();
+            this.lblHeure = new System.Windows.Forms.Label();
+            this.lblNbArret = new System.Windows.Forms.Label();
+            this.lblLigne = new System.Windows.Forms.Label();
+            this.lblTitre = new System.Windows.Forms.Label();
             this.pnlArrets.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NUDMinuteDepart2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NUDHeureDepart2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NUDMinuteDepart1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NUDHeureDepart1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.errorProviderNomLigne)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudNbArrets)).BeginInit();
+            this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudMinuteDepart)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudHeureDepart)).BeginInit();
             this.SuspendLayout();
             // 
-            // label1
+            // cmdQuitter
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label1.Location = new System.Drawing.Point(71, 25);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(188, 28);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Création d\'une ligne";
+            this.cmdQuitter.CausesValidation = false;
+            this.cmdQuitter.Location = new System.Drawing.Point(713, 408);
+            this.cmdQuitter.Name = "cmdQuitter";
+            this.cmdQuitter.Size = new System.Drawing.Size(75, 30);
+            this.cmdQuitter.TabIndex = 26;
+            this.cmdQuitter.Text = "Quitter";
+            this.cmdQuitter.UseVisualStyleBackColor = true;
+            this.cmdQuitter.Click += new System.EventHandler(this.cmdQuitter_Click);
             // 
-            // label2
+            // cmdValider
             // 
-            this.label2.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label2.Location = new System.Drawing.Point(36, 90);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(118, 23);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "Nom de la ligne :";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label3
-            // 
-            this.label3.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label3.Location = new System.Drawing.Point(36, 129);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(118, 23);
-            this.label3.TabIndex = 2;
-            this.label3.Text = "Nombre d\'arrêts :";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label4
-            // 
-            this.label4.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label4.Location = new System.Drawing.Point(36, 170);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(141, 25);
-            this.label4.TabIndex = 3;
-            this.label4.Text = "Heure de départ :";
-            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // txtNomLigne
-            // 
-            this.txtNomLigne.Location = new System.Drawing.Point(193, 90);
-            this.txtNomLigne.Name = "txtNomLigne";
-            this.txtNomLigne.Size = new System.Drawing.Size(114, 23);
-            this.txtNomLigne.TabIndex = 4;
-            // 
-            // nudHeureDepart
-            // 
-            this.nudHeureDepart.Location = new System.Drawing.Point(200, 174);
-            this.nudHeureDepart.Maximum = new decimal(new int[] {
-            23,
-            0,
-            0,
-            0});
-            this.nudHeureDepart.Name = "nudHeureDepart";
-            this.nudHeureDepart.Size = new System.Drawing.Size(44, 23);
-            this.nudHeureDepart.TabIndex = 6;
-            // 
-            // nudMinuteDepart
-            // 
-            this.nudMinuteDepart.Location = new System.Drawing.Point(264, 174);
-            this.nudMinuteDepart.Maximum = new decimal(new int[] {
-            59,
-            0,
-            0,
-            0});
-            this.nudMinuteDepart.Name = "nudMinuteDepart";
-            this.nudMinuteDepart.Size = new System.Drawing.Size(41, 23);
-            this.nudMinuteDepart.TabIndex = 7;
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.label6);
-            this.groupBox1.Controls.Add(this.label5);
-            this.groupBox1.Location = new System.Drawing.Point(36, 237);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(283, 140);
-            this.groupBox1.TabIndex = 8;
-            this.groupBox1.TabStop = false;
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(15, 63);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(208, 45);
-            this.label6.TabIndex = 1;
-            this.label6.Text = "L\'ordre d\'affichage des arrêts sur la \nfenêtre est dans l\'ordre croissant des \nho" +
-    "raires permettant de former le trajet";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label5.Location = new System.Drawing.Point(15, 29);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(200, 19);
-            this.label5.TabIndex = 0;
-            this.label5.Text = "Informations complémentaire : ";
-            // 
-            // label7
-            // 
-            this.label7.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label7.Location = new System.Drawing.Point(244, 169);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(20, 28);
-            this.label7.TabIndex = 9;
-            this.label7.Text = "/";
-            // 
-            // nudNbArrets
-            // 
-            this.nudNbArrets.Location = new System.Drawing.Point(193, 128);
-            this.nudNbArrets.Minimum = new decimal(new int[] {
-            2,
-            0,
-            0,
-            0});
-            this.nudNbArrets.Name = "nudNbArrets";
-            this.nudNbArrets.Size = new System.Drawing.Size(112, 23);
-            this.nudNbArrets.TabIndex = 10;
-            this.nudNbArrets.Value = new decimal(new int[] {
-            2,
-            0,
-            0,
-            0});
+            this.cmdValider.Enabled = false;
+            this.cmdValider.Location = new System.Drawing.Point(603, 408);
+            this.cmdValider.Name = "cmdValider";
+            this.cmdValider.Size = new System.Drawing.Size(75, 30);
+            this.cmdValider.TabIndex = 25;
+            this.cmdValider.Text = "Valider";
+            this.cmdValider.UseVisualStyleBackColor = true;
             // 
             // pnlArrets
             // 
@@ -211,7 +102,7 @@
             this.pnlArrets.Location = new System.Drawing.Point(370, 65);
             this.pnlArrets.Name = "pnlArrets";
             this.pnlArrets.Size = new System.Drawing.Size(375, 312);
-            this.pnlArrets.TabIndex = 11;
+            this.pnlArrets.TabIndex = 24;
             // 
             // lblHoaire
             // 
@@ -251,6 +142,7 @@
             this.CBOArret2.Name = "CBOArret2";
             this.CBOArret2.Size = new System.Drawing.Size(121, 23);
             this.CBOArret2.TabIndex = 15;
+            this.CBOArret2.Enter += new System.EventHandler(this.CBOArret_Enter);
             // 
             // NUDMinuteDepart2
             // 
@@ -294,6 +186,7 @@
             this.CBOArret1.Name = "CBOArret1";
             this.CBOArret1.Size = new System.Drawing.Size(121, 23);
             this.CBOArret1.TabIndex = 2;
+            this.CBOArret1.Enter += new System.EventHandler(this.CBOArret_Enter);
             // 
             // NUDMinuteDepart1
             // 
@@ -319,37 +212,137 @@
             this.NUDHeureDepart1.Size = new System.Drawing.Size(44, 23);
             this.NUDHeureDepart1.TabIndex = 12;
             // 
-            // cmdValider
+            // nudNbArrets
             // 
-            this.cmdValider.Enabled = false;
-            this.cmdValider.Location = new System.Drawing.Point(603, 408);
-            this.cmdValider.Name = "cmdValider";
-            this.cmdValider.Size = new System.Drawing.Size(75, 30);
-            this.cmdValider.TabIndex = 12;
-            this.cmdValider.Text = "Valider";
-            this.cmdValider.UseVisualStyleBackColor = true;
+            this.nudNbArrets.Location = new System.Drawing.Point(193, 128);
+            this.nudNbArrets.Minimum = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
+            this.nudNbArrets.Name = "nudNbArrets";
+            this.nudNbArrets.Size = new System.Drawing.Size(112, 23);
+            this.nudNbArrets.TabIndex = 23;
+            this.nudNbArrets.Value = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
             // 
-            // cmdQuitter
+            // label7
             // 
-            this.cmdQuitter.CausesValidation = false;
-            this.cmdQuitter.Location = new System.Drawing.Point(713, 408);
-            this.cmdQuitter.Name = "cmdQuitter";
-            this.cmdQuitter.Size = new System.Drawing.Size(75, 30);
-            this.cmdQuitter.TabIndex = 13;
-            this.cmdQuitter.Text = "Quitter";
-            this.cmdQuitter.UseVisualStyleBackColor = true;
+            this.label7.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label7.Location = new System.Drawing.Point(244, 169);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(20, 28);
+            this.label7.TabIndex = 22;
+            this.label7.Text = "/";
             // 
-            // errorProviderNomLigne
+            // groupBox1
             // 
-            this.errorProviderNomLigne.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
-            this.errorProviderNomLigne.ContainerControl = this;
+            this.groupBox1.Controls.Add(this.label6);
+            this.groupBox1.Controls.Add(this.label5);
+            this.groupBox1.Location = new System.Drawing.Point(36, 237);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(283, 140);
+            this.groupBox1.TabIndex = 21;
+            this.groupBox1.TabStop = false;
             // 
-            // AjoutLigne
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(15, 63);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(208, 45);
+            this.label6.TabIndex = 1;
+            this.label6.Text = "L\'ordre d\'affichage des arrêts sur la \nfenêtre est dans l\'ordre croissant des \nho" +
+    "raires permettant de former le trajet";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label5.Location = new System.Drawing.Point(15, 29);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(200, 19);
+            this.label5.TabIndex = 0;
+            this.label5.Text = "Informations complémentaire : ";
+            // 
+            // nudMinuteDepart
+            // 
+            this.nudMinuteDepart.Location = new System.Drawing.Point(264, 174);
+            this.nudMinuteDepart.Maximum = new decimal(new int[] {
+            59,
+            0,
+            0,
+            0});
+            this.nudMinuteDepart.Name = "nudMinuteDepart";
+            this.nudMinuteDepart.Size = new System.Drawing.Size(41, 23);
+            this.nudMinuteDepart.TabIndex = 20;
+            // 
+            // nudHeureDepart
+            // 
+            this.nudHeureDepart.Location = new System.Drawing.Point(200, 174);
+            this.nudHeureDepart.Maximum = new decimal(new int[] {
+            23,
+            0,
+            0,
+            0});
+            this.nudHeureDepart.Name = "nudHeureDepart";
+            this.nudHeureDepart.Size = new System.Drawing.Size(44, 23);
+            this.nudHeureDepart.TabIndex = 19;
+            // 
+            // txtNomLigne
+            // 
+            this.txtNomLigne.Location = new System.Drawing.Point(193, 90);
+            this.txtNomLigne.Name = "txtNomLigne";
+            this.txtNomLigne.Size = new System.Drawing.Size(114, 23);
+            this.txtNomLigne.TabIndex = 18;
+            // 
+            // lblHeure
+            // 
+            this.lblHeure.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.lblHeure.Location = new System.Drawing.Point(36, 170);
+            this.lblHeure.Name = "lblHeure";
+            this.lblHeure.Size = new System.Drawing.Size(141, 25);
+            this.lblHeure.TabIndex = 17;
+            this.lblHeure.Text = "Heure de départ :";
+            this.lblHeure.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // lblNbArret
+            // 
+            this.lblNbArret.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.lblNbArret.Location = new System.Drawing.Point(36, 129);
+            this.lblNbArret.Name = "lblNbArret";
+            this.lblNbArret.Size = new System.Drawing.Size(118, 23);
+            this.lblNbArret.TabIndex = 16;
+            this.lblNbArret.Text = "Nombre d\'arrêts :";
+            this.lblNbArret.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // lblLigne
+            // 
+            this.lblLigne.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.lblLigne.Location = new System.Drawing.Point(36, 90);
+            this.lblLigne.Name = "lblLigne";
+            this.lblLigne.Size = new System.Drawing.Size(118, 23);
+            this.lblLigne.TabIndex = 15;
+            this.lblLigne.Text = "Nom de la ligne :";
+            this.lblLigne.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // lblTitre
+            // 
+            this.lblTitre.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.lblTitre.Location = new System.Drawing.Point(71, 25);
+            this.lblTitre.Name = "lblTitre";
+            this.lblTitre.Size = new System.Drawing.Size(234, 31);
+            this.lblTitre.TabIndex = 14;
+            this.lblTitre.Text = "Modification de ligne";
+            // 
+            // ModificationLigne
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.AutoValidate = System.Windows.Forms.AutoValidate.EnablePreventFocusChange;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(804, 451);
             this.Controls.Add(this.cmdQuitter);
             this.Controls.Add(this.cmdValider);
             this.Controls.Add(this.pnlArrets);
@@ -359,25 +352,25 @@
             this.Controls.Add(this.nudMinuteDepart);
             this.Controls.Add(this.nudHeureDepart);
             this.Controls.Add(this.txtNomLigne);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
-            this.Name = "AjoutLigne";
+            this.Controls.Add(this.lblHeure);
+            this.Controls.Add(this.lblNbArret);
+            this.Controls.Add(this.lblLigne);
+            this.Controls.Add(this.lblTitre);
+            this.Name = "ModificationLigne";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "AjoutLigne";
-            ((System.ComponentModel.ISupportInitialize)(this.nudHeureDepart)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudMinuteDepart)).EndInit();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudNbArrets)).EndInit();
+            this.Text = "ModificationLigne";
+            this.Load += new System.EventHandler(this.ModificationLigne_Load);
             this.pnlArrets.ResumeLayout(false);
             this.pnlArrets.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NUDMinuteDepart2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.NUDHeureDepart2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.NUDMinuteDepart1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.NUDHeureDepart1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.errorProviderNomLigne)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudNbArrets)).EndInit();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudMinuteDepart)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudHeureDepart)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -385,19 +378,11 @@
 
         #endregion
 
-        private Label label1;
-        private Label label2;
-        private Label label3;
-        private Label label4;
-        private TextBox txtNomLigne;
-        private NumericUpDown nudHeureDepart;
-        private NumericUpDown nudMinuteDepart;
-        private GroupBox groupBox1;
-        private Label label6;
-        private Label label5;
-        private Label label7;
-        private NumericUpDown nudNbArrets;
+        private Button cmdQuitter;
+        private Button cmdValider;
         private Panel pnlArrets;
+        private Label lblHoaire;
+        private Label lblArret;
         private Label LBLSplit2;
         private ComboBox CBOArret2;
         private NumericUpDown NUDMinuteDepart2;
@@ -406,10 +391,17 @@
         private ComboBox CBOArret1;
         private NumericUpDown NUDMinuteDepart1;
         private NumericUpDown NUDHeureDepart1;
-        private Label lblHoaire;
-        private Label lblArret;
-        private Button cmdValider;
-        private Button cmdQuitter;
-        private ErrorProvider errorProviderNomLigne;
+        private NumericUpDown nudNbArrets;
+        private Label label7;
+        private GroupBox groupBox1;
+        private Label label6;
+        private Label label5;
+        private NumericUpDown nudMinuteDepart;
+        private NumericUpDown nudHeureDepart;
+        private TextBox txtNomLigne;
+        private Label lblHeure;
+        private Label lblNbArret;
+        private Label lblLigne;
+        private Label lblTitre;
     }
 }

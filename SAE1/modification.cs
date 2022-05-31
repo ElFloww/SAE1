@@ -17,6 +17,8 @@ namespace SAE1
     {   
         // Liste globale qui stockera toutes les radiobouttons des lignes de bus lors du chargement du formulaire
         public List<RadioButton> ligneBusRadioButton = new List<RadioButton>();
+        // Index du bouton radio sélectionné qui sera utilisé par un autre formulaire
+        public static int indexRadionButtonChecked = 0;
 
         public modification()
         {
@@ -121,7 +123,7 @@ namespace SAE1
         private void cmdSuppression_Click(object sender, EventArgs e)
         {   
             // On récupère l'indexe du radioButton actif
-            int indexRadionButtonChecked = renvoieIndexLigneBus();
+            indexRadionButtonChecked = renvoieIndexLigneBus();
 
             // Demande confirmation à l'utilisateur pour supprimer la ligne
             if(indexRadionButtonChecked <= 3)
@@ -179,6 +181,9 @@ namespace SAE1
 
         private void cmdModifier_Click(object sender, EventArgs e)
         {
+            // On récupère l'indexe du radioButton actif
+            indexRadionButtonChecked = renvoieIndexLigneBus();
+
             Form modification = new ModificationLigne();
             modification.ShowDialog();
         }

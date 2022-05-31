@@ -78,7 +78,7 @@ namespace SAE1
             this.lblSens.Name = "lblSens";
             this.lblSens.Size = new System.Drawing.Size(69, 23);
             this.lblSens.TabIndex = 4;
-            this.lblSens.Text = "Arrêt :";
+            this.lblSens.Text = "Sens :";
             // 
             // cboSens
             // 
