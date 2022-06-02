@@ -140,11 +140,15 @@ namespace SAE1
 
         private void HoraireValidation(object sender, EventArgs e)
         {
-            if(CBOLigne.Text != "")
+            if (CBOLigne.Text != "")
             {
                 CBOArret.Enabled = true;
             }
-            if (CBOArret.Text != "" && CBOLigne.Text != "")
+            if (CBOArret.Text != "")
+            {
+                CBOSens.Enabled = true;
+            }
+            if (CBOArret.Text != "" && CBOLigne.Text != "" && CBOSens.Text != "")
             {
                 cmdAfficher1.Enabled = true;
             }
@@ -160,7 +164,78 @@ namespace SAE1
             Form formmodif = new modification();
             formmodif.ShowDialog();
         }
-
+        private void CBOSens_Enter(object sender, EventArgs e)
+        {
+            CBOSens.Items.Clear();
+            List<string> liste = new List<string>();
+            List<int> ArretDepart = new List<int>();
+            List<int> ArretTerminus = new List<int>();
+            string depart = "";
+            string terminus = "";
+            string req = $"Select N_ArretDepart,N_ArretTerminus,COUNT(*) FROM Trajet,Ligne WHERE Ligne.N_Ligne = Trajet.N_Ligne AND NomLigne = '{CBOLigne.Text}' AND N_TypeJour = 1 GROUP BY N_ArretDepart,N_ArretTerminus ORDER BY COUNT(*) DESC LIMIT 2;";
+            try
+            {
+                MySqlCommand cmd = new MySqlCommand(req, BDD.BDConnection);
+                MySqlDataReader rdr = cmd.ExecuteReader();
+                while (rdr.Read())
+                {
+                    ArretDepart.Add(rdr.GetInt32(0));
+                    ArretTerminus.Add(rdr.GetInt32(1));
+                }
+                rdr.Close();
+                cmd.Dispose();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+            for (int i = 0; i < ArretDepart.Count; i++)
+            {
+                req = $"Select NomArret From Arret WHERE N_ARRET = {ArretDepart[i]}";
+                try
+                {
+                    MySqlCommand cmd = new MySqlCommand(req, BDD.BDConnection);
+                    MySqlDataReader rdr = cmd.ExecuteReader();
+                    while (rdr.Read())
+                    {
+                        depart = rdr.GetString(0);
+                    }
+                    rdr.Close();
+                    cmd.Dispose();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.ToString());
+                }
+                req = $"Select NomArret From Arret WHERE N_ARRET = {ArretTerminus[i]}";
+                try
+                {
+                    MySqlCommand cmd = new MySqlCommand(req, BDD.BDConnection);
+                    MySqlDataReader rdr = cmd.ExecuteReader();
+                    while (rdr.Read())
+                    {
+                        terminus = rdr.GetString(0);
+                    }
+                    rdr.Close();
+                    cmd.Dispose();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.ToString());
+                }
+                liste.Add($"{depart} : {terminus}");
+            }
+            object[] liste2 = liste.ToArray<object>();
+            CBOSens.Items.AddRange(liste2);
+        }
+        private void CBOArret_SelectedValueChanged(object sender, EventArgs e)
+        {
+            CBOSens.Enabled = true;
+        }
+        private void cmdAfficher1_Click(object sender, EventArgs e)
+        {
+            tabHoraire.Visible = true;
+        }
         private void cmdQuitterAccueil_Click(object sender, EventArgs e)
         {
             // Demande confirmation à l'utilisateur pour quitter le logiciel

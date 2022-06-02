@@ -51,15 +51,124 @@ namespace SAE1
                 Console.WriteLine(ex.ToString());
             }
         }
+        public static void CalculLigne(String NomLigne)
+        {
+            List<int> ArretLigne = new List<int>();
+            List<int> liste = new List<int>();
+            List<string> listeArretTerminus = new List<string>();
+            List<int> ArretDepart = new List<int>();
+            List<int> ArretTerminus = new List<int>();
+            string depart = "";
+            string terminus = "";
+            string req = $"Select N_ArretDepart,N_ArretTerminus,COUNT(*) FROM Trajet,Ligne WHERE Ligne.N_Ligne = Trajet.N_Ligne AND NomLigne = '{NomLigne}' AND N_TypeJour = 1 GROUP BY N_ArretDepart,N_ArretTerminus ORDER BY COUNT(*) DESC LIMIT 2;";
+            try
+            {
+                MySqlCommand cmd = new MySqlCommand(req, BDD.BDConnection);
+                MySqlDataReader rdr = cmd.ExecuteReader();
+                while (rdr.Read())
+                {
+                    ArretDepart.Add(rdr.GetInt32(0));
+                    ArretTerminus.Add(rdr.GetInt32(1));
+                }
+                rdr.Close();
+                cmd.Dispose();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+            for (int i = 0; i < ArretDepart.Count; i++)
+            {
+                req = $"Select NomArret From Arret WHERE N_ARRET = {ArretDepart[i]}";
+                try
+                {
+                    MySqlCommand cmd = new MySqlCommand(req, BDD.BDConnection);
+                    MySqlDataReader rdr = cmd.ExecuteReader();
+                    while (rdr.Read())
+                    {
+                        depart = rdr.GetString(0);
+                    }
+                    rdr.Close();
+                    cmd.Dispose();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.ToString());
+                }
+                req = $"Select NomArret From Arret WHERE N_ARRET = {ArretTerminus[0]}";
+                try
+                {
+                    MySqlCommand cmd = new MySqlCommand(req, BDD.BDConnection);
+                    MySqlDataReader rdr = cmd.ExecuteReader();
+                    while (rdr.Read())
+                    {
+                        terminus = rdr.GetString(0);
+                    }
+                    rdr.Close();
+                    cmd.Dispose();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.ToString());
+                }
+                listeArretTerminus.Add($"{depart} : {terminus}");
+            }
+
+            /*__________________________________________________________________________________________________________*/
+
+            req = $"SELECT N_Arret FROM ArretLigne,Ligne WHERE Ligne.N_Ligne = ArretLigne.N_Ligne AND NomLigne = '{NomLigne}';";
+            try
+            {
+                MySqlCommand cmd = new MySqlCommand(req, BDD.BDConnection);
+                MySqlDataReader rdr = cmd.ExecuteReader();
+                while (rdr.Read())
+                {
+                    ArretLigne.Add(rdr.GetInt32(0));
+                }
+                rdr.Close();
+                cmd.Dispose();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+            
+            /*_____________________________________________________________________________________________________________*/
+            int prochain_arret = 0;
+            int precedent_arret = 0;
+            req = $"Select * From TempsTrajet WHERE N_ArretA = {ArretDepart[0]} OR N_ArretB = {ArretDepart[0]}";
+            try
+            {
+                MySqlCommand cmd = new MySqlCommand(req, BDD.BDConnection);
+                MySqlDataReader rdr = cmd.ExecuteReader();
+                while (rdr.Read())
+                {
+                    precedent_arret = ArretDepart[0];
+                    prochain_arret = rdr.GetInt32(1);
+                }
+                rdr.Close();
+                cmd.Dispose();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+
+            do
+            {
+                prochain_arret = 0;
+            }
+            while (prochain_arret != ArretTerminus[0]);
+        }
 
         private void ModificationLigne_Load(object sender, EventArgs e)
         {
-            int indexLigne = SAE1.modification.indexRadionButtonChecked;
+            string NomLigneSelection = SAE1.modification.NomLigneSelection;
             List<string> Trajet = new List<string>();
             string[] HeureMinute = { };
 
             // On récupère le nom de la ligne
-            string req = $"Select NomLigne from Ligne where N_Ligne = {indexLigne + 1}";
+            string req = $"Select NomLigne from Ligne where NomLigne = '{NomLigneSelection}'";
             try
             {
                 MySqlCommand cmd = new MySqlCommand(req, BDD.BDConnection);
@@ -77,7 +186,7 @@ namespace SAE1
             }
 
             // On récupère le nombre d'arrêt
-            req = $"SELECT COUNT(N_Ligne) FROM ArretLigne WHERE N_ligne = {indexLigne + 1}";
+            req = $"SELECT COUNT(Ligne.N_Ligne) FROM ArretLigne,Ligne WHERE Ligne.N_Ligne = ArretLigne.N_Ligne AND NomLigne = '{NomLigneSelection}'";
             try
             {
                 MySqlCommand cmd = new MySqlCommand(req, BDD.BDConnection);
@@ -96,7 +205,7 @@ namespace SAE1
             }
 
             // On récupère l'heure de début de la ligne
-            req = $"SELECT MIN(HeureDepart) FROM Trajet WHERE N_Ligne = {indexLigne + 1}";
+            req = $"SELECT MIN(HeureDepart) FROM Trajet,Ligne WHERE Ligne.N_Ligne = Trajet.N_Ligne AND NomLigne = '{NomLigneSelection}'";
             try
             {
                 MySqlCommand cmd = new MySqlCommand(req, BDD.BDConnection);
@@ -116,8 +225,8 @@ namespace SAE1
                 Console.WriteLine(ex.ToString());
             }
 
-/*            // Ajout dynamique des arrêts de bus ainsi que les horaires 
-            req = $"SELECT DISTINCT NomArret, HeureDepart FROM Arret, Trajet WHERE Arret.N_Arret = Trajet.N_ArretDepart and N_Ligne = {indexLigne + 1}";
+            // Ajout dynamique des arrêts de bus ainsi que les horaires 
+            req = $"SELECT DISTINCT NomArret, HeureDepart FROM Arret, Trajet WHERE Arret.N_Arret = Trajet.N_ArretDepart and NomLigne = '{NomLigneSelection}'";
             int compteur = 0;
             try
             {
@@ -253,7 +362,7 @@ namespace SAE1
             catch (Exception ex)
             {
                 Console.WriteLine(ex.ToString());
-            }*/
+            }
         }
 
         private void cmdQuitter_Click(object sender, EventArgs e)

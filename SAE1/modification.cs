@@ -17,6 +17,7 @@ namespace SAE1
     {   
         // Liste globale qui stockera toutes les radiobouttons des lignes de bus lors du chargement du formulaire
         public List<RadioButton> ligneBusRadioButton = new List<RadioButton>();
+        public static string NomLigneSelection = "";
         // Index du bouton radio sélectionné qui sera utilisé par un autre formulaire
         public static int indexRadionButtonChecked = 0;
 
@@ -47,7 +48,7 @@ namespace SAE1
                     nbArret = rdr.GetInt32(1);
                     if (i == 1)
                     {
-                        pnlLigne.Controls["radLigne1"].Text = $"{NomLigne}                                                  Nombre d'arret(s) : {nbArret}";
+                        pnlLigne.Controls["radLigne1"].Text = $"{NomLigne}";
                         pnlLigne.Controls["radLigne1"].Enabled = true;
                         // On ajoute le premier radioButton
                         ligneBusRadioButton.Add(radLigne1);
@@ -70,7 +71,7 @@ namespace SAE1
                         newOPT.Font = new Font(newOPT.Font, FontStyle.Regular);
                         newOPT.ForeColor = Color.Black;
 
-                        newOPT.Text = $"{NomLigne}                                                  Nombre d'arret(s) : {nbArret}";
+                        newOPT.Text = $"{NomLigne}";
                         newOPT.Appearance = Appearance.Button;
                         newOPT.TextAlign = ContentAlignment.MiddleCenter;
 
@@ -115,6 +116,7 @@ namespace SAE1
                 else
                     compteur++;
             }
+            NomLigneSelection = ligneBusRadioButton[compteur].Text;
 
             // On renvoie l'index
             return compteur;
@@ -184,8 +186,15 @@ namespace SAE1
             // On récupère l'indexe du radioButton actif
             indexRadionButtonChecked = renvoieIndexLigneBus();
 
-            Form modification = new ModificationLigne();
-            modification.ShowDialog();
+            if(indexRadionButtonChecked <= 3)
+            {
+                MessageBox.Show("Impossible de modifier cette ligne, car c'est une ligne de base du réseau\n Vous pouvez seulement supprimer les lignes que vous avez créer !");
+            }
+            else
+            {
+                Form modification = new ModificationLigne();
+                modification.ShowDialog();
+            }
         }
     }
 }
