@@ -100,6 +100,7 @@ namespace SAE1
         {
             Form formCreationLigne = new AjoutLigne();
             formCreationLigne.ShowDialog();
+            this.Close();
         }
 
         // Fonction qui renvoie l'index du radioButton actif (checked == true)
@@ -126,9 +127,26 @@ namespace SAE1
         {   
             // On récupère l'indexe du radioButton actif
             indexRadionButtonChecked = renvoieIndexLigneBus();
+            int N_Ligne = 0;
+            string req = $"Select N_Ligne from Ligne where NomLigne = '{NomLigneSelection}';";
+            try
+            {
+                MySqlCommand cmd = new MySqlCommand(req, BDD.BDConnection);
+                MySqlDataReader rdr = cmd.ExecuteReader();
+                while (rdr.Read())
+                {
+                    N_Ligne = rdr.GetInt32(0);
+                }
+                rdr.Close();
+                cmd.Dispose();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
 
             // Demande confirmation à l'utilisateur pour supprimer la ligne
-            if(indexRadionButtonChecked <= 3)
+            if (indexRadionButtonChecked <= 3)
             {
                 MessageBox.Show("Impossible de supprimer cette ligne, car c'est une ligne de base du réseau\n Vous pouvez seulement supprimer les lignes que vous avez créer !");
             }
@@ -137,30 +155,41 @@ namespace SAE1
                 DialogResult confirmation = MessageBox.Show($"Voulez - vous vraiment supprimer la {ligneBusRadioButton[indexRadionButtonChecked].Text} ?", "Suppression de ligne", MessageBoxButtons.YesNo);
                 if (confirmation == DialogResult.Yes)
                 {
-                    string req = $"DELETE FROM ArretLigne WHERE N_Ligne = {indexRadionButtonChecked + 1};";
+                    int indexRadionButtonChecked = SAE1.modification.indexRadionButtonChecked;
+
+                    req = $"DELETE FROM ArretLigne WHERE N_Ligne = {N_Ligne};";
                     List<string> liste = new List<string>();
                     try
                     {
                         MySqlCommand cmd = new MySqlCommand(req, BDD.BDConnection);
                         cmd.ExecuteNonQuery();
-                        req = $"DELETE FROM Trajet WHERE N_Ligne = {indexRadionButtonChecked + 1};";
+                        req = $"DELETE FROM Trajet WHERE N_Ligne = {N_Ligne};";
                         try
                         {
                             cmd = new MySqlCommand(req, BDD.BDConnection);
                             cmd.ExecuteNonQuery();
-                            req = $"DELETE FROM Ligne WHERE N_Ligne = {indexRadionButtonChecked + 1};";
+                            req = $"DELETE FROM TempsTrajet WHERE N_Ligne = {N_Ligne};";
                             try
                             {
                                 cmd = new MySqlCommand(req, BDD.BDConnection);
-                                if (cmd.ExecuteNonQuery() == 1)
+                                cmd.ExecuteNonQuery();
+                                req = $"DELETE FROM Ligne WHERE N_Ligne = {N_Ligne};";
+                                try
                                 {
-                                    MessageBox.Show("La ligne à été supprimée");
-                                    cmd.Dispose();
+                                    cmd = new MySqlCommand(req, BDD.BDConnection);
+                                    if (cmd.ExecuteNonQuery() == 1)
+                                    {
+                                        cmd.Dispose();
+                                    }
+                                    else
+                                    {
+                                        MessageBox.Show("Erreur System");
+                                        cmd.Dispose();
+                                    }
                                 }
-                                else
+                                catch (Exception ex)
                                 {
-                                    MessageBox.Show("Erreur System");
-                                    cmd.Dispose();
+                                    Console.WriteLine(ex.ToString());
                                 }
                             }
                             catch (Exception ex)
@@ -178,8 +207,10 @@ namespace SAE1
                         Console.WriteLine(ex.ToString());
                     }
                 }
+                this.Close();
             }
         }
+
 
         private void cmdModifier_Click(object sender, EventArgs e)
         {
@@ -195,6 +226,12 @@ namespace SAE1
                 Form modification = new ModificationLigne();
                 modification.ShowDialog();
             }
+            this.Close();
+            /*
+            this.Close();
+            Form Modif = new modification();
+            Modif.ShowDialog();
+            */
         }
     }
 }

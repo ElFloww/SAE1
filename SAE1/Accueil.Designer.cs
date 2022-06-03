@@ -103,6 +103,7 @@ namespace SAE1
             // 
             // CBOSens
             // 
+            this.CBOLigne.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.CBOSens.Enabled = false;
             this.CBOSens.FormattingEnabled = true;
             this.CBOSens.Location = new System.Drawing.Point(118, 122);

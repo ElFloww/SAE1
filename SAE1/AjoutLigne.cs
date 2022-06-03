@@ -234,13 +234,6 @@ namespace SAE1
 
         private void cmdValider_Click(object sender, EventArgs e)
         {
-            foreach (Control c in pnlArrets.Controls)
-            {
-                if(c is ComboBox)
-                {
-                    MessageBox.Show(c.Text);
-                }
-            }
             if(nudNbArrets.Value == 2)
             {
                 nudNbArrets.Value = 2;
@@ -332,8 +325,25 @@ namespace SAE1
                 Console.WriteLine(ex.ToString());
             }
 
+            int N_Ligne = 0;
+            req = $"SELECT N_Ligne FROM Ligne WHERE NomLigne = '{txtNomLigne.Text}';";
+            try
+            {
+                MySqlCommand cmd = new MySqlCommand(req, BDD.BDConnection);
+                MySqlDataReader rdr = cmd.ExecuteReader();
+                while (rdr.Read())
+                {
+                    N_Ligne = rdr.GetInt32(0);
+                }
+                rdr.Close();
+                cmd.Dispose();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
 
-            for(int i = 0; i < (int)nudNbArrets.Value; i++)
+            for (int i = 0; i < (int)nudNbArrets.Value; i++)
             {
                 int N_Arret = 0;
                 req = $"SELECT N_Arret FROM Arret WHERE NomArret = '{arretBusComboBox[i].Text}';";
@@ -366,7 +376,7 @@ namespace SAE1
                 }
             }
 
-            for (int i = 1; i < (int)nudNbArrets.Value - 1; i++)
+            for (int i = 0; i < (int)nudNbArrets.Value - 1; i++)
             {
                 int N_ArretA = 0;
                 int N_ArretB = 0;
@@ -404,44 +414,23 @@ namespace SAE1
                 {
                     Console.WriteLine(ex.ToString());
                 }
-                //EXECUTION DE LA COMMANDE
-                int ind = 0;
-                req = $"Select * from TempsTrajet WHERE N_ArretA = {N_ArretA} AND N_ArretB = {N_ArretB};";
-                try
-                {
-                    MySqlCommand cmd = new MySqlCommand(req, BDD.BDConnection);
-                    MySqlDataReader rdr = cmd.ExecuteReader();
-                    while (rdr.Read())
-                    {
-                        ind++;
-                    }
-                    rdr.Close();
-                    cmd.Dispose();
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.ToString());
-                }
                 string difference = "";
-                if (ind == 0)
+                int differenceHeure = (int)HeureNumericUpDown[i + 1].Value - (int)HeureNumericUpDown[i].Value;
+                int differenceMinute = (int)MinuteNumericUpDown[i + 1].Value - (int)MinuteNumericUpDown[i].Value;
+                if(differenceHeure >=1 || differenceMinute < 0)
                 {
-                    int differenceHeure = (int)HeureNumericUpDown[i + 1].Value - (int)HeureNumericUpDown[i].Value;
-                    int differenceMinute = (int)MinuteNumericUpDown[i + 1].Value - (int)MinuteNumericUpDown[i].Value;
-                    if(differenceHeure >=1 || differenceMinute < 0)
-                    {
-                        differenceHeure--;
-                        differenceMinute += 60;
-                    }
-                    if(differenceMinute <10)
-                    {
-                        difference = Convert.ToString(differenceHeure + ":0" + differenceMinute);
-                    }
-                    else
-                    {
-                        difference = Convert.ToString(differenceHeure + ":" + differenceMinute);
-                    }
+                    differenceHeure--;
+                    differenceMinute += 60;
                 }
-                req = $"INSERT INTO TempsTrajet (N_ArretA, N_ArretB,tempstrajet,N_Sens) VALUES ({N_ArretA},{N_ArretB},'{difference}',1)";
+                if(differenceMinute <10)
+                {
+                    difference = Convert.ToString(differenceHeure + ":0" + differenceMinute);
+                }
+                else
+                {
+                    difference = Convert.ToString(differenceHeure + ":" + differenceMinute);
+                }
+                req = $"INSERT INTO TempsTrajet (N_Ligne,N_ArretA, N_ArretB,tempstrajet,N_Sens) VALUES ({N_Ligne},{N_ArretA},{N_ArretB},'{difference}',1)";
                 try
                 {
                     MySqlCommand cmd = new MySqlCommand(req, BDD.BDConnection);

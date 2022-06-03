@@ -77,13 +77,13 @@
             // 
             // cmdValider
             // 
-            this.cmdValider.Enabled = false;
             this.cmdValider.Location = new System.Drawing.Point(603, 408);
             this.cmdValider.Name = "cmdValider";
             this.cmdValider.Size = new System.Drawing.Size(75, 30);
             this.cmdValider.TabIndex = 25;
             this.cmdValider.Text = "Valider";
             this.cmdValider.UseVisualStyleBackColor = true;
+            this.cmdValider.Click += new System.EventHandler(this.cmdValider_Click);
             // 
             // pnlArrets
             // 
@@ -136,7 +136,6 @@
             // 
             // CBOArret2
             // 
-            this.CBOArret2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.CBOArret2.FormattingEnabled = true;
             this.CBOArret2.Location = new System.Drawing.Point(35, 98);
             this.CBOArret2.Name = "CBOArret2";
@@ -180,7 +179,6 @@
             // 
             // CBOArret1
             // 
-            this.CBOArret1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.CBOArret1.FormattingEnabled = true;
             this.CBOArret1.Location = new System.Drawing.Point(35, 58);
             this.CBOArret1.Name = "CBOArret1";
@@ -228,6 +226,7 @@
             0,
             0,
             0});
+            this.nudNbArrets.ValueChanged += new System.EventHandler(this.nudNbArrets_ValueChanged);
             // 
             // label7
             // 
