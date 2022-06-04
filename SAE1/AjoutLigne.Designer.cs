@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.label1 = new System.Windows.Forms.Label();
+            this.lblTitre = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -67,42 +67,43 @@
             ((System.ComponentModel.ISupportInitialize)(this.errorProviderNomLigne)).BeginInit();
             this.SuspendLayout();
             // 
-            // label1
+            // lblTitre
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label1.Location = new System.Drawing.Point(71, 25);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(188, 28);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Création d\'une ligne";
+            this.lblTitre.BackColor = System.Drawing.Color.DarkOrange;
+            this.lblTitre.Font = new System.Drawing.Font("Segoe UI", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.lblTitre.Location = new System.Drawing.Point(36, 20);
+            this.lblTitre.Name = "lblTitre";
+            this.lblTitre.Size = new System.Drawing.Size(271, 43);
+            this.lblTitre.TabIndex = 0;
+            this.lblTitre.Text = "Création d\'une ligne";
+            this.lblTitre.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label2
             // 
-            this.label2.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label2.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label2.Location = new System.Drawing.Point(36, 90);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(118, 23);
+            this.label2.Size = new System.Drawing.Size(126, 23);
             this.label2.TabIndex = 1;
             this.label2.Text = "Nom de la ligne :";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label3
             // 
-            this.label3.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label3.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label3.Location = new System.Drawing.Point(36, 129);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(118, 23);
+            this.label3.Size = new System.Drawing.Size(126, 23);
             this.label3.TabIndex = 2;
             this.label3.Text = "Nombre d\'arrêts :";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label4
             // 
-            this.label4.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label4.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label4.Location = new System.Drawing.Point(36, 170);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(141, 25);
+            this.label4.Size = new System.Drawing.Size(126, 25);
             this.label4.TabIndex = 3;
             this.label4.Text = "Heure de départ :";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -126,6 +127,7 @@
             this.nudHeureDepart.Name = "nudHeureDepart";
             this.nudHeureDepart.Size = new System.Drawing.Size(44, 23);
             this.nudHeureDepart.TabIndex = 6;
+            this.nudHeureDepart.ValueChanged += new System.EventHandler(this.nudHeureDepart_ValueChanged);
             // 
             // nudMinuteDepart
             // 
@@ -138,6 +140,7 @@
             this.nudMinuteDepart.Name = "nudMinuteDepart";
             this.nudMinuteDepart.Size = new System.Drawing.Size(41, 23);
             this.nudMinuteDepart.TabIndex = 7;
+            this.nudMinuteDepart.ValueChanged += new System.EventHandler(this.nudMinuteDepart_ValueChanged);
             // 
             // groupBox1
             // 
@@ -154,10 +157,10 @@
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(15, 63);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(208, 45);
+            this.label6.Size = new System.Drawing.Size(251, 45);
             this.label6.TabIndex = 1;
-            this.label6.Text = "L\'ordre d\'affichage des arrêts sur la \nfenêtre est dans l\'ordre croissant des \nho" +
-    "raires permettant de former le trajet";
+            this.label6.Text = "L\'ordre d\'affichage des arrêts dans la \nfenêtre de droite est dans l\'ordre croiss" +
+    "ant des \nhoraires permettant de former le trajet.";
             // 
             // label5
             // 
@@ -217,20 +220,22 @@
             // 
             // lblHoaire
             // 
-            this.lblHoaire.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lblHoaire.Location = new System.Drawing.Point(232, 21);
+            this.lblHoaire.BackColor = System.Drawing.Color.DarkOrange;
+            this.lblHoaire.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.lblHoaire.Location = new System.Drawing.Point(215, 21);
             this.lblHoaire.Name = "lblHoaire";
-            this.lblHoaire.Size = new System.Drawing.Size(116, 26);
+            this.lblHoaire.Size = new System.Drawing.Size(140, 26);
             this.lblHoaire.TabIndex = 20;
-            this.lblHoaire.Text = "Premier horaire :";
+            this.lblHoaire.Text = "Premieres horaires :";
             this.lblHoaire.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblArret
             // 
-            this.lblArret.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lblArret.Location = new System.Drawing.Point(35, 21);
+            this.lblArret.BackColor = System.Drawing.Color.DarkOrange;
+            this.lblArret.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.lblArret.Location = new System.Drawing.Point(25, 21);
             this.lblArret.Name = "lblArret";
-            this.lblArret.Size = new System.Drawing.Size(121, 26);
+            this.lblArret.Size = new System.Drawing.Size(142, 26);
             this.lblArret.TabIndex = 19;
             this.lblArret.Text = "Arrêts de la ligne :";
             this.lblArret.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -310,6 +315,7 @@
             this.NUDMinuteDepart1.Name = "NUDMinuteDepart1";
             this.NUDMinuteDepart1.Size = new System.Drawing.Size(41, 23);
             this.NUDMinuteDepart1.TabIndex = 13;
+            this.NUDMinuteDepart1.ValueChanged += new System.EventHandler(this.NUDMinuteDepart1_ValueChanged);
             // 
             // NUDHeureDepart1
             // 
@@ -322,10 +328,13 @@
             this.NUDHeureDepart1.Name = "NUDHeureDepart1";
             this.NUDHeureDepart1.Size = new System.Drawing.Size(44, 23);
             this.NUDHeureDepart1.TabIndex = 12;
+            this.NUDHeureDepart1.ValueChanged += new System.EventHandler(this.NUDHeureDepart1_ValueChanged);
             // 
             // cmdValider
             // 
             this.cmdValider.Enabled = false;
+            this.cmdValider.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.cmdValider.ForeColor = System.Drawing.Color.DarkOrange;
             this.cmdValider.Location = new System.Drawing.Point(603, 408);
             this.cmdValider.Name = "cmdValider";
             this.cmdValider.Size = new System.Drawing.Size(75, 30);
@@ -337,6 +346,7 @@
             // cmdQuitter
             // 
             this.cmdQuitter.CausesValidation = false;
+            this.cmdQuitter.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.cmdQuitter.Location = new System.Drawing.Point(713, 408);
             this.cmdQuitter.Name = "cmdQuitter";
             this.cmdQuitter.Size = new System.Drawing.Size(75, 30);
@@ -368,11 +378,11 @@
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.lblTitre);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "AjoutLigne";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "AjoutLigne";
+            this.Text = "Filibus - Création de ligne bus";
             ((System.ComponentModel.ISupportInitialize)(this.nudHeureDepart)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudMinuteDepart)).EndInit();
             this.groupBox1.ResumeLayout(false);
@@ -392,7 +402,7 @@
 
         #endregion
 
-        private Label label1;
+        private Label lblTitre;
         private Label label2;
         private Label label3;
         private Label label4;

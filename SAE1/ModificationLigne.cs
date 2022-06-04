@@ -25,6 +25,7 @@ namespace SAE1
             InitializeComponent();
         }
 
+        // Affichage dans l'ordre alphabétique les arrêts de bus
         private void CBOArret_Enter(object sender, EventArgs e)
         {
             ComboBox cbobox = (ComboBox)sender;
@@ -52,33 +53,19 @@ namespace SAE1
             }
         }
 
+        // Au chargement de la page ModificationLigne, on affiche toutes les données de la ligne
         private void ModificationLigne_Load(object sender, EventArgs e)
-        {
+        {   
+            // On récupère le nom de la ligne sélectionné dans le formulaire modification
             string NomLigneSelection = SAE1.modification.NomLigneSelection;
+            txtNomLigne.Text = NomLigneSelection;
+            txtNomLigne.Tag = NomLigneSelection;
+            
             List<string> Trajet = new List<string>();
             string[] HeureMinute = { };
 
-            // On récupère le nom de la ligne
-            txtNomLigne.Tag = NomLigneSelection;
-            string req = $"Select NomLigne from Ligne where NomLigne = '{NomLigneSelection}'";
-            try
-            {
-                MySqlCommand cmd = new MySqlCommand(req, BDD.BDConnection);
-                MySqlDataReader rdr = cmd.ExecuteReader();
-                while (rdr.Read())
-                {
-                    txtNomLigne.Text = rdr.GetString(0);
-                }
-                rdr.Close();
-                cmd.Dispose();
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.ToString());
-            }
-
             // On récupère le nombre d'arrêt
-            req = $"SELECT COUNT(Ligne.N_Ligne) FROM ArretLigne,Ligne WHERE Ligne.N_Ligne = ArretLigne.N_Ligne AND NomLigne = '{NomLigneSelection}';";
+            string req = $"SELECT COUNT(Ligne.N_Ligne) FROM ArretLigne,Ligne WHERE Ligne.N_Ligne = ArretLigne.N_Ligne AND NomLigne = '{NomLigneSelection}';";
             try
             {
                 MySqlCommand cmd = new MySqlCommand(req, BDD.BDConnection);
@@ -95,6 +82,7 @@ namespace SAE1
             {
                 Console.WriteLine(ex.ToString());
             }
+
             // On récupère l'heure de début de la ligne
             req = $"SELECT MIN(HeureDepart) FROM Trajet,Ligne WHERE Ligne.N_Ligne = Trajet.N_Ligne AND NomLigne = '{NomLigneSelection}'";
             try
@@ -117,12 +105,11 @@ namespace SAE1
             }
 
             // Ajout dynamique des arrêts de bus ainsi que les horaires 
-
-
             List<int> ArretDepart = new List<int>();
             List<int> ArretTerminus = new List<int>();
             string depart = "";
             string terminus = "";
+
             req = $"Select N_ArretDepart,N_ArretTerminus,COUNT(*) FROM Trajet,Ligne WHERE Ligne.N_Ligne = Trajet.N_Ligne AND NomLigne = '{NomLigneSelection}' AND N_TypeJour = 1 GROUP BY N_ArretDepart,N_ArretTerminus ORDER BY COUNT(*) DESC LIMIT 2;";
             try
             {
@@ -157,6 +144,7 @@ namespace SAE1
             {
                 Console.WriteLine(ex.ToString());
             }
+
             req = $"Select NomArret From Arret WHERE N_ARRET = {ArretTerminus[0]}";
             try
             {
@@ -173,6 +161,7 @@ namespace SAE1
             {
                 Console.WriteLine(ex.ToString());
             }
+
             int arret_prochain = 0;
             int arret_precedent = ArretDepart[0];
             int compteur = 0;
@@ -195,6 +184,7 @@ namespace SAE1
                         NUDMinuteDepart1.Value = nudMinuteDepart.Value;
                         compteur++;
                     }
+
                     req = $"Select * FROM TempsTrajet,Ligne WHERE Ligne.N_Ligne = TempsTrajet.N_Ligne AND NomLigne = '{NomLigneSelection}' AND (N_ArretA = {arret_precedent}) LIMIT 1;";
                     MySqlCommand cmd = new MySqlCommand(req, BDD.BDConnection);
                     MySqlDataReader rdr = cmd.ExecuteReader();
@@ -206,6 +196,7 @@ namespace SAE1
                     }
                     rdr.Close();
                     cmd.Dispose();
+
                     req = $"Select NomArret From Arret WHERE N_ARRET = {arret_prochain}";
                     try
                     {
@@ -222,6 +213,7 @@ namespace SAE1
                     {
                         Console.WriteLine(ex.ToString());
                     }
+
                     if (compteur == 1) // Second ligne du panel déja présent
                     {
                         arretBusComboBox.Add(CBOArret2);
@@ -231,6 +223,7 @@ namespace SAE1
                         CBOArret2.Text = arret;
                         TotalHeure += Convert.ToInt32(HeureMinute[0]);
                         TotalMinute += Convert.ToInt32(HeureMinute[1]);
+
                         if(TotalMinute > 59)
                         {
                             TotalMinute -= 60;
@@ -245,6 +238,7 @@ namespace SAE1
                         {
                             compteur++;
                         }
+
                         //création des nouveaux éléments
                         ComboBox newCBOBox = new ComboBox();
                         NumericUpDown NUDHeureDepart = new NumericUpDown();
@@ -337,11 +331,11 @@ namespace SAE1
                             TotalMinute -= 60;
                             TotalHeure++;
                         }
+
                         NUDHeureDepart.Value = Convert.ToInt32(TotalHeure);
                         NUDMinuteDepart.Value = Convert.ToInt32(TotalMinute);
                     }
                     compteur++;
-
                     arret_precedent = arret_prochain;
                 }
                 catch (Exception ex)
@@ -361,7 +355,7 @@ namespace SAE1
             }
         }
 
-        private void cmdValider_Click(object sender, EventArgs e)
+       private void cmdValider_Click(object sender, EventArgs e)
         {
             int N_Ligne = 0;
             string req = $"Select N_Ligne from Ligne where NomLigne = '{txtNomLigne.Tag}';";
@@ -381,26 +375,30 @@ namespace SAE1
                 Console.WriteLine(ex.ToString());
             }
 
-            // On récupère l'indexe du radioButton actif
+            // On récupère l'indexe du radioButton actif dans le formulaire modification
             int indexRadionButtonChecked = SAE1.modification.indexRadionButtonChecked;
 
             req = $"DELETE FROM ArretLigne WHERE N_Ligne = {N_Ligne};";
+
             List<string> liste = new List<string>();
             try
             {
                 MySqlCommand cmd = new MySqlCommand(req, BDD.BDConnection);
                 cmd.ExecuteNonQuery();
                 req = $"DELETE FROM Trajet WHERE N_Ligne = {N_Ligne};";
+
                 try
                 {
                     cmd = new MySqlCommand(req, BDD.BDConnection);
                     cmd.ExecuteNonQuery();
                     req = $"DELETE FROM TempsTrajet WHERE N_Ligne = {N_Ligne};";
+
                     try
                     {
                         cmd = new MySqlCommand(req, BDD.BDConnection);
                         cmd.ExecuteNonQuery();
                         req = $"DELETE FROM Ligne WHERE N_Ligne = {N_Ligne};";
+
                         try
                         {
                             cmd = new MySqlCommand(req, BDD.BDConnection);
@@ -433,7 +431,9 @@ namespace SAE1
             {
                 Console.WriteLine(ex.ToString());
             }
+
             req = $"Select Count(N_Ligne) from Ligne;";
+
             int n = 0;
             try
             {
@@ -452,6 +452,7 @@ namespace SAE1
             }
 
             req = $"INSERT INTO Ligne(N_Ligne,NomLigne) VALUES ({n + 1},'{txtNomLigne.Text}')";
+
             try
             {
                 MySqlCommand cmd = new MySqlCommand(req, BDD.BDConnection);
@@ -462,11 +463,14 @@ namespace SAE1
             {
                 Console.WriteLine(ex.ToString());
             }
+
             //ARRET DEPART
             int N_ArretDepart = 0;
             int N_ArretTerminus = 0;
+
             req = $"Select N_Arret from Arret WHERE NomArret = '{CBOArret1.Text}';";
             try
+
             {
                 MySqlCommand cmd = new MySqlCommand(req, BDD.BDConnection);
                 MySqlDataReader rdr = cmd.ExecuteReader();
@@ -505,6 +509,7 @@ namespace SAE1
             int N_Bus = aleatoire.Next(1, 27);
             int N_TypeJour = 1;
             string HeureDepart = Convert.ToString((int)nudHeureDepart.Value + ":" + (int)nudMinuteDepart.Value);
+
             //HeureDepart = "10:30";
             req = $"INSERT INTO Trajet(N_Conducteur,N_Bus,N_TypeJour,N_Ligne,HeureDepart,N_ArretDepart,N_ArretTerminus) VALUES ('{N_Conducteur}','{N_Bus}',{N_TypeJour},{n + 1},'{HeureDepart}',{N_ArretDepart},{N_ArretTerminus})";
             try
@@ -521,6 +526,7 @@ namespace SAE1
             for (int i = 0; i < (int)nudNbArrets.Value; i++)
             {
                 int N_Arret = 0;
+
                 req = $"SELECT N_Arret FROM Arret WHERE NomArret = '{arretBusComboBox[i].Text}';";
                 try
                 {
@@ -555,6 +561,7 @@ namespace SAE1
             {
                 int N_ArretA = 0;
                 int N_ArretB = 0;
+
                 //RECHERCHE ARRET A
                 req = $"Select N_Arret from Arret WHERE NomArret = '{arretBusComboBox[i].Text}';";
                 try
@@ -572,6 +579,7 @@ namespace SAE1
                 {
                     Console.WriteLine(ex.ToString());
                 }
+
                 //RECHERCHE ARRET B
                 req = $"Select N_Arret from Arret WHERE NomArret = '{arretBusComboBox[i + 1].Text}';";
                 try
@@ -593,6 +601,7 @@ namespace SAE1
                 string difference = "";
                 int differenceHeure = (int)HeureNumericUpDown[i + 1].Value - (int)HeureNumericUpDown[i].Value;
                 int differenceMinute = (int)MinuteNumericUpDown[i + 1].Value - (int)MinuteNumericUpDown[i].Value;
+
                 if (differenceHeure >= 1 || differenceMinute < 0)
                 {
                     differenceHeure--;
@@ -606,6 +615,7 @@ namespace SAE1
                 {
                     difference = Convert.ToString(differenceHeure + ":" + differenceMinute);
                 }
+
                 req = $"INSERT INTO TempsTrajet (N_Ligne,N_ArretA, N_ArretB,tempstrajet,N_Sens) VALUES ({N_Ligne},{N_ArretA},{N_ArretB},'{difference}',1)";
                 try
                 {
@@ -742,6 +752,80 @@ namespace SAE1
             }
             nudNbArrets.Tag = ValeurSelection;
             pnlArrets.ResumeLayout();
+        }
+
+        private void txtNomLigne_Validating(object sender, CancelEventArgs e)
+        {
+            // On récupère le nom de l'arrêt sélectionné
+            string NomLigneSelection = SAE1.modification.NomLigneSelection;
+
+            // On récupère les lignes de bus
+            List<string> lignes = new List<string>();
+            string req = "Select NomLigne from Ligne";
+            bool testComparaison = false;
+
+            try
+            {
+                MySqlCommand cmd = new MySqlCommand(req, BDD.BDConnection);
+                MySqlDataReader rdr = cmd.ExecuteReader();
+                while (rdr.Read())
+                {
+                    lignes.Add(rdr.GetString(0));
+                }
+                rdr.Close();
+                cmd.Dispose();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+
+            // On supprime la ligne de bus dans de la liste
+            lignes.Remove($"{NomLigneSelection}");
+
+            // Si le nom de la ligne est modifié, on regarde si le nom est unique
+            if (txtNomLigne.Text != NomLigneSelection)
+            {
+                for (int i = 0; i < lignes.Count; i++)
+                {
+                    if (lignes[i] == txtNomLigne.Text)
+                        testComparaison = true;
+                }
+            }
+
+            // Si le nom n'est pas valide on bloque l'utilisateur
+            if (testComparaison == true || String.IsNullOrWhiteSpace(txtNomLigne.Text))
+            {
+                errorProviderNomLigne.SetError(txtNomLigne, "Nom de ligne déjà utilisé ou le champ est vide.");
+                e.Cancel = true;
+                cmdValider.Enabled = false;
+            }
+            else
+            {
+                errorProviderNomLigne.SetError(txtNomLigne, null);
+                e.Cancel = false;
+                cmdValider.Enabled = true;
+            }
+        }
+
+        private void nudMinuteDepart_ValueChanged(object sender, EventArgs e)
+        {
+            NUDMinuteDepart1.Value = nudMinuteDepart.Value;
+        }
+
+        private void NUDMinuteDepart1_ValueChanged(object sender, EventArgs e)
+        {
+            nudMinuteDepart.Value = NUDMinuteDepart1.Value;
+        }
+
+        private void nudHeureDepart_ValueChanged(object sender, EventArgs e)
+        {
+            NUDHeureDepart1.Value = nudHeureDepart.Value;
+        }
+
+        private void NUDHeureDepart1_ValueChanged(object sender, EventArgs e)
+        {
+            nudHeureDepart.Value = NUDHeureDepart1.Value;
         }
     }
 }

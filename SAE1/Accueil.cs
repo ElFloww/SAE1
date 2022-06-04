@@ -30,8 +30,9 @@ namespace SAE1
         {
             CBOLigne.Items.Clear();
             List<string> lignes = new List<string>();
-            string req = "Select NomLigne from Ligne";
 
+            // On récupère toutes les lignes de bus 
+            string req = "Select NomLigne from Ligne";
             try
             {
                 MySqlCommand cmd = new MySqlCommand(req, BDD.BDConnection);
@@ -56,8 +57,9 @@ namespace SAE1
         {
             CBOArret.Items.Clear();
             List<string> lignes = new List<string>();
-            string req = $"Select NomArret from ArretLigne,Arret,Ligne WHERE ArretLigne.N_Arret = Arret.N_Arret AND ArretLigne.N_Ligne = Ligne.N_Ligne AND NomLigne = '{CBOLigne.Text}' ORDER BY NomArret";
 
+            // On récupère tous les arrêts de bus que la ligne utilise 
+            string req = $"Select NomArret from ArretLigne,Arret,Ligne WHERE ArretLigne.N_Arret = Arret.N_Arret AND ArretLigne.N_Ligne = Ligne.N_Ligne AND NomLigne = '{CBOLigne.Text}' ORDER BY NomArret";
             try
             {
                 MySqlCommand cmd = new MySqlCommand(req, BDD.BDConnection);
@@ -82,8 +84,9 @@ namespace SAE1
         {
             CBOArretA.Items.Clear();
             List<string> lignes = new List<string>();
-            string req = $"Select NomArret from Arret WHERE NomArret != '{CBOArretB.Text}'ORDER BY NomArret";
 
+            // On récupère tous les arrêts de bus sauf celui déjà utilisé dans l'arrêt B
+            string req = $"Select NomArret from Arret WHERE NomArret != '{CBOArretB.Text}'ORDER BY NomArret";
             try
             {
                 MySqlCommand cmd = new MySqlCommand(req, BDD.BDConnection);
@@ -108,8 +111,9 @@ namespace SAE1
         {
             CBOArretB.Items.Clear();
             List<string> lignes = new List<string>();
-            string req = $"Select NomArret from Arret WHERE NomArret != '{CBOArretA.Text}'ORDER BY NomArret";
 
+            // On récupère tous les arrêts de bus sauf celui déjà utilisé dans l'arrêt A
+            string req = $"Select NomArret from Arret WHERE NomArret != '{CBOArretA.Text}'ORDER BY NomArret";
             try
             {
                 MySqlCommand cmd = new MySqlCommand(req, BDD.BDConnection);
@@ -130,6 +134,7 @@ namespace SAE1
             }
         }
 
+        // Les deux champs doivent être obligatoirement entré
         private void ItineraireValidation(object sender, EventArgs e)
         {
             if (CBOArretA.Text != "" && CBOArretB.Text != "")
@@ -138,6 +143,7 @@ namespace SAE1
             }
         }
 
+        // Les trois champs doivent être obligatoirement entré
         private void HoraireValidation(object sender, EventArgs e)
         {
             if (CBOLigne.Text != "")
@@ -154,9 +160,11 @@ namespace SAE1
             }
         }
 
+        // A chaque changement de ligne, on supprime le contenu des autres champs
         private void CBOLigne_SelectedValueChanged(object sender, EventArgs e)
         {
             CBOArret.Text = null;
+            CBOSens.Text = null;
         }
 
         private void cmdAdmin_Click(object sender, EventArgs e)
@@ -172,6 +180,9 @@ namespace SAE1
             List<int> ArretTerminus = new List<int>();
             string depart = "";
             string terminus = "";
+
+            // On récupère les sens du trajet de la ligne de bus (seulement pour les trajets déjà présent dans la base)
+            // En effet, les bus peuvent faire des aller-retour, il y a donc deux sens
             string req = $"Select N_ArretDepart,N_ArretTerminus,COUNT(*) FROM Trajet,Ligne WHERE Ligne.N_Ligne = Trajet.N_Ligne AND NomLigne = '{CBOLigne.Text}' AND N_TypeJour = 1 GROUP BY N_ArretDepart,N_ArretTerminus ORDER BY COUNT(*) DESC LIMIT 2;";
             try
             {
@@ -189,6 +200,8 @@ namespace SAE1
             {
                 Console.WriteLine(ex.ToString());
             }
+
+            // On récupère l'arrêt de départ et le terminus
             for (int i = 0; i < ArretDepart.Count; i++)
             {
                 req = $"Select NomArret From Arret WHERE N_ARRET = {ArretDepart[i]}";
@@ -207,6 +220,7 @@ namespace SAE1
                 {
                     Console.WriteLine(ex.ToString());
                 }
+
                 req = $"Select NomArret From Arret WHERE N_ARRET = {ArretTerminus[i]}";
                 try
                 {
@@ -228,10 +242,8 @@ namespace SAE1
             object[] liste2 = liste.ToArray<object>();
             CBOSens.Items.AddRange(liste2);
         }
-        private void CBOArret_SelectedValueChanged(object sender, EventArgs e)
-        {
-            CBOSens.Enabled = true;
-        }
+
+        // Affichage des horaires
         private void cmdAfficher1_Click(object sender, EventArgs e)
         {
             int N_Arret_Prochain = 0;
@@ -242,6 +254,7 @@ namespace SAE1
             int Minute_Total = 0;
             int N_Ligne = 0;
 
+            // On récupère l'index de la ligne de bus
             string req = $"Select N_Ligne from Ligne where NomLigne = '{CBOLigne.Text}'";
             try
             {
@@ -259,6 +272,7 @@ namespace SAE1
                 Console.WriteLine(ex.ToString());
             }
 
+            // On récupère lindedx de l'arrêt de bus 
             req = $"Select N_Arret from Arret where NomArret = '{CBOArret.Text}'";
             try
             {
@@ -276,8 +290,10 @@ namespace SAE1
                 Console.WriteLine(ex.ToString());
             }
 
+            // On récupère le sens
             List<int> ArretDepart = new List<int>();
             List<int> ArretTerminus = new List<int>();
+
             req = $"Select N_ArretDepart,N_ArretTerminus,COUNT(*) FROM Trajet WHERE N_Ligne = {N_Ligne} AND N_TypeJour = 1 GROUP BY N_ArretDepart,N_ArretTerminus ORDER BY COUNT(*) DESC LIMIT 2;";
             try
             {
@@ -303,7 +319,6 @@ namespace SAE1
 
             int N_ArretTerminus = 0;
             int N_ArretDepart = 0;
-
 
             req = $"Select N_Arret from Arret where NomArret = '{Sens[0]}'";
             try
@@ -345,6 +360,7 @@ namespace SAE1
 
             bool BOOLSensUnique = false;
             int sens = 0;
+
             do
             {
                 try
@@ -352,15 +368,18 @@ namespace SAE1
                     if (N_Arret_Actuel != N_Arret_Objectif)
                     {
                         req = $"Select * FROM TempsTrajet WHERE N_Ligne = {N_Ligne} AND (N_ArretA = {N_Arret_Actuel} OR N_ArretB = {N_Arret_Actuel}) ORDER BY N_Sens;";
+
                         MySqlCommand cmd = new MySqlCommand(req, BDD.BDConnection);
                         MySqlDataReader rdr = cmd.ExecuteReader();
                         int Naa, Nab;
                         string[] HeureMinute = { };
+
                         while (rdr.Read())
                         {
                             Naa = rdr.GetInt32(1);
                             Nab = rdr.GetInt32(2);
                             sens = rdr.GetInt32(4);
+
                             if (sens == 1 && !BOOLSensUnique)
                             {
                                 if (Naa != N_Arret_Precedent && Nab != N_Arret_Precedent)
@@ -373,14 +392,17 @@ namespace SAE1
                                     {
                                         N_Arret_Prochain = Naa;
                                     }
+
                                     HeureMinute = rdr.GetString(3).Split(":");
                                     Heure_Total += Convert.ToInt32(HeureMinute[0]);
                                     Minute_Total += Convert.ToInt32(HeureMinute[1]);
+
                                     if (Minute_Total >= 60)
                                     {
                                         Minute_Total -= 60;
                                         Heure_Total++;
                                     }
+
                                     BOOLSensUnique = true;
                                 }
                             }
@@ -391,6 +413,7 @@ namespace SAE1
                                 HeureMinute = rdr.GetString(3).Split(":");
                                 Heure_Total += Convert.ToInt32(HeureMinute[0]);
                                 Minute_Total += Convert.ToInt32(HeureMinute[1]);
+
                                 if (Minute_Total >= 60)
                                 {
                                     Minute_Total -= 60;
@@ -398,14 +421,11 @@ namespace SAE1
                                 }
                             }
                         }
+
                         rdr.Close();
                         cmd.Dispose();
                         N_Arret_Precedent = N_Arret_Actuel;
                         N_Arret_Actuel = N_Arret_Prochain;
-                    }
-                    else
-                    {
-
                     }
                 }
                 catch (Exception ex)
@@ -414,6 +434,7 @@ namespace SAE1
                 }
                 BOOLSensUnique = false;
             } while(N_Arret_Objectif != N_Arret_Actuel && N_Arret_Actuel != N_ArretTerminus);
+
             if(N_Arret_Actuel == N_ArretTerminus && N_Arret_Objectif != N_ArretTerminus)
             {
                 MessageBox.Show("L'arret n'est pas déservi dans ce sens");
@@ -423,26 +444,34 @@ namespace SAE1
                 tabHoraire.SuspendLayout();
                 tabHoraire.Visible = false;
                 tabHoraire.Controls.Clear();
+
                 for (int i = 0; i < 24; i++)
                 {
                     Label nom = new Label();
                     nom.Text = $"{i}h";
+                    nom.BackColor = Color.DarkOrange;
+                    nom.TextAlign = ContentAlignment.MiddleCenter;
                     tabHoraire.Controls.Add(nom, i, 0);
                 }
+
                 string[] HeureMinute = { };
                 int heurepassage = 0;
                 int minutepassage = 0;
+
                 req = $"Select * from Trajet WHERE N_Ligne = {N_Ligne} AND N_TypeJour = 1 AND N_ArretDepart = {N_ArretDepart} ORDER BY HeureDepart;";
+
                 try
                 {
                     int ind0 = 1, ind1 = 1, ind2 = 1, ind3 = 1, ind4 = 1, ind5 = 1, ind6 = 1, ind7 = 1, ind8 = 1, ind9 = 1, ind10 = 1, ind11 = 1, ind12 = 1, ind13 = 1, ind14 = 1, ind15 = 1, ind16 = 1, ind17 = 1, ind18 = 1, ind19 = 1, ind20 = 1, ind21 = 1, ind22 = 1, ind23 = 1;
                     MySqlCommand cmd = new MySqlCommand(req, BDD.BDConnection);
                     MySqlDataReader rdr = cmd.ExecuteReader();
+
                     while (rdr.Read())
                     {
                         HeureMinute = rdr.GetString(4).Split(":");
                         heurepassage = Heure_Total + Convert.ToInt32(HeureMinute[0]);
                         minutepassage = Minute_Total + Convert.ToInt32(HeureMinute[1]);
+
                         if(minutepassage >= 60)
                         {
                             minutepassage -= 60;
@@ -451,6 +480,8 @@ namespace SAE1
 
                         Label nom = new Label();
                         nom.Text = Convert.ToString(minutepassage);
+                        nom.TextAlign = ContentAlignment.MiddleCenter;
+
                         switch (heurepassage)
                         {
                             case 0:
@@ -556,15 +587,14 @@ namespace SAE1
                     }
                     rdr.Close();
                     cmd.Dispose();
-
                 }
                 catch (Exception ex)
                 {
                     Console.WriteLine(ex.ToString());
                 }
+
                 tabHoraire.ResumeLayout();
                 tabHoraire.Visible = true;
-
             }
         }
 

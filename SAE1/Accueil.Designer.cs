@@ -41,7 +41,6 @@ namespace SAE1
             this.cmdAfficher1 = new System.Windows.Forms.Button();
             this.CBOLigne = new System.Windows.Forms.ComboBox();
             this.CBOArret = new System.Windows.Forms.ComboBox();
-            this.panel1 = new System.Windows.Forms.Panel();
             this.tabHoraire = new System.Windows.Forms.TableLayoutPanel();
             this.label13 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
@@ -77,13 +76,13 @@ namespace SAE1
             this.lblArretB = new System.Windows.Forms.Label();
             this.grpboxCalcul = new System.Windows.Forms.GroupBox();
             this.grpboxHoraires.SuspendLayout();
-            this.panel1.SuspendLayout();
             this.tabHoraire.SuspendLayout();
             this.grpboxCalcul.SuspendLayout();
             this.SuspendLayout();
             // 
             // grpboxHoraires
             // 
+            this.grpboxHoraires.BackColor = System.Drawing.Color.Transparent;
             this.grpboxHoraires.Controls.Add(this.lblSens);
             this.grpboxHoraires.Controls.Add(this.CBOSens);
             this.grpboxHoraires.Controls.Add(this.lblArret);
@@ -91,6 +90,8 @@ namespace SAE1
             this.grpboxHoraires.Controls.Add(this.cmdAfficher1);
             this.grpboxHoraires.Controls.Add(this.CBOLigne);
             this.grpboxHoraires.Controls.Add(this.CBOArret);
+            this.grpboxHoraires.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.grpboxHoraires.ForeColor = System.Drawing.SystemColors.WindowText;
             this.grpboxHoraires.Location = new System.Drawing.Point(28, 69);
             this.grpboxHoraires.Name = "grpboxHoraires";
             this.grpboxHoraires.Size = new System.Drawing.Size(377, 212);
@@ -106,14 +107,17 @@ namespace SAE1
             this.lblSens.Size = new System.Drawing.Size(69, 23);
             this.lblSens.TabIndex = 4;
             this.lblSens.Text = "Sens :";
+            this.lblSens.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // CBOSens
             // 
+            this.CBOSens.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.CBOSens.Enabled = false;
+            this.CBOSens.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.CBOSens.FormattingEnabled = true;
             this.CBOSens.Location = new System.Drawing.Point(118, 122);
             this.CBOSens.Name = "CBOSens";
-            this.CBOSens.Size = new System.Drawing.Size(209, 23);
+            this.CBOSens.Size = new System.Drawing.Size(209, 25);
             this.CBOSens.TabIndex = 3;
             this.CBOSens.SelectedIndexChanged += new System.EventHandler(this.HoraireValidation);
             this.CBOSens.Enter += new System.EventHandler(this.CBOSens_Enter);
@@ -126,6 +130,7 @@ namespace SAE1
             this.lblArret.Size = new System.Drawing.Size(69, 23);
             this.lblArret.TabIndex = 2;
             this.lblArret.Text = "Arrêt :";
+            this.lblArret.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // lblLigne
             // 
@@ -135,11 +140,13 @@ namespace SAE1
             this.lblLigne.Size = new System.Drawing.Size(69, 23);
             this.lblLigne.TabIndex = 0;
             this.lblLigne.Text = "Ligne :";
+            this.lblLigne.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // cmdAfficher1
             // 
             this.cmdAfficher1.Enabled = false;
             this.cmdAfficher1.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.cmdAfficher1.ForeColor = System.Drawing.Color.DarkOrange;
             this.cmdAfficher1.Location = new System.Drawing.Point(252, 166);
             this.cmdAfficher1.Name = "cmdAfficher1";
             this.cmdAfficher1.Size = new System.Drawing.Size(75, 30);
@@ -151,10 +158,11 @@ namespace SAE1
             // CBOLigne
             // 
             this.CBOLigne.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.CBOLigne.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.CBOLigne.FormattingEnabled = true;
             this.CBOLigne.Location = new System.Drawing.Point(170, 30);
             this.CBOLigne.Name = "CBOLigne";
-            this.CBOLigne.Size = new System.Drawing.Size(157, 23);
+            this.CBOLigne.Size = new System.Drawing.Size(157, 25);
             this.CBOLigne.Sorted = true;
             this.CBOLigne.TabIndex = 0;
             this.CBOLigne.SelectedIndexChanged += new System.EventHandler(this.HoraireValidation);
@@ -165,51 +173,48 @@ namespace SAE1
             // 
             this.CBOArret.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.CBOArret.Enabled = false;
+            this.CBOArret.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.CBOArret.FormattingEnabled = true;
             this.CBOArret.Location = new System.Drawing.Point(170, 76);
             this.CBOArret.Name = "CBOArret";
-            this.CBOArret.Size = new System.Drawing.Size(157, 23);
+            this.CBOArret.Size = new System.Drawing.Size(157, 25);
             this.CBOArret.TabIndex = 1;
             this.CBOArret.SelectedIndexChanged += new System.EventHandler(this.HoraireValidation);
             this.CBOArret.Enter += new System.EventHandler(this.CBOArret_Enter);
             // 
-            // panel1
-            // 
-            this.panel1.Controls.Add(this.tabHoraire);
-            this.panel1.Location = new System.Drawing.Point(453, 28);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(461, 383);
-            this.panel1.TabIndex = 6;
-            // 
             // tabHoraire
             // 
+            this.tabHoraire.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tabHoraire.AutoScroll = true;
-            this.tabHoraire.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
+            this.tabHoraire.BackColor = System.Drawing.Color.White;
+            this.tabHoraire.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.InsetDouble;
             this.tabHoraire.ColumnCount = 24;
-            this.tabHoraire.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tabHoraire.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tabHoraire.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tabHoraire.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tabHoraire.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tabHoraire.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tabHoraire.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tabHoraire.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tabHoraire.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tabHoraire.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tabHoraire.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tabHoraire.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tabHoraire.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tabHoraire.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tabHoraire.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tabHoraire.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tabHoraire.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tabHoraire.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tabHoraire.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tabHoraire.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tabHoraire.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tabHoraire.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tabHoraire.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tabHoraire.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tabHoraire.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 50F));
+            this.tabHoraire.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 50F));
+            this.tabHoraire.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 50F));
+            this.tabHoraire.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 50F));
+            this.tabHoraire.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 50F));
+            this.tabHoraire.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 50F));
+            this.tabHoraire.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 50F));
+            this.tabHoraire.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 50F));
+            this.tabHoraire.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 50F));
+            this.tabHoraire.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 50F));
+            this.tabHoraire.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 50F));
+            this.tabHoraire.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 50F));
+            this.tabHoraire.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 50F));
+            this.tabHoraire.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 50F));
+            this.tabHoraire.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 50F));
+            this.tabHoraire.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 50F));
+            this.tabHoraire.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 50F));
+            this.tabHoraire.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 50F));
+            this.tabHoraire.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 50F));
+            this.tabHoraire.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 50F));
+            this.tabHoraire.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 50F));
+            this.tabHoraire.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 50F));
+            this.tabHoraire.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 50F));
+            this.tabHoraire.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 50F));
             this.tabHoraire.Controls.Add(this.label13, 21, 0);
             this.tabHoraire.Controls.Add(this.label9, 17, 0);
             this.tabHoraire.Controls.Add(this.label6, 15, 0);
@@ -234,27 +239,19 @@ namespace SAE1
             this.tabHoraire.Controls.Add(this.label12, 20, 0);
             this.tabHoraire.Controls.Add(this.label14, 22, 0);
             this.tabHoraire.Controls.Add(this.label15, 23, 0);
-            this.tabHoraire.Location = new System.Drawing.Point(0, 0);
+            this.tabHoraire.Location = new System.Drawing.Point(426, 25);
             this.tabHoraire.Name = "tabHoraire";
-            this.tabHoraire.RowCount = 10;
+            this.tabHoraire.RowCount = 2;
             this.tabHoraire.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tabHoraire.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tabHoraire.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tabHoraire.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tabHoraire.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tabHoraire.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tabHoraire.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tabHoraire.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tabHoraire.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tabHoraire.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tabHoraire.Size = new System.Drawing.Size(461, 383);
+            this.tabHoraire.Size = new System.Drawing.Size(516, 383);
             this.tabHoraire.TabIndex = 1;
             this.tabHoraire.Visible = false;
             // 
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(697, 1);
+            this.label13.Location = new System.Drawing.Point(1119, 3);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(26, 15);
             this.label13.TabIndex = 11;
@@ -263,7 +260,7 @@ namespace SAE1
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(565, 1);
+            this.label9.Location = new System.Drawing.Point(907, 3);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(26, 15);
             this.label9.TabIndex = 17;
@@ -272,7 +269,7 @@ namespace SAE1
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(499, 1);
+            this.label6.Location = new System.Drawing.Point(801, 3);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(26, 15);
             this.label6.TabIndex = 15;
@@ -281,7 +278,7 @@ namespace SAE1
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(532, 1);
+            this.label7.Location = new System.Drawing.Point(854, 3);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(26, 15);
             this.label7.TabIndex = 16;
@@ -290,7 +287,7 @@ namespace SAE1
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(433, 1);
+            this.label4.Location = new System.Drawing.Point(695, 3);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(26, 15);
             this.label4.TabIndex = 13;
@@ -299,7 +296,7 @@ namespace SAE1
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(466, 1);
+            this.label5.Location = new System.Drawing.Point(748, 3);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(26, 15);
             this.label5.TabIndex = 14;
@@ -308,7 +305,7 @@ namespace SAE1
             // lbl13h
             // 
             this.lbl13h.AutoSize = true;
-            this.lbl13h.Location = new System.Drawing.Point(268, 1);
+            this.lbl13h.Location = new System.Drawing.Point(430, 3);
             this.lbl13h.Name = "lbl13h";
             this.lbl13h.Size = new System.Drawing.Size(26, 15);
             this.lbl13h.TabIndex = 9;
@@ -317,7 +314,7 @@ namespace SAE1
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(301, 1);
+            this.label8.Location = new System.Drawing.Point(483, 3);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(26, 15);
             this.label8.TabIndex = 8;
@@ -326,7 +323,7 @@ namespace SAE1
             // lbl11h
             // 
             this.lbl11h.AutoSize = true;
-            this.lbl11h.Location = new System.Drawing.Point(202, 1);
+            this.lbl11h.Location = new System.Drawing.Point(324, 3);
             this.lbl11h.Name = "lbl11h";
             this.lbl11h.Size = new System.Drawing.Size(26, 15);
             this.lbl11h.TabIndex = 7;
@@ -335,7 +332,7 @@ namespace SAE1
             // lbl12h
             // 
             this.lbl12h.AutoSize = true;
-            this.lbl12h.Location = new System.Drawing.Point(235, 1);
+            this.lbl12h.Location = new System.Drawing.Point(377, 3);
             this.lbl12h.Name = "lbl12h";
             this.lbl12h.Size = new System.Drawing.Size(26, 15);
             this.lbl12h.TabIndex = 6;
@@ -344,7 +341,7 @@ namespace SAE1
             // lbl9h
             // 
             this.lbl9h.AutoSize = true;
-            this.lbl9h.Location = new System.Drawing.Point(136, 1);
+            this.lbl9h.Location = new System.Drawing.Point(218, 3);
             this.lbl9h.Name = "lbl9h";
             this.lbl9h.Size = new System.Drawing.Size(26, 15);
             this.lbl9h.TabIndex = 5;
@@ -353,7 +350,7 @@ namespace SAE1
             // lbl10h
             // 
             this.lbl10h.AutoSize = true;
-            this.lbl10h.Location = new System.Drawing.Point(169, 1);
+            this.lbl10h.Location = new System.Drawing.Point(271, 3);
             this.lbl10h.Name = "lbl10h";
             this.lbl10h.Size = new System.Drawing.Size(26, 15);
             this.lbl10h.TabIndex = 4;
@@ -362,7 +359,7 @@ namespace SAE1
             // lbl7h
             // 
             this.lbl7h.AutoSize = true;
-            this.lbl7h.Location = new System.Drawing.Point(70, 1);
+            this.lbl7h.Location = new System.Drawing.Point(112, 3);
             this.lbl7h.Name = "lbl7h";
             this.lbl7h.Size = new System.Drawing.Size(26, 15);
             this.lbl7h.TabIndex = 3;
@@ -371,7 +368,7 @@ namespace SAE1
             // lbl8h
             // 
             this.lbl8h.AutoSize = true;
-            this.lbl8h.Location = new System.Drawing.Point(103, 1);
+            this.lbl8h.Location = new System.Drawing.Point(165, 3);
             this.lbl8h.Name = "lbl8h";
             this.lbl8h.Size = new System.Drawing.Size(26, 15);
             this.lbl8h.TabIndex = 2;
@@ -380,7 +377,7 @@ namespace SAE1
             // lbl1h
             // 
             this.lbl1h.AutoSize = true;
-            this.lbl1h.Location = new System.Drawing.Point(37, 1);
+            this.lbl1h.Location = new System.Drawing.Point(59, 3);
             this.lbl1h.Name = "lbl1h";
             this.lbl1h.Size = new System.Drawing.Size(26, 15);
             this.lbl1h.TabIndex = 1;
@@ -389,7 +386,7 @@ namespace SAE1
             // lbl0h
             // 
             this.lbl0h.AutoSize = true;
-            this.lbl0h.Location = new System.Drawing.Point(4, 1);
+            this.lbl0h.Location = new System.Drawing.Point(6, 3);
             this.lbl0h.Name = "lbl0h";
             this.lbl0h.Size = new System.Drawing.Size(26, 15);
             this.lbl0h.TabIndex = 0;
@@ -399,7 +396,7 @@ namespace SAE1
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(334, 1);
+            this.label1.Location = new System.Drawing.Point(536, 3);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(26, 15);
             this.label1.TabIndex = 10;
@@ -408,7 +405,7 @@ namespace SAE1
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(367, 1);
+            this.label2.Location = new System.Drawing.Point(589, 3);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(26, 15);
             this.label2.TabIndex = 11;
@@ -417,7 +414,7 @@ namespace SAE1
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(400, 1);
+            this.label3.Location = new System.Drawing.Point(642, 3);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(26, 15);
             this.label3.TabIndex = 12;
@@ -426,7 +423,7 @@ namespace SAE1
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(598, 1);
+            this.label10.Location = new System.Drawing.Point(960, 3);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(26, 15);
             this.label10.TabIndex = 18;
@@ -435,7 +432,7 @@ namespace SAE1
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(631, 1);
+            this.label11.Location = new System.Drawing.Point(1013, 3);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(26, 15);
             this.label11.TabIndex = 19;
@@ -444,7 +441,7 @@ namespace SAE1
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(664, 1);
+            this.label12.Location = new System.Drawing.Point(1066, 3);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(26, 15);
             this.label12.TabIndex = 0;
@@ -453,7 +450,7 @@ namespace SAE1
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(730, 1);
+            this.label14.Location = new System.Drawing.Point(1172, 3);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(26, 15);
             this.label14.TabIndex = 20;
@@ -462,7 +459,7 @@ namespace SAE1
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(763, 1);
+            this.label15.Location = new System.Drawing.Point(1225, 3);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(26, 15);
             this.label15.TabIndex = 21;
@@ -492,21 +489,23 @@ namespace SAE1
             // 
             // txtAccueil
             // 
-            this.txtAccueil.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.txtAccueil.BackColor = System.Drawing.Color.DarkOrange;
+            this.txtAccueil.Font = new System.Drawing.Font("Segoe UI", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.txtAccueil.Location = new System.Drawing.Point(28, 9);
             this.txtAccueil.Name = "txtAccueil";
-            this.txtAccueil.Size = new System.Drawing.Size(380, 33);
+            this.txtAccueil.Size = new System.Drawing.Size(380, 57);
             this.txtAccueil.TabIndex = 10;
-            this.txtAccueil.Text = "Accueil";
+            this.txtAccueil.Text = "Filibus - Accueil";
             this.txtAccueil.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // CBOArretB
             // 
             this.CBOArretB.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.CBOArretB.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.CBOArretB.FormattingEnabled = true;
-            this.CBOArretB.Location = new System.Drawing.Point(170, 76);
+            this.CBOArretB.Location = new System.Drawing.Point(170, 86);
             this.CBOArretB.Name = "CBOArretB";
-            this.CBOArretB.Size = new System.Drawing.Size(157, 23);
+            this.CBOArretB.Size = new System.Drawing.Size(157, 25);
             this.CBOArretB.TabIndex = 1;
             this.CBOArretB.SelectedValueChanged += new System.EventHandler(this.ItineraireValidation);
             this.CBOArretB.Enter += new System.EventHandler(this.CBOArretB_Enter);
@@ -514,10 +513,11 @@ namespace SAE1
             // CBOArretA
             // 
             this.CBOArretA.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.CBOArretA.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.CBOArretA.FormattingEnabled = true;
-            this.CBOArretA.Location = new System.Drawing.Point(170, 30);
+            this.CBOArretA.Location = new System.Drawing.Point(170, 40);
             this.CBOArretA.Name = "CBOArretA";
-            this.CBOArretA.Size = new System.Drawing.Size(157, 23);
+            this.CBOArretA.Size = new System.Drawing.Size(157, 25);
             this.CBOArretA.TabIndex = 0;
             this.CBOArretA.SelectedValueChanged += new System.EventHandler(this.ItineraireValidation);
             this.CBOArretA.Enter += new System.EventHandler(this.CBOArretA_Enter);
@@ -526,7 +526,8 @@ namespace SAE1
             // 
             this.cmdAfficher2.Enabled = false;
             this.cmdAfficher2.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.cmdAfficher2.Location = new System.Drawing.Point(252, 116);
+            this.cmdAfficher2.ForeColor = System.Drawing.Color.DarkOrange;
+            this.cmdAfficher2.Location = new System.Drawing.Point(252, 128);
             this.cmdAfficher2.Name = "cmdAfficher2";
             this.cmdAfficher2.Size = new System.Drawing.Size(75, 30);
             this.cmdAfficher2.TabIndex = 0;
@@ -537,28 +538,32 @@ namespace SAE1
             // lblArretA
             // 
             this.lblArretA.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lblArretA.Location = new System.Drawing.Point(29, 30);
+            this.lblArretA.Location = new System.Drawing.Point(29, 40);
             this.lblArretA.Name = "lblArretA";
             this.lblArretA.Size = new System.Drawing.Size(115, 23);
             this.lblArretA.TabIndex = 0;
             this.lblArretA.Text = "Arrêt de départ :";
+            this.lblArretA.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // lblArretB
             // 
             this.lblArretB.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lblArretB.Location = new System.Drawing.Point(29, 76);
+            this.lblArretB.Location = new System.Drawing.Point(29, 86);
             this.lblArretB.Name = "lblArretB";
             this.lblArretB.Size = new System.Drawing.Size(115, 23);
             this.lblArretB.TabIndex = 2;
             this.lblArretB.Text = "Arrêt d\'arrivé :";
+            this.lblArretB.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // grpboxCalcul
             // 
+            this.grpboxCalcul.BackColor = System.Drawing.Color.Transparent;
             this.grpboxCalcul.Controls.Add(this.lblArretB);
             this.grpboxCalcul.Controls.Add(this.lblArretA);
             this.grpboxCalcul.Controls.Add(this.cmdAfficher2);
             this.grpboxCalcul.Controls.Add(this.CBOArretA);
             this.grpboxCalcul.Controls.Add(this.CBOArretB);
+            this.grpboxCalcul.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.grpboxCalcul.Location = new System.Drawing.Point(28, 300);
             this.grpboxCalcul.Name = "grpboxCalcul";
             this.grpboxCalcul.Size = new System.Drawing.Size(380, 175);
@@ -571,10 +576,10 @@ namespace SAE1
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(954, 501);
+            this.Controls.Add(this.tabHoraire);
             this.Controls.Add(this.txtAccueil);
             this.Controls.Add(this.cmdAdmin);
             this.Controls.Add(this.cmdQuitterAccueil);
-            this.Controls.Add(this.panel1);
             this.Controls.Add(this.grpboxCalcul);
             this.Controls.Add(this.grpboxHoraires);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -584,7 +589,6 @@ namespace SAE1
             this.Text = "Filibus - Réseau de transport urbain de Chartres";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.grpboxHoraires.ResumeLayout(false);
-            this.panel1.ResumeLayout(false);
             this.tabHoraire.ResumeLayout(false);
             this.tabHoraire.PerformLayout();
             this.grpboxCalcul.ResumeLayout(false);
@@ -599,7 +603,6 @@ namespace SAE1
         private Button cmdAfficher1;
         private ComboBox CBOLigne;
         private ComboBox CBOArret;
-        private Panel panel1;
         private Button cmdQuitterAccueil;
         private Button cmdAdmin;
         private Label txtAccueil;

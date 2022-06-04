@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(modification));
-            this.label1 = new System.Windows.Forms.Label();
+            this.lblTitre = new System.Windows.Forms.Label();
             this.pnlLigne = new System.Windows.Forms.Panel();
             this.cmdCreation = new System.Windows.Forms.Button();
             this.radLigne1 = new System.Windows.Forms.RadioButton();
@@ -39,14 +39,16 @@
             this.pnlLigne.SuspendLayout();
             this.SuspendLayout();
             // 
-            // label1
+            // lblTitre
             // 
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label1.Location = new System.Drawing.Point(221, 9);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(513, 33);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Création / Modification / Suppression d\'une ligne de bus";
+            this.lblTitre.BackColor = System.Drawing.Color.DarkOrange;
+            this.lblTitre.Font = new System.Drawing.Font("Segoe UI", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.lblTitre.Location = new System.Drawing.Point(124, 9);
+            this.lblTitre.Name = "lblTitre";
+            this.lblTitre.Size = new System.Drawing.Size(706, 48);
+            this.lblTitre.TabIndex = 0;
+            this.lblTitre.Text = "Création / Modification / Suppression d\'une ligne de bus";
+            this.lblTitre.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // pnlLigne
             // 
@@ -61,7 +63,8 @@
             // 
             // cmdCreation
             // 
-            this.cmdCreation.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.cmdCreation.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.cmdCreation.ForeColor = System.Drawing.Color.DarkOrange;
             this.cmdCreation.Location = new System.Drawing.Point(30, 20);
             this.cmdCreation.Name = "cmdCreation";
             this.cmdCreation.Size = new System.Drawing.Size(800, 40);
@@ -74,6 +77,7 @@
             // 
             this.radLigne1.Appearance = System.Windows.Forms.Appearance.Button;
             this.radLigne1.Enabled = false;
+            this.radLigne1.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.radLigne1.Location = new System.Drawing.Point(30, 66);
             this.radLigne1.Name = "radLigne1";
             this.radLigne1.Size = new System.Drawing.Size(800, 40);
@@ -107,6 +111,7 @@
             // 
             // cmdQuitterAccueil
             // 
+            this.cmdQuitterAccueil.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.cmdQuitterAccueil.Location = new System.Drawing.Point(833, 442);
             this.cmdQuitterAccueil.Name = "cmdQuitterAccueil";
             this.cmdQuitterAccueil.Size = new System.Drawing.Size(75, 30);
@@ -124,12 +129,12 @@
             this.Controls.Add(this.cmdModifier);
             this.Controls.Add(this.cmdSuppression);
             this.Controls.Add(this.pnlLigne);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.lblTitre);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "modification";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "modification";
+            this.Text = "Filibus - Gestion des lignes de bus";
             this.Load += new System.EventHandler(this.ActualiserLigne);
             this.pnlLigne.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -138,7 +143,7 @@
 
         #endregion
 
-        private Label label1;
+        private Label lblTitre;
         private Panel pnlLigne;
         private RadioButton radLigne1;
         private Button cmdCreation;

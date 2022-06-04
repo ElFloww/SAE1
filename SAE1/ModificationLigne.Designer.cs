@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.cmdQuitter = new System.Windows.Forms.Button();
             this.cmdValider = new System.Windows.Forms.Button();
             this.pnlArrets = new System.Windows.Forms.Panel();
@@ -53,6 +54,7 @@
             this.lblNbArret = new System.Windows.Forms.Label();
             this.lblLigne = new System.Windows.Forms.Label();
             this.lblTitre = new System.Windows.Forms.Label();
+            this.errorProviderNomLigne = new System.Windows.Forms.ErrorProvider(this.components);
             this.pnlArrets.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NUDMinuteDepart2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NUDHeureDepart2)).BeginInit();
@@ -62,11 +64,13 @@
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudMinuteDepart)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudHeureDepart)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProviderNomLigne)).BeginInit();
             this.SuspendLayout();
             // 
             // cmdQuitter
             // 
             this.cmdQuitter.CausesValidation = false;
+            this.cmdQuitter.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.cmdQuitter.Location = new System.Drawing.Point(713, 408);
             this.cmdQuitter.Name = "cmdQuitter";
             this.cmdQuitter.Size = new System.Drawing.Size(75, 30);
@@ -77,6 +81,8 @@
             // 
             // cmdValider
             // 
+            this.cmdValider.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.cmdValider.ForeColor = System.Drawing.Color.DarkOrange;
             this.cmdValider.Location = new System.Drawing.Point(603, 408);
             this.cmdValider.Name = "cmdValider";
             this.cmdValider.Size = new System.Drawing.Size(75, 30);
@@ -106,20 +112,22 @@
             // 
             // lblHoaire
             // 
-            this.lblHoaire.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lblHoaire.Location = new System.Drawing.Point(232, 21);
+            this.lblHoaire.BackColor = System.Drawing.Color.DarkOrange;
+            this.lblHoaire.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.lblHoaire.Location = new System.Drawing.Point(215, 21);
             this.lblHoaire.Name = "lblHoaire";
-            this.lblHoaire.Size = new System.Drawing.Size(116, 26);
+            this.lblHoaire.Size = new System.Drawing.Size(140, 26);
             this.lblHoaire.TabIndex = 20;
-            this.lblHoaire.Text = "Premier horaire :";
+            this.lblHoaire.Text = "Premieres horaires :";
             this.lblHoaire.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblArret
             // 
-            this.lblArret.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lblArret.Location = new System.Drawing.Point(35, 21);
+            this.lblArret.BackColor = System.Drawing.Color.DarkOrange;
+            this.lblArret.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.lblArret.Location = new System.Drawing.Point(25, 21);
             this.lblArret.Name = "lblArret";
-            this.lblArret.Size = new System.Drawing.Size(121, 26);
+            this.lblArret.Size = new System.Drawing.Size(142, 26);
             this.lblArret.TabIndex = 19;
             this.lblArret.Text = "Arrêts de la ligne :";
             this.lblArret.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -197,6 +205,7 @@
             this.NUDMinuteDepart1.Name = "NUDMinuteDepart1";
             this.NUDMinuteDepart1.Size = new System.Drawing.Size(41, 23);
             this.NUDMinuteDepart1.TabIndex = 13;
+            this.NUDMinuteDepart1.ValueChanged += new System.EventHandler(this.NUDMinuteDepart1_ValueChanged);
             // 
             // NUDHeureDepart1
             // 
@@ -209,6 +218,7 @@
             this.NUDHeureDepart1.Name = "NUDHeureDepart1";
             this.NUDHeureDepart1.Size = new System.Drawing.Size(44, 23);
             this.NUDHeureDepart1.TabIndex = 12;
+            this.NUDHeureDepart1.ValueChanged += new System.EventHandler(this.NUDHeureDepart1_ValueChanged);
             // 
             // nudNbArrets
             // 
@@ -252,10 +262,10 @@
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(15, 63);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(208, 45);
+            this.label6.Size = new System.Drawing.Size(251, 45);
             this.label6.TabIndex = 1;
-            this.label6.Text = "L\'ordre d\'affichage des arrêts sur la \nfenêtre est dans l\'ordre croissant des \nho" +
-    "raires permettant de former le trajet";
+            this.label6.Text = "L\'ordre d\'affichage des arrêts dans la \nfenêtre de droite est dans l\'ordre croiss" +
+    "ant des \nhoraires permettant de former le trajet.";
             // 
             // label5
             // 
@@ -278,6 +288,7 @@
             this.nudMinuteDepart.Name = "nudMinuteDepart";
             this.nudMinuteDepart.Size = new System.Drawing.Size(41, 23);
             this.nudMinuteDepart.TabIndex = 20;
+            this.nudMinuteDepart.ValueChanged += new System.EventHandler(this.nudMinuteDepart_ValueChanged);
             // 
             // nudHeureDepart
             // 
@@ -290,6 +301,7 @@
             this.nudHeureDepart.Name = "nudHeureDepart";
             this.nudHeureDepart.Size = new System.Drawing.Size(44, 23);
             this.nudHeureDepart.TabIndex = 19;
+            this.nudHeureDepart.ValueChanged += new System.EventHandler(this.nudHeureDepart_ValueChanged);
             // 
             // txtNomLigne
             // 
@@ -297,45 +309,53 @@
             this.txtNomLigne.Name = "txtNomLigne";
             this.txtNomLigne.Size = new System.Drawing.Size(114, 23);
             this.txtNomLigne.TabIndex = 18;
+            this.txtNomLigne.Validating += new System.ComponentModel.CancelEventHandler(this.txtNomLigne_Validating);
             // 
             // lblHeure
             // 
-            this.lblHeure.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.lblHeure.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.lblHeure.Location = new System.Drawing.Point(36, 170);
             this.lblHeure.Name = "lblHeure";
-            this.lblHeure.Size = new System.Drawing.Size(141, 25);
+            this.lblHeure.Size = new System.Drawing.Size(137, 25);
             this.lblHeure.TabIndex = 17;
             this.lblHeure.Text = "Heure de départ :";
             this.lblHeure.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // lblNbArret
             // 
-            this.lblNbArret.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.lblNbArret.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.lblNbArret.Location = new System.Drawing.Point(36, 129);
             this.lblNbArret.Name = "lblNbArret";
-            this.lblNbArret.Size = new System.Drawing.Size(118, 23);
+            this.lblNbArret.Size = new System.Drawing.Size(137, 23);
             this.lblNbArret.TabIndex = 16;
             this.lblNbArret.Text = "Nombre d\'arrêts :";
             this.lblNbArret.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // lblLigne
             // 
-            this.lblLigne.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.lblLigne.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.lblLigne.Location = new System.Drawing.Point(36, 90);
             this.lblLigne.Name = "lblLigne";
-            this.lblLigne.Size = new System.Drawing.Size(118, 23);
+            this.lblLigne.Size = new System.Drawing.Size(137, 23);
             this.lblLigne.TabIndex = 15;
             this.lblLigne.Text = "Nom de la ligne :";
             this.lblLigne.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // lblTitre
             // 
-            this.lblTitre.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lblTitre.Location = new System.Drawing.Point(71, 25);
+            this.lblTitre.BackColor = System.Drawing.Color.DarkOrange;
+            this.lblTitre.Font = new System.Drawing.Font("Segoe UI", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.lblTitre.Location = new System.Drawing.Point(24, 24);
             this.lblTitre.Name = "lblTitre";
-            this.lblTitre.Size = new System.Drawing.Size(234, 31);
+            this.lblTitre.Size = new System.Drawing.Size(314, 45);
             this.lblTitre.TabIndex = 14;
-            this.lblTitre.Text = "Modification de ligne";
+            this.lblTitre.Text = "Modification d\'une ligne";
+            this.lblTitre.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // errorProviderNomLigne
+            // 
+            this.errorProviderNomLigne.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
+            this.errorProviderNomLigne.ContainerControl = this;
             // 
             // ModificationLigne
             // 
@@ -358,7 +378,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "ModificationLigne";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "ModificationLigne";
+            this.Text = "Filibus - Modification de ligne de bus";
             this.Load += new System.EventHandler(this.ModificationLigne_Load);
             this.pnlArrets.ResumeLayout(false);
             this.pnlArrets.PerformLayout();
@@ -371,6 +391,7 @@
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudMinuteDepart)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudHeureDepart)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProviderNomLigne)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -403,5 +424,6 @@
         private Label lblNbArret;
         private Label lblLigne;
         private Label lblTitre;
+        private ErrorProvider errorProviderNomLigne;
     }
 }

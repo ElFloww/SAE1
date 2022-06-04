@@ -159,8 +159,8 @@ namespace SAE1
             ComboBox cbobox = (ComboBox)sender;
             cbobox.Items.Clear();
             List<string> lignes = new List<string>();
-            string req = $"Select NomArret from Arret ORDER BY NomArret";
 
+            string req = $"Select NomArret from Arret ORDER BY NomArret";
             try
             {
                 MySqlCommand cmd = new MySqlCommand(req, BDD.BDConnection);
@@ -193,9 +193,9 @@ namespace SAE1
         private void txtNomLigne_Validating(object sender, CancelEventArgs e)
         {
             List<string> lignes = new List<string>();
-            string req = "Select NomLigne from Ligne";
             bool testComparaison = false;
 
+            string req = "Select NomLigne from Ligne";
             try
             {
                 MySqlCommand cmd = new MySqlCommand(req, BDD.BDConnection);
@@ -235,13 +235,10 @@ namespace SAE1
 
         private void cmdValider_Click(object sender, EventArgs e)
         {
-            if(nudNbArrets.Value == 2)
-            {
-                nudNbArrets.Value = 2;
-            }
-            string req = $"Select Count(N_Ligne) from Ligne;";
             int n = 0;
             List<string> liste = new List<string>();
+            
+            string req = $"Select Count(N_Ligne) from Ligne;";
             try
             {
                 MySqlCommand cmd = new MySqlCommand(req, BDD.BDConnection);
@@ -269,11 +266,13 @@ namespace SAE1
             {
                 Console.WriteLine(ex.ToString());
             }
+
             //ARRET DEPART
             int N_ArretDepart = 0;
             int N_ArretTerminus = 0;
-            req = $"Select N_Arret from Arret WHERE NomArret = '{CBOArret1.Text}';";
             liste.Clear();
+
+            req = $"Select N_Arret from Arret WHERE NomArret = '{CBOArret1.Text}';";
             try
             {
                 MySqlCommand cmd = new MySqlCommand(req, BDD.BDConnection);
@@ -313,6 +312,7 @@ namespace SAE1
             int N_Bus = aleatoire.Next(1, 27);
             int N_TypeJour = 1;
             string HeureDepart = Convert.ToString((int)nudHeureDepart.Value + ":" + (int)nudMinuteDepart.Value);
+
             //HeureDepart = "10:30";
             req = $"INSERT INTO Trajet(N_Conducteur,N_Bus,N_TypeJour,N_Ligne,HeureDepart,N_ArretDepart,N_ArretTerminus) VALUES ('{N_Conducteur}','{N_Bus}',{N_TypeJour},{n+1},'{HeureDepart}',{N_ArretDepart},{N_ArretTerminus})";
             try
@@ -347,6 +347,7 @@ namespace SAE1
             for (int i = 0; i < (int)nudNbArrets.Value; i++)
             {
                 int N_Arret = 0;
+
                 req = $"SELECT N_Arret FROM Arret WHERE NomArret = '{arretBusComboBox[i].Text}';";
                 try
                 {
@@ -381,6 +382,7 @@ namespace SAE1
             {
                 int N_ArretA = 0;
                 int N_ArretB = 0;
+
                 //RECHERCHE ARRET A
                 req = $"Select N_Arret from Arret WHERE NomArret = '{arretBusComboBox[i].Text}';";
                 try
@@ -398,6 +400,7 @@ namespace SAE1
                 {
                     Console.WriteLine(ex.ToString());
                 }
+
                 //RECHERCHE ARRET B
                 req = $"Select N_Arret from Arret WHERE NomArret = '{arretBusComboBox[i + 1].Text}';";
                 try
@@ -415,14 +418,17 @@ namespace SAE1
                 {
                     Console.WriteLine(ex.ToString());
                 }
+
                 string difference = "";
                 int differenceHeure = (int)HeureNumericUpDown[i + 1].Value - (int)HeureNumericUpDown[i].Value;
                 int differenceMinute = (int)MinuteNumericUpDown[i + 1].Value - (int)MinuteNumericUpDown[i].Value;
+
                 if(differenceHeure >=1 || differenceMinute < 0)
                 {
                     differenceHeure--;
                     differenceMinute += 60;
                 }
+
                 if(differenceMinute <10)
                 {
                     difference = Convert.ToString(differenceHeure + ":0" + differenceMinute);
@@ -431,6 +437,7 @@ namespace SAE1
                 {
                     difference = Convert.ToString(differenceHeure + ":" + differenceMinute);
                 }
+
                 req = $"INSERT INTO TempsTrajet (N_Ligne,N_ArretA, N_ArretB,tempstrajet,N_Sens) VALUES ({N_Ligne},{N_ArretA},{N_ArretB},'{difference}',1)";
                 try
                 {
@@ -445,6 +452,26 @@ namespace SAE1
             }
             MessageBox.Show($"{txtNomLigne.Text} à bien été créer !");
             this.Close();
+        }
+
+        private void nudMinuteDepart_ValueChanged(object sender, EventArgs e)
+        {
+            NUDMinuteDepart1.Value = nudMinuteDepart.Value;
+        }
+
+        private void nudHeureDepart_ValueChanged(object sender, EventArgs e)
+        {
+            NUDHeureDepart1.Value = nudHeureDepart.Value;
+        }
+
+        private void NUDHeureDepart1_ValueChanged(object sender, EventArgs e)
+        {
+            nudHeureDepart.Value = NUDHeureDepart1.Value;
+        }
+
+        private void NUDMinuteDepart1_ValueChanged(object sender, EventArgs e)
+        {
+            nudMinuteDepart.Value = NUDMinuteDepart1.Value;
         }
     }
 }

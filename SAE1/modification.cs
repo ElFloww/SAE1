@@ -17,8 +17,11 @@ namespace SAE1
     {   
         // Liste globale qui stockera toutes les radiobouttons des lignes de bus lors du chargement du formulaire
         public List<RadioButton> ligneBusRadioButton = new List<RadioButton>();
+
+        // Nom de la ligne du RadioBouton qui sera sélectionné et réutilisé dans le formualaie de ModificationLigne
         public static string NomLigneSelection = "";
-        // Index du bouton radio sélectionné qui sera utilisé par un autre formulaire
+
+        // Index du bouton radio sélectionné qui sera utilisé dans le formualaie de ModificationLigne
         public static int indexRadionButtonChecked = 0;
 
         public modification()
@@ -26,16 +29,24 @@ namespace SAE1
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Procédure d'actualisation d'affichage des lignes dans le panel
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public void ActualiserLigne(object sender, EventArgs e)
         {
             // A chaque ouverture du formulaire on supprime le contenu de la liste globale
             ligneBusRadioButton.Clear();
+
             //On cherche à connaître le nombre de ligne pour savoir le nombre de radiobutton à créer
             int n = 0;
             int nbArret = 0;
             string NomLigne = "";
             List<string> liste = new List<string>();
+
             string req = $"Select NomLigne,COUNT(ArretLigne.N_Arret) from ArretLigne,Ligne WHERE ArretLigne.N_Ligne = Ligne.N_Ligne GROUP BY ArretLigne.N_Ligne";
+
             try
             {
                 int i = 0;
@@ -48,13 +59,14 @@ namespace SAE1
                     nbArret = rdr.GetInt32(1);
                     if (i == 1)
                     {
+                        // On ajoute le premier radioButton existant 
                         pnlLigne.Controls["radLigne1"].Text = $"{NomLigne}";
                         pnlLigne.Controls["radLigne1"].Enabled = true;
-                        // On ajoute le premier radioButton
                         ligneBusRadioButton.Add(radLigne1);
                     }
                     else
-                    {
+                    {   
+                        // On crée les autres radioButton
                         RadioButton newOPT = new RadioButton();
 
                         int OPThauteur = radLigne1.Size.Height;
@@ -75,6 +87,7 @@ namespace SAE1
                         newOPT.Appearance = Appearance.Button;
                         newOPT.TextAlign = ContentAlignment.MiddleCenter;
 
+                        // On affiche le radioButton
                         pnlLigne.Controls.Add(newOPT);
 
                         // On ajoute le radion button dans la liste global
@@ -103,7 +116,10 @@ namespace SAE1
             this.Close();
         }
 
-        // Fonction qui renvoie l'index du radioButton actif (checked == true)
+        /// <summary>
+        /// Fonction qui renvoie l'index du radioButton actif (checked == true)
+        /// </summary>
+        /// <returns> L'index du radioButton selectionné</returns>
         public int renvoieIndexLigneBus()
         {
             bool condArret = true;
@@ -125,9 +141,11 @@ namespace SAE1
 
         private void cmdSuppression_Click(object sender, EventArgs e)
         {   
-            // On récupère l'indexe du radioButton actif
+            // On récupère l'index du radioButton actif
             indexRadionButtonChecked = renvoieIndexLigneBus();
+
             int N_Ligne = 0;
+
             string req = $"Select N_Ligne from Ligne where NomLigne = '{NomLigneSelection}';";
             try
             {
@@ -145,12 +163,12 @@ namespace SAE1
                 Console.WriteLine(ex.ToString());
             }
 
-            // Demande confirmation à l'utilisateur pour supprimer la ligne
+            // On ne veut pas que l'utilsiateur modifie les lignes déjà existantes dans la base de données
             if (indexRadionButtonChecked <= 3)
             {
-                MessageBox.Show("Impossible de supprimer cette ligne, car c'est une ligne de base du réseau\n Vous pouvez seulement supprimer les lignes que vous avez créer !");
+                MessageBox.Show("Impossible de supprimer cette ligne, car il appartient au réseau de base.\nVous pouvez seulement supprimer les lignes que vous avez créé !", "Suppression refusée");
             }
-            else
+            else // Demande confirmation à l'utilisateur pour supprimer la ligne
             {
                 DialogResult confirmation = MessageBox.Show($"Voulez - vous vraiment supprimer la {ligneBusRadioButton[indexRadionButtonChecked].Text} ?", "Suppression de ligne", MessageBoxButtons.YesNo);
                 if (confirmation == DialogResult.Yes)
@@ -206,20 +224,21 @@ namespace SAE1
                     {
                         Console.WriteLine(ex.ToString());
                     }
-                }
-                this.Close();
+                }             
             }
+            this.Close();
         }
 
 
         private void cmdModifier_Click(object sender, EventArgs e)
         {
-            // On récupère l'indexe du radioButton actif
+            // On récupère l'index du radioButton actif
             indexRadionButtonChecked = renvoieIndexLigneBus();
 
+            // On ne veut pas que l'utilsiateur modifie les lignes déjà existantes dans la base de données
             if(indexRadionButtonChecked <= 3)
             {
-                MessageBox.Show("Impossible de modifier cette ligne, car c'est une ligne de base du réseau\n Vous pouvez seulement supprimer les lignes que vous avez créer !");
+                MessageBox.Show("Impossible de modifier cette ligne, car il appartient au réseau de base.\nVous pouvez seulement supprimer les lignes que vous avez créé !", "Modification refusée");
             }
             else
             {
@@ -227,11 +246,6 @@ namespace SAE1
                 modification.ShowDialog();
             }
             this.Close();
-            /*
-            this.Close();
-            Form Modif = new modification();
-            Modif.ShowDialog();
-            */
         }
     }
 }
