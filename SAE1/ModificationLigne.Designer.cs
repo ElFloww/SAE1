@@ -102,7 +102,7 @@
             this.pnlArrets.Location = new System.Drawing.Point(370, 65);
             this.pnlArrets.Name = "pnlArrets";
             this.pnlArrets.Size = new System.Drawing.Size(375, 312);
-            this.pnlArrets.TabIndex = 24;
+            this.pnlArrets.TabIndex = 11;
             // 
             // lblHoaire
             // 
@@ -355,6 +355,7 @@
             this.Controls.Add(this.lblNbArret);
             this.Controls.Add(this.lblLigne);
             this.Controls.Add(this.lblTitre);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "ModificationLigne";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ModificationLigne";

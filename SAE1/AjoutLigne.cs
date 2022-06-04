@@ -60,6 +60,7 @@ namespace SAE1
                     ComboBox newCBOBox = new ComboBox();
                     NumericUpDown NUDHeureDepart = new NumericUpDown();
                     NumericUpDown NUDMinuteDepart = new NumericUpDown();
+
                     Label newLabel = new Label();
 
                     //définition d'une largeur et d'une hauteur basée sur les éléments prééxistant

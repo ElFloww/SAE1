@@ -177,6 +177,8 @@ namespace SAE1
             int arret_precedent = ArretDepart[0];
             int compteur = 0;
             string arret = "";
+            int TotalHeure = Convert.ToInt32(nudHeureDepart.Value);
+            int TotalMinute = Convert.ToInt32(nudMinuteDepart.Value);
             pnlArrets.SuspendLayout();
             do
             {
@@ -193,7 +195,7 @@ namespace SAE1
                         NUDMinuteDepart1.Value = nudMinuteDepart.Value;
                         compteur++;
                     }
-                    req = $"Select * FROM TempsTrajet,Ligne WHERE Ligne.N_Ligne = TempsTrajet.N_Ligne AND NomLigne = '{NomLigneSelection}' AND (N_ArretA = {arret_precedent});";
+                    req = $"Select * FROM TempsTrajet,Ligne WHERE Ligne.N_Ligne = TempsTrajet.N_Ligne AND NomLigne = '{NomLigneSelection}' AND (N_ArretA = {arret_precedent}) LIMIT 1;";
                     MySqlCommand cmd = new MySqlCommand(req, BDD.BDConnection);
                     MySqlDataReader rdr = cmd.ExecuteReader();
                     while (rdr.Read())
@@ -227,8 +229,15 @@ namespace SAE1
                         MinuteNumericUpDown.Add(NUDMinuteDepart2);
 
                         CBOArret2.Text = arret;
-                        NUDHeureDepart2.Value = Convert.ToInt32(HeureMinute[0]);
-                        NUDMinuteDepart2.Value = Convert.ToInt32(HeureMinute[1]);
+                        TotalHeure += Convert.ToInt32(HeureMinute[0]);
+                        TotalMinute += Convert.ToInt32(HeureMinute[1]);
+                        if(TotalMinute > 59)
+                        {
+                            TotalMinute -= 60;
+                            TotalHeure++;
+                        }
+                        NUDHeureDepart2.Value = Convert.ToInt32(TotalHeure);
+                        NUDMinuteDepart2.Value = Convert.ToInt32(TotalMinute);
                     }
                     else // Création des autres lignes dans le panel
                     {
@@ -321,8 +330,15 @@ namespace SAE1
 
                         // Ajout des valeurs dans le nouveau controle
                         newCBOBox.Text = arret;
-                        NUDHeureDepart.Value = Convert.ToInt32(HeureMinute[0]);
-                        NUDMinuteDepart.Value = Convert.ToInt32(HeureMinute[1]);
+                        TotalHeure += Convert.ToInt32(HeureMinute[0]);
+                        TotalMinute += Convert.ToInt32(HeureMinute[1]);
+                        if (TotalMinute > 59)
+                        {
+                            TotalMinute -= 60;
+                            TotalHeure++;
+                        }
+                        NUDHeureDepart.Value = Convert.ToInt32(TotalHeure);
+                        NUDMinuteDepart.Value = Convert.ToInt32(TotalMinute);
                     }
                     compteur++;
 

@@ -234,8 +234,340 @@ namespace SAE1
         }
         private void cmdAfficher1_Click(object sender, EventArgs e)
         {
-            tabHoraire.Visible = true;
+            int N_Arret_Prochain = 0;
+            int N_Arret_Actuel = 0;
+            int N_Arret_Precedent = 0;
+            int N_Arret_Objectif = 0;
+            int Heure_Total = 0;
+            int Minute_Total = 0;
+            int N_Ligne = 0;
+
+            string req = $"Select N_Ligne from Ligne where NomLigne = '{CBOLigne.Text}'";
+            try
+            {
+                MySqlCommand cmd = new MySqlCommand(req, BDD.BDConnection);
+                MySqlDataReader rdr = cmd.ExecuteReader();
+                while (rdr.Read())
+                {
+                    N_Ligne = rdr.GetInt32(0);
+                }
+                rdr.Close();
+                cmd.Dispose();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+
+            req = $"Select N_Arret from Arret where NomArret = '{CBOArret.Text}'";
+            try
+            {
+                MySqlCommand cmd = new MySqlCommand(req, BDD.BDConnection);
+                MySqlDataReader rdr = cmd.ExecuteReader();
+                while (rdr.Read())
+                {
+                    N_Arret_Objectif = rdr.GetInt32(0);
+                }
+                rdr.Close();
+                cmd.Dispose();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+
+            List<int> ArretDepart = new List<int>();
+            List<int> ArretTerminus = new List<int>();
+            req = $"Select N_ArretDepart,N_ArretTerminus,COUNT(*) FROM Trajet WHERE N_Ligne = {N_Ligne} AND N_TypeJour = 1 GROUP BY N_ArretDepart,N_ArretTerminus ORDER BY COUNT(*) DESC LIMIT 2;";
+            try
+            {
+                MySqlCommand cmd = new MySqlCommand(req, BDD.BDConnection);
+                MySqlDataReader rdr = cmd.ExecuteReader();
+                while (rdr.Read())
+                {
+                    ArretDepart.Add(rdr.GetInt32(0));
+                    ArretTerminus.Add(rdr.GetInt32(1));
+                }
+                rdr.Close();
+                cmd.Dispose();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+
+            /*__________________________________________________________________________LE SENS_________________________________________________________*/
+            string[] Sens = { };
+            string CboTxt = CBOSens.Text;
+            Sens = CboTxt.Split(":");
+
+            int N_ArretTerminus = 0;
+            int N_ArretDepart = 0;
+
+
+            req = $"Select N_Arret from Arret where NomArret = '{Sens[0]}'";
+            try
+            {
+                MySqlCommand cmd = new MySqlCommand(req, BDD.BDConnection);
+                MySqlDataReader rdr = cmd.ExecuteReader();
+                while (rdr.Read())
+                {
+                    N_Arret_Actuel = rdr.GetInt32(0);
+                    N_ArretDepart = N_Arret_Actuel;
+                }
+                rdr.Close();
+                cmd.Dispose();
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+            string terminus = Sens[1];
+            terminus = terminus.Remove(0, 1);
+            req = $"Select N_Arret from Arret where NomArret = '{terminus}'";
+            try
+            {
+                MySqlCommand cmd = new MySqlCommand(req, BDD.BDConnection);
+                MySqlDataReader rdr = cmd.ExecuteReader();
+                while (rdr.Read())
+                {
+                    N_ArretTerminus = rdr.GetInt32(0);
+                }
+                rdr.Close();
+                cmd.Dispose();
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+
+            bool BOOLSensUnique = false;
+            int sens = 0;
+            do
+            {
+                try
+                {
+                    if (N_Arret_Actuel != N_Arret_Objectif)
+                    {
+                        req = $"Select * FROM TempsTrajet WHERE N_Ligne = {N_Ligne} AND (N_ArretA = {N_Arret_Actuel} OR N_ArretB = {N_Arret_Actuel}) ORDER BY N_Sens;";
+                        MySqlCommand cmd = new MySqlCommand(req, BDD.BDConnection);
+                        MySqlDataReader rdr = cmd.ExecuteReader();
+                        int Naa, Nab;
+                        string[] HeureMinute = { };
+                        while (rdr.Read())
+                        {
+                            Naa = rdr.GetInt32(1);
+                            Nab = rdr.GetInt32(2);
+                            sens = rdr.GetInt32(4);
+                            if (sens == 1 && !BOOLSensUnique)
+                            {
+                                if (Naa != N_Arret_Precedent && Nab != N_Arret_Precedent)
+                                {
+                                    if (Naa == N_Arret_Actuel)
+                                    {
+                                        N_Arret_Prochain = Nab;
+                                    }
+                                    else
+                                    {
+                                        N_Arret_Prochain = Naa;
+                                    }
+                                    HeureMinute = rdr.GetString(3).Split(":");
+                                    Heure_Total += Convert.ToInt32(HeureMinute[0]);
+                                    Minute_Total += Convert.ToInt32(HeureMinute[1]);
+                                    if (Minute_Total >= 60)
+                                    {
+                                        Minute_Total -= 60;
+                                        Heure_Total++;
+                                    }
+                                    BOOLSensUnique = true;
+                                }
+                            }
+                            else if (sens == 2 && !BOOLSensUnique && Naa == N_Arret_Actuel)
+                            {
+                                BOOLSensUnique = true;
+                                N_Arret_Prochain = Nab;
+                                HeureMinute = rdr.GetString(3).Split(":");
+                                Heure_Total += Convert.ToInt32(HeureMinute[0]);
+                                Minute_Total += Convert.ToInt32(HeureMinute[1]);
+                                if (Minute_Total >= 60)
+                                {
+                                    Minute_Total -= 60;
+                                    Heure_Total++;
+                                }
+                            }
+                        }
+                        rdr.Close();
+                        cmd.Dispose();
+                        N_Arret_Precedent = N_Arret_Actuel;
+                        N_Arret_Actuel = N_Arret_Prochain;
+                    }
+                    else
+                    {
+
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.ToString());
+                }
+                BOOLSensUnique = false;
+            } while(N_Arret_Objectif != N_Arret_Actuel && N_Arret_Actuel != N_ArretTerminus);
+            if(N_Arret_Actuel == N_ArretTerminus && N_Arret_Objectif != N_ArretTerminus)
+            {
+                MessageBox.Show("L'arret n'est pas déservi dans ce sens");
+            }
+            else
+            {
+                tabHoraire.SuspendLayout();
+                tabHoraire.Visible = false;
+                tabHoraire.Controls.Clear();
+                for (int i = 0; i < 24; i++)
+                {
+                    Label nom = new Label();
+                    nom.Text = $"{i}h";
+                    tabHoraire.Controls.Add(nom, i, 0);
+                }
+                string[] HeureMinute = { };
+                int heurepassage = 0;
+                int minutepassage = 0;
+                req = $"Select * from Trajet WHERE N_Ligne = {N_Ligne} AND N_TypeJour = 1 AND N_ArretDepart = {N_ArretDepart} ORDER BY HeureDepart;";
+                try
+                {
+                    int ind0 = 1, ind1 = 1, ind2 = 1, ind3 = 1, ind4 = 1, ind5 = 1, ind6 = 1, ind7 = 1, ind8 = 1, ind9 = 1, ind10 = 1, ind11 = 1, ind12 = 1, ind13 = 1, ind14 = 1, ind15 = 1, ind16 = 1, ind17 = 1, ind18 = 1, ind19 = 1, ind20 = 1, ind21 = 1, ind22 = 1, ind23 = 1;
+                    MySqlCommand cmd = new MySqlCommand(req, BDD.BDConnection);
+                    MySqlDataReader rdr = cmd.ExecuteReader();
+                    while (rdr.Read())
+                    {
+                        HeureMinute = rdr.GetString(4).Split(":");
+                        heurepassage = Heure_Total + Convert.ToInt32(HeureMinute[0]);
+                        minutepassage = Minute_Total + Convert.ToInt32(HeureMinute[1]);
+                        if(minutepassage >= 60)
+                        {
+                            minutepassage -= 60;
+                            heurepassage++;
+                        }
+
+                        Label nom = new Label();
+                        nom.Text = Convert.ToString(minutepassage);
+                        switch (heurepassage)
+                        {
+                            case 0:
+                                tabHoraire.Controls.Add(nom, 0, ind0);
+                                ind0++;
+                                break;
+                            case 1:
+                                tabHoraire.Controls.Add(nom, 1, ind1);
+                                ind1++;
+                                break;
+                            case 2:
+                                tabHoraire.Controls.Add(nom, 2, ind2);
+                                ind2++;
+                                break;
+                            case 3:
+                                tabHoraire.Controls.Add(nom, 3, ind3);
+                                ind3++;
+                                break;
+                            case 4:
+                                tabHoraire.Controls.Add(nom, 4, ind4);
+                                ind4++;
+                                break;
+                            case 5:
+                                tabHoraire.Controls.Add(nom, 5, ind5);
+                                ind5++;
+                                break;
+                            case 6:
+                                tabHoraire.Controls.Add(nom, 6, ind6);
+                                ind6++;
+                                break;
+                            case 7:
+                                tabHoraire.Controls.Add(nom, 7, ind7);
+                                ind7++;
+                                break;
+                            case 8:
+                                tabHoraire.Controls.Add(nom, 8, ind8);
+                                ind8++;
+                                break;
+                            case 9:
+                                tabHoraire.Controls.Add(nom, 9, ind9);
+                                ind9++;
+                                break;
+                            case 10:
+                                tabHoraire.Controls.Add(nom, 10, ind10);
+                                ind10++;
+                                break;
+                            case 11:
+                                tabHoraire.Controls.Add(nom, 11, ind11);
+                                ind11++;
+                                break;
+                            case 12:
+                                tabHoraire.Controls.Add(nom, 12, ind12);
+                                ind12++;
+                                break;
+                            case 13:
+                                tabHoraire.Controls.Add(nom, 13, ind13);
+                                ind13++;
+                                break;
+                            case 14:
+                                tabHoraire.Controls.Add(nom, 14, ind14);
+                                ind14++;
+                                break;
+                            case 15:
+                                tabHoraire.Controls.Add(nom, 15, ind15);
+                                ind15++;
+                                break;
+                            case 16:
+                                tabHoraire.Controls.Add(nom, 16, ind16);
+                                ind16++;
+                                break;
+                            case 17:
+                                tabHoraire.Controls.Add(nom, 17, ind17);
+                                ind17++;
+                                break;
+                            case 18:
+                                tabHoraire.Controls.Add(nom, 18, ind18);
+                                ind18++;
+                                break;
+                            case 19:
+                                tabHoraire.Controls.Add(nom, 19, ind19);
+                                ind19++;
+                                break;
+                            case 20:
+                                tabHoraire.Controls.Add(nom, 20, ind20);
+                                ind20++;
+                                break;
+                            case 21:
+                                tabHoraire.Controls.Add(nom, 21, ind21);
+                                ind21++;
+                                break;
+                            case 22:
+                                tabHoraire.Controls.Add(nom, 22, ind22);
+                                ind22++;
+                                break;
+                            case 23:
+                                tabHoraire.Controls.Add(nom, 23, ind23);
+                                ind23++;
+                                break;
+                            default:
+                                break;
+                        }
+
+                    }
+                    rdr.Close();
+                    cmd.Dispose();
+
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.ToString());
+                }
+                tabHoraire.ResumeLayout();
+                tabHoraire.Visible = true;
+
+            }
         }
+
         private void cmdQuitterAccueil_Click(object sender, EventArgs e)
         {
             // Demande confirmation à l'utilisateur pour quitter le logiciel
