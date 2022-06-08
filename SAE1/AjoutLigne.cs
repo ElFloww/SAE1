@@ -419,9 +419,19 @@ namespace SAE1
                     Console.WriteLine(ex.ToString());
                 }
 
+                int differenceHeure = 0;
+                int differenceMinute = 0;
                 string difference = "";
-                int differenceHeure = (int)HeureNumericUpDown[i + 1].Value - (int)HeureNumericUpDown[i].Value;
-                int differenceMinute = (int)MinuteNumericUpDown[i + 1].Value - (int)MinuteNumericUpDown[i].Value;
+                if((int)HeureNumericUpDown[i + 1].Value - (int)HeureNumericUpDown[i].Value < 0)
+                {
+                    differenceHeure = 1;
+                    differenceMinute = (int)MinuteNumericUpDown[i + 1].Value - (int)MinuteNumericUpDown[i].Value;
+                }
+                else
+                {
+                    differenceHeure = (int)HeureNumericUpDown[i + 1].Value - (int)HeureNumericUpDown[i].Value;
+                    differenceMinute = (int)MinuteNumericUpDown[i + 1].Value - (int)MinuteNumericUpDown[i].Value;
+                }
 
                 if(differenceHeure >=1 || differenceMinute < 0)
                 {

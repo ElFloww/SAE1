@@ -146,7 +146,7 @@ namespace SAE1
             // 
             this.cmdAfficher1.Enabled = false;
             this.cmdAfficher1.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.cmdAfficher1.ForeColor = System.Drawing.Color.DarkOrange;
+            this.cmdAfficher1.ForeColor = System.Drawing.Color.Black;
             this.cmdAfficher1.Location = new System.Drawing.Point(252, 166);
             this.cmdAfficher1.Name = "cmdAfficher1";
             this.cmdAfficher1.Size = new System.Drawing.Size(75, 30);
@@ -489,7 +489,7 @@ namespace SAE1
             // 
             // txtAccueil
             // 
-            this.txtAccueil.BackColor = System.Drawing.Color.DarkOrange;
+            this.txtAccueil.BackColor = System.Drawing.Color.Transparent;
             this.txtAccueil.Font = new System.Drawing.Font("Segoe UI", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.txtAccueil.Location = new System.Drawing.Point(28, 9);
             this.txtAccueil.Name = "txtAccueil";
@@ -526,13 +526,14 @@ namespace SAE1
             // 
             this.cmdAfficher2.Enabled = false;
             this.cmdAfficher2.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.cmdAfficher2.ForeColor = System.Drawing.Color.DarkOrange;
+            this.cmdAfficher2.ForeColor = System.Drawing.Color.Black;
             this.cmdAfficher2.Location = new System.Drawing.Point(252, 128);
             this.cmdAfficher2.Name = "cmdAfficher2";
             this.cmdAfficher2.Size = new System.Drawing.Size(75, 30);
             this.cmdAfficher2.TabIndex = 0;
             this.cmdAfficher2.Text = "Afficher";
             this.cmdAfficher2.UseVisualStyleBackColor = true;
+            this.cmdAfficher2.Click += new System.EventHandler(this.cmdAfficher2_Click);
             this.cmdAfficher2.Leave += new System.EventHandler(this.ItineraireValidation);
             // 
             // lblArretA
@@ -575,6 +576,7 @@ namespace SAE1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.ClientSize = new System.Drawing.Size(954, 501);
             this.Controls.Add(this.tabHoraire);
             this.Controls.Add(this.txtAccueil);
@@ -584,6 +586,7 @@ namespace SAE1
             this.Controls.Add(this.grpboxHoraires);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
             this.Name = "frmFilibusAccueil";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Filibus - Réseau de transport urbain de Chartres";

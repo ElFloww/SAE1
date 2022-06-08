@@ -55,12 +55,12 @@ namespace SAE1
 
         // Au chargement de la page ModificationLigne, on affiche toutes les données de la ligne
         private void ModificationLigne_Load(object sender, EventArgs e)
-        {   
+        {
             // On récupère le nom de la ligne sélectionné dans le formulaire modification
             string NomLigneSelection = SAE1.modification.NomLigneSelection;
             txtNomLigne.Text = NomLigneSelection;
             txtNomLigne.Tag = NomLigneSelection;
-            
+
             List<string> Trajet = new List<string>();
             string[] HeureMinute = { };
 
@@ -175,16 +175,15 @@ namespace SAE1
                 {
                     if (compteur == 0) // Première ligne du panel déja présent
                     {
-                        arretBusComboBox.Add(CBOArret1);
-                        HeureNumericUpDown.Add(NUDHeureDepart1);
-                        MinuteNumericUpDown.Add(NUDMinuteDepart1);
-
                         CBOArret1.Text = depart;
                         NUDHeureDepart1.Value = nudHeureDepart.Value;
                         NUDMinuteDepart1.Value = nudMinuteDepart.Value;
                         compteur++;
-                    }
 
+                        arretBusComboBox.Add(CBOArret1);
+                        HeureNumericUpDown.Add(NUDHeureDepart1);
+                        MinuteNumericUpDown.Add(NUDMinuteDepart1);
+                    }
                     req = $"Select * FROM TempsTrajet,Ligne WHERE Ligne.N_Ligne = TempsTrajet.N_Ligne AND NomLigne = '{NomLigneSelection}' AND (N_ArretA = {arret_precedent}) LIMIT 1;";
                     MySqlCommand cmd = new MySqlCommand(req, BDD.BDConnection);
                     MySqlDataReader rdr = cmd.ExecuteReader();
@@ -224,7 +223,7 @@ namespace SAE1
                         TotalHeure += Convert.ToInt32(HeureMinute[0]);
                         TotalMinute += Convert.ToInt32(HeureMinute[1]);
 
-                        if(TotalMinute > 59)
+                        if (TotalMinute > 59)
                         {
                             TotalMinute -= 60;
                             TotalHeure++;
@@ -259,6 +258,7 @@ namespace SAE1
                         int CBODist = CBOArret2.Location.Y - CBOArret1.Location.Y;
                         int CBOX = CBOArret1.Location.X;
                         int CBOY = pnlArrets.Controls[$"CBOArret{compteur - 1}"].Location.Y + CBODist;
+
                         /////
                         int NUD1Dist = NUDHeureDepart2.Location.Y - NUDHeureDepart1.Location.Y;
                         int NUD1X = NUDHeureDepart1.Location.X;
@@ -312,16 +312,6 @@ namespace SAE1
                         //newCBOBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
                         newLabel.Text = "/";
 
-                        //Ajout des elements au panel pour l'afficher à l'écran
-                        pnlArrets.Controls.Add(newCBOBox);
-                        pnlArrets.Controls.Add(NUDHeureDepart);
-                        pnlArrets.Controls.Add(NUDMinuteDepart);
-                        pnlArrets.Controls.Add(newLabel);
-
-                        arretBusComboBox.Add(newCBOBox);
-                        HeureNumericUpDown.Add(NUDHeureDepart);
-                        MinuteNumericUpDown.Add(NUDMinuteDepart);
-
                         // Ajout des valeurs dans le nouveau controle
                         newCBOBox.Text = arret;
                         TotalHeure += Convert.ToInt32(HeureMinute[0]);
@@ -332,8 +322,18 @@ namespace SAE1
                             TotalHeure++;
                         }
 
+                        //Ajout des elements au panel pour l'afficher à l'écran
                         NUDHeureDepart.Value = Convert.ToInt32(TotalHeure);
                         NUDMinuteDepart.Value = Convert.ToInt32(TotalMinute);
+
+                        pnlArrets.Controls.Add(newCBOBox);
+                        pnlArrets.Controls.Add(NUDHeureDepart);
+                        pnlArrets.Controls.Add(NUDMinuteDepart);
+                        pnlArrets.Controls.Add(newLabel);
+
+                        arretBusComboBox.Add(newCBOBox);
+                        HeureNumericUpDown.Add(NUDHeureDepart);
+                        MinuteNumericUpDown.Add(NUDMinuteDepart);
                     }
                     compteur++;
                     arret_precedent = arret_prochain;
@@ -355,7 +355,7 @@ namespace SAE1
             }
         }
 
-       private void cmdValider_Click(object sender, EventArgs e)
+        private void cmdValider_Click(object sender, EventArgs e)
         {
             int N_Ligne = 0;
             string req = $"Select N_Ligne from Ligne where NomLigne = '{txtNomLigne.Tag}';";
@@ -522,7 +522,7 @@ namespace SAE1
             {
                 Console.WriteLine(ex.ToString());
             }
- 
+
             for (int i = 0; i < (int)nudNbArrets.Value; i++)
             {
                 int N_Arret = 0;
@@ -645,7 +645,7 @@ namespace SAE1
             //on suspend la logique d'affichage du panel pour y faire des modifs
             pnlArrets.SuspendLayout();
             //si la valeur du NUD est incrémentée
-            if(ValeurSelection == AncienneValeur)
+            if (ValeurSelection == AncienneValeur)
             {
                 return;
             }

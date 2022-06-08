@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AjoutLigne));
             this.lblTitre = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -69,7 +70,7 @@
             // 
             // lblTitre
             // 
-            this.lblTitre.BackColor = System.Drawing.Color.DarkOrange;
+            this.lblTitre.BackColor = System.Drawing.Color.Transparent;
             this.lblTitre.Font = new System.Drawing.Font("Segoe UI", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.lblTitre.Location = new System.Drawing.Point(36, 20);
             this.lblTitre.Name = "lblTitre";
@@ -80,6 +81,7 @@
             // 
             // label2
             // 
+            this.label2.BackColor = System.Drawing.Color.Transparent;
             this.label2.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label2.Location = new System.Drawing.Point(36, 90);
             this.label2.Name = "label2";
@@ -90,6 +92,7 @@
             // 
             // label3
             // 
+            this.label3.BackColor = System.Drawing.Color.Transparent;
             this.label3.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label3.Location = new System.Drawing.Point(36, 129);
             this.label3.Name = "label3";
@@ -100,6 +103,7 @@
             // 
             // label4
             // 
+            this.label4.BackColor = System.Drawing.Color.Transparent;
             this.label4.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label4.Location = new System.Drawing.Point(36, 170);
             this.label4.Name = "label4";
@@ -144,6 +148,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.BackColor = System.Drawing.Color.Transparent;
             this.groupBox1.Controls.Add(this.label6);
             this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Location = new System.Drawing.Point(36, 237);
@@ -160,7 +165,7 @@
             this.label6.Size = new System.Drawing.Size(251, 45);
             this.label6.TabIndex = 1;
             this.label6.Text = "L\'ordre d\'affichage des arrêts dans la \nfenêtre de droite est dans l\'ordre croiss" +
-    "ant des \nhoraires permettant de former le trajet.";
+    "ant des \nhoraires permettant de former le trajet.\nIMPORTANT : Si vous saisissez deux fois le même \narrêt, votre ligne ne fonctionnera pas !";
             // 
             // label5
             // 
@@ -202,6 +207,7 @@
             // pnlArrets
             // 
             this.pnlArrets.AutoScroll = true;
+            this.pnlArrets.BackColor = System.Drawing.Color.Transparent;
             this.pnlArrets.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pnlArrets.Controls.Add(this.lblHoaire);
             this.pnlArrets.Controls.Add(this.lblArret);
@@ -220,7 +226,7 @@
             // 
             // lblHoaire
             // 
-            this.lblHoaire.BackColor = System.Drawing.Color.DarkOrange;
+            this.lblHoaire.BackColor = System.Drawing.Color.Transparent;
             this.lblHoaire.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.lblHoaire.Location = new System.Drawing.Point(215, 21);
             this.lblHoaire.Name = "lblHoaire";
@@ -231,7 +237,7 @@
             // 
             // lblArret
             // 
-            this.lblArret.BackColor = System.Drawing.Color.DarkOrange;
+            this.lblArret.BackColor = System.Drawing.Color.Transparent;
             this.lblArret.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.lblArret.Location = new System.Drawing.Point(25, 21);
             this.lblArret.Name = "lblArret";
@@ -334,7 +340,7 @@
             // 
             this.cmdValider.Enabled = false;
             this.cmdValider.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.cmdValider.ForeColor = System.Drawing.Color.DarkOrange;
+            this.cmdValider.ForeColor = System.Drawing.Color.Black;
             this.cmdValider.Location = new System.Drawing.Point(603, 408);
             this.cmdValider.Name = "cmdValider";
             this.cmdValider.Size = new System.Drawing.Size(75, 30);
@@ -365,6 +371,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoValidate = System.Windows.Forms.AutoValidate.EnablePreventFocusChange;
+            this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.ClientSize = new System.Drawing.Size(804, 451);
             this.Controls.Add(this.cmdQuitter);
             this.Controls.Add(this.cmdValider);
@@ -380,6 +387,8 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.lblTitre);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
             this.Name = "AjoutLigne";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Filibus - Création de ligne bus";

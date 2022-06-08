@@ -449,7 +449,6 @@ namespace SAE1
                 {
                     Label nom = new Label();
                     nom.Text = $"{i}h";
-                    nom.BackColor = Color.DarkOrange;
                     nom.TextAlign = ContentAlignment.MiddleCenter;
                     tabHoraire.Controls.Add(nom, i, 0);
                 }
@@ -618,6 +617,16 @@ namespace SAE1
                     this.Close();
                 }
             }
+        }
+
+        private void cmdAfficher2_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Cette fonctionnalité n'est pas encore présente !\nVeuillez nous excuser pour la gène occasionnée");
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
