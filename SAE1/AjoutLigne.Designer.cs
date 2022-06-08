@@ -162,10 +162,9 @@
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(15, 63);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(251, 45);
+            this.label6.Size = new System.Drawing.Size(266, 75);
             this.label6.TabIndex = 1;
-            this.label6.Text = "L\'ordre d\'affichage des arrêts dans la \nfenêtre de droite est dans l\'ordre croiss" +
-    "ant des \nhoraires permettant de former le trajet.\nIMPORTANT : Si vous saisissez deux fois le même \narrêt, votre ligne ne fonctionnera pas !";
+            this.label6.Text = resources.GetString("label6.Text");
             // 
             // label5
             // 
